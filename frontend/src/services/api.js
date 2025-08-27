@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v0.2 with AI Insights)
+ * AetherAI - API Service Layer (v0.3 with Custom Model Creation)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -136,24 +136,35 @@ const ApiService = {
     }
   },
 
-  // NEW: Get AI-generated insights (v0.2)
+  // Get AI-generated insights
   async getAIInsights(data) {
-    /**
-     * Get AI-powered natural language insights about training results
-     * @param {Object} data - Training metrics and config
-     * @example
-     * {
-     *   model: "cnn",
-     *   dataset: "MNIST",
-     *   accuracy: 0.983,
-     *   metrics: { accuracy: [...], loss: [...] }
-     * }
-     */
     try {
       const response = await api.post('/api/v1/ai-insights', data);
       return response.data;
     } catch (error) {
       console.error('AI Insights API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Create custom model
+  async createModel(config) {
+    /**
+     * Send model configuration to backend to create a custom PyTorch model
+     * @param {Object} config - Model configuration (type, dataset, layers, etc.)
+     * @example
+     * {
+     *   type: "mlp",
+     *   dataset: "mnist",
+     *   hidden_layers: 3,
+     *   hidden_size: 128
+     * }
+     */
+    try {
+      const response = await api.post('/api/v1/models/create', config);
+      return response.data;
+    } catch (error) {
+      console.error('Create Model API Error:', error);
       throw error;
     }
   }
