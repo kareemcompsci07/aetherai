@@ -1,9 +1,11 @@
 /**
- * AetherAI - API Service Layer
+ * AetherAI - API Service Layer (v0.2 with AI Insights)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Connect students to cloud AI training with one simple API.
+ * GitHub: https://github.com/kareemcompsci07/aetherai
+ * Email: kareemcompsci.07@gmail.com
  */
 
 import axios from 'axios';
@@ -130,6 +132,28 @@ const ApiService = {
       );
       return response.data;
     } catch (error) {
+      throw error;
+    }
+  },
+
+  // NEW: Get AI-generated insights (v0.2)
+  async getAIInsights(data) {
+    /**
+     * Get AI-powered natural language insights about training results
+     * @param {Object} data - Training metrics and config
+     * @example
+     * {
+     *   model: "cnn",
+     *   dataset: "MNIST",
+     *   accuracy: 0.983,
+     *   metrics: { accuracy: [...], loss: [...] }
+     * }
+     */
+    try {
+      const response = await api.post('/api/v1/ai-insights', data);
+      return response.data;
+    } catch (error) {
+      console.error('AI Insights API Error:', error);
       throw error;
     }
   }
