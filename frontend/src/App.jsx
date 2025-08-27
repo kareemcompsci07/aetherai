@@ -1,19 +1,20 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v0.3)
+ * AetherAI - Final Integrated Frontend Application (v0.4)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with custom model creation
+ * Purpose: Full AI experiment workflow with automatic dataset analysis
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
  * This component orchestrates the entire user journey:
- * 1. Select or upload dataset
- * 2. Choose or build a custom model
- * 3. Train on cloud (simulated)
- * 4. View results with charts
- * 5. Get AI-generated natural language insights
- * 6. Generate professional PDF report
+ * 1. Upload dataset
+ * 2. View automatic analysis and suggestions
+ * 3. Choose or build a custom model
+ * 4. Train on cloud (simulated)
+ * 5. View results with charts
+ * 6. Get AI-generated natural language insights
+ * 7. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -22,6 +23,7 @@ import React, { useState, useEffect } from 'react';
 
 // Components
 import DatasetUploader from './components/DatasetUploader';
+import DatasetAnalysis from './components/DatasetAnalysis';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -40,6 +42,7 @@ const App = () => {
   const [trainingComplete, setTrainingComplete] = useState(false);
   const [backendStatus, setBackendStatus] = useState('checking...');
   const [showCustomBuilder, setShowCustomBuilder] = useState(false);
+  const [analysis, setAnalysis] = useState(null);
 
   // Check backend health on mount
   useEffect(() => {
@@ -58,6 +61,7 @@ const App = () => {
   const handleDatasetSelect = (name) => {
     setDataset(name);
     setTrainingComplete(false);
+    setAnalysis(null);
   };
 
   const handleModelSelect = (modelId) => {
@@ -74,6 +78,10 @@ const App = () => {
 
   const handleTrainingComplete = () => {
     setTrainingComplete(true);
+  };
+
+  const handleDatasetAnalyzed = (analysisData) => {
+    setAnalysis(analysisData.analysis);
   };
 
   return (
@@ -94,7 +102,12 @@ const App = () => {
         
         {/* Left Column: Input */}
         <div className="space-y-8">
-          <DatasetUploader onDatasetSelect={handleDatasetSelect} />
+          <DatasetUploader 
+            onDatasetSelect={handleDatasetSelect} 
+            onAnalysisComplete={handleDatasetAnalyzed} 
+          />
+          
+          {analysis && <DatasetAnalysis analysis={analysis} />}
           
           {!showCustomBuilder ? (
             <ModelSelector onModelSelect={handleModelSelect} />
@@ -149,7 +162,7 @@ const App = () => {
           Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
         </p>
         <div className="mt-4 text-xs opacity-70">
-          AetherAI v0.3.0 • Built for accessibility, education, and global impact
+          AetherAI v0.4.0 • Built for accessibility, education, and global impact
         </div>
       </footer>
     </div>
