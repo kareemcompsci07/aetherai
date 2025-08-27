@@ -1,10 +1,8 @@
 /**
- * AetherAI - Integrated Frontend Application
+ * AetherAI - Final Integrated Frontend Application (v0.2)
  * File: App.jsx
- * Purpose: Full AI experiment workflow from dataset to report
- * Created by: Kareem Mostafa
- * Location: Future City, Cairo, Egypt
- * Year: 2025
+ * Purpose: Full AI experiment workflow with AI-powered insights
+ * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
@@ -14,7 +12,8 @@
  * 2. Choose model architecture
  * 3. Train on cloud (simulated)
  * 4. View results with charts
- * 5. Generate professional PDF report
+ * 5. Get AI-generated natural language insights
+ * 6. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -26,6 +25,7 @@ import DatasetUploader from './components/DatasetUploader';
 import ModelSelector from './components/ModelSelector';
 import TrainingDashboard from './components/TrainingDashboard';
 import ResultsViewer from './components/ResultsViewer';
+import AIInsights from './components/AIInsights';
 import ReportGenerator from './components/ReportGenerator';
 
 // Services
@@ -99,6 +99,16 @@ const App = () => {
           
           {trainingComplete && <ResultsViewer />}
           
+          {trainingComplete && <AIInsights experimentData={{
+            model,
+            dataset,
+            finalAccuracy: 98.3,
+            metrics: {
+              accuracy: [0.1, 0.45, 0.67, 0.78, 0.82, 0.86, 0.89, 0.91, 0.95, 0.983],
+              loss: [2.3, 1.8, 1.4, 1.1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.054]
+            }
+          }} />}
+          
           {trainingComplete && <ReportGenerator />}
         </div>
       </main>
@@ -115,7 +125,7 @@ const App = () => {
           Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
         </p>
         <div className="mt-4 text-xs opacity-70">
-          AetherAI v0.1.0 • Built for accessibility, education, and global impact
+          AetherAI v0.2.0 • Built for accessibility, education, and global impact
         </div>
       </footer>
     </div>
