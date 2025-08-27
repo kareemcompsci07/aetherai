@@ -1,0 +1,30 @@
+# AetherAI - Core Dependencies
+# Created by Kareem Mostafa | Future City, Cairo | 2025
+# Open-source AI platform for students without GPUs
+
+fastapi==0.115.0
+uvicorn==0.32.0
+pydantic==2.8.2
+python-multipart==0.0.9
+python-jose==3.3.0
+passlib[bcrypt]==1.7.4
+python-cors==0.0.2
+
+# Machine Learning Stack
+torch==2.5.0 --index-url https://download.pytorch.org/whl/cpu
+torchvision==0.19.0 --index-url https://download.pytorch.org/whl/cpu
+transformers==4.45.0
+datasets==2.20.0
+accelerate==1.1.0
+
+# Optional: For PDF report generation
+weasyprint==60.0
+jinja2==3.1.4
+
+# Optional: For lightweight RL experiments
+gym==0.26.2
+stable-baselines3==2.4.0
+
+# Development & Utilities
+python-dotenv==1.1.0
+loguru==0.7.2
