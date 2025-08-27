@@ -1,34 +1,71 @@
 /**
- * AetherAI - Frontend App Component
+ * AetherAI - Integrated Frontend Application
+ * File: App.jsx
+ * Purpose: Full AI experiment workflow from dataset to report
  * Created by: Kareem Mostafa
  * Location: Future City, Cairo, Egypt
  * Year: 2025
- * Vision: Making AI research accessible for students without GPUs
+ * Vision: Democratizing AI research for students in developing countries
+ * GitHub: https://github.com/kareemcompsci07/aetherai
+ * Email: kareemcompsci.07@gmail.com
+ * 
+ * This component orchestrates the entire user journey:
+ * 1. Select or upload dataset
+ * 2. Choose model architecture
+ * 3. Train on cloud (simulated)
+ * 4. View results with charts
+ * 5. Generate professional PDF report
+ * 
+ * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
 
 import React, { useState, useEffect } from 'react';
 
+// Components
+import DatasetUploader from './components/DatasetUploader';
+import ModelSelector from './components/ModelSelector';
+import TrainingDashboard from './components/TrainingDashboard';
+import ResultsViewer from './components/ResultsViewer';
+import ReportGenerator from './components/ReportGenerator';
+
+// Services
+import ApiService from './services/api';
+
+// Main App Component
 const App = () => {
+  // State
+  const [dataset, setDataset] = useState('');
+  const [model, setModel] = useState('');
+  const [trainingComplete, setTrainingComplete] = useState(false);
   const [backendStatus, setBackendStatus] = useState('checking...');
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
-  // Simulate backend health check (will connect to /health later)
+  // Check backend health on mount
   useEffect(() => {
-    fetch('http://localhost:8000/health')
-      .then(res => res.json())
-      .then(data => {
-        setBackendStatus(data.status === 'healthy' ? 'Connected ✅' : 'Error ❌');
-      })
-      .catch(err => {
-        setBackendStatus('Not reachable (Run backend) ⚠️');
-      });
-
-    const timer = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString());
-    }, 1000);
-
-    return () => clearInterval(timer);
+    const checkHealth = async () => {
+      try {
+        await ApiService.healthCheck();
+        setBackendStatus('Connected ✅');
+      } catch (error) {
+        setBackendStatus('Not reachable ⚠️ (Run backend)');
+      }
+    };
+    checkHealth();
   }, []);
+
+  // Handlers
+  const handleDatasetSelect = (name) => {
+    setDataset(name);
+    setTrainingComplete(false);
+  };
+
+  const handleModelSelect = (modelId) => {
+    setModel(modelId);
+    setTrainingComplete(false);
+  };
+
+  const handleTrainingComplete = () => {
+    setTrainingComplete(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
@@ -39,63 +76,47 @@ const App = () => {
             <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
             <h1 className="text-2xl font-bold">Aether<span className="text-cyan-400">AI</span></h1>
           </div>
-          <div className="text-sm text-gray-300">v0.1.0</div>
+          <div className="text-sm text-gray-300">Backend: {backendStatus}</div>
         </div>
       </nav>
 
-      {/* Main */}
-      <main className="max-w-4xl mx-auto px-6 py-12">
-        <section className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-            Democratizing <span className="text-cyan-400">AI Research</span>
-          </h2>
-          <p className="text-lg md:text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
-            A free, open-source platform for high school & university students to run AI experiments — <strong>even without a GPU</strong>.
-          </p>
-          <div className="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-semibold px-6 py-3 rounded-full shadow-lg">
-            Built in Egypt for the World 🌍
-          </div>
-        </section>
-
-        {/* Dashboard Cards */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          {/* Status Card */}
-          <div className="bg-gray-800 bg-opacity-60 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:shadow-2xl transition">
-            <h3 className="text-xl font-semibold mb-3">Backend Status</h3>
-            <p className="text-cyan-400 font-mono text-lg">{backendStatus}</p>
-          </div>
-
-          {/* Time Card */}
-          <div className="bg-gray-800 bg-opacity-60 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:shadow-2xl transition">
-            <h3 className="text-xl font-semibold mb-3">Local Time</h3>
-            <p className="text-yellow-300 text-lg font-bold">{currentTime}</p>
-          </div>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        {/* Left Column: Input */}
+        <div className="space-y-8">
+          <DatasetUploader onDatasetSelect={handleDatasetSelect} />
+          <ModelSelector onModelSelect={handleModelSelect} />
         </div>
 
-        {/* Features Preview */}
-        <section className="bg-gray-800 bg-opacity-40 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold mb-6 text-center">Coming Soon</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              'Upload Datasets (MNIST, CIFAR-10)',
-              'Choose Model (CNN, Transformer)',
-              'Train on Cloud & Get Results'
-            ].map((feat, i) => (
-              <div key={i} className="text-center p-4 bg-gray-700 rounded-lg">
-                <div className="w-8 h-8 bg-cyan-500 rounded-full mx-auto mb-3 flex items-center justify-center text-sm font-bold">
-                  {i+1}
-                </div>
-                <p className="text-sm">{feat}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* Right Column: Output & Actions */}
+        <div className="space-y-8">
+          <TrainingDashboard 
+            dataset={dataset} 
+            model={model} 
+            onTrainingComplete={handleTrainingComplete} 
+          />
+          
+          {trainingComplete && <ResultsViewer />}
+          
+          {trainingComplete && <ReportGenerator />}
+        </div>
       </main>
 
       {/* Footer */}
       <footer className="text-center py-8 text-gray-500 text-sm border-t border-gray-800">
-        <p>Developed by <strong>Kareem Mostafa</strong> | Future City, Cairo, Egypt</p>
-        <p className="mt-1">Open-source for students in developing countries 🌎</p>
+        <p>
+          Developed by <strong className="text-cyan-400">Kareem Mostafa</strong> with ❤️ in 
+          <span className="text-yellow-400"> Future City, Cairo, Egypt</span>
+        </p>
+        <p className="mt-1">
+          Open-source platform for students without GPUs. 
+          <br />
+          Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
+        </p>
+        <div className="mt-4 text-xs opacity-70">
+          AetherAI v0.1.0 • Built for accessibility, education, and global impact
+        </div>
       </footer>
     </div>
   );
