@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v0.3 with Custom Model Creation)
+ * AetherAI - API Service Layer (v0.4 with Dataset Analysis)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -92,6 +92,29 @@ const ApiService = {
     }
   },
 
+  // NEW: Analyze dataset
+  async analyzeDataset(file) {
+    /**
+     * Analyze an uploaded dataset and get educational insights
+     * @param {File} file - The dataset .zip file
+     * @returns {Object} Analysis results with suggestions and issues
+     */
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await api.post('/api/v1/datasets/analyze', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Dataset Analysis API Error:', error);
+      throw error;
+    }
+  },
+
   // Start training
   async startTraining(config) {
     try {
@@ -147,19 +170,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Create custom model
+  // Create custom model
   async createModel(config) {
-    /**
-     * Send model configuration to backend to create a custom PyTorch model
-     * @param {Object} config - Model configuration (type, dataset, layers, etc.)
-     * @example
-     * {
-     *   type: "mlp",
-     *   dataset: "mnist",
-     *   hidden_layers: 3,
-     *   hidden_size: 128
-     * }
-     */
     try {
       const response = await api.post('/api/v1/models/create', config);
       return response.data;
