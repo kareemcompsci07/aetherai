@@ -1,7 +1,7 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v0.2)
+ * AetherAI - Final Integrated Frontend Application (v0.3)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with AI-powered insights
+ * Purpose: Full AI experiment workflow with custom model creation
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
@@ -9,7 +9,7 @@
  * 
  * This component orchestrates the entire user journey:
  * 1. Select or upload dataset
- * 2. Choose model architecture
+ * 2. Choose or build a custom model
  * 3. Train on cloud (simulated)
  * 4. View results with charts
  * 5. Get AI-generated natural language insights
@@ -23,6 +23,7 @@ import React, { useState, useEffect } from 'react';
 // Components
 import DatasetUploader from './components/DatasetUploader';
 import ModelSelector from './components/ModelSelector';
+import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
 import ResultsViewer from './components/ResultsViewer';
 import AIInsights from './components/AIInsights';
@@ -38,6 +39,7 @@ const App = () => {
   const [model, setModel] = useState('');
   const [trainingComplete, setTrainingComplete] = useState(false);
   const [backendStatus, setBackendStatus] = useState('checking...');
+  const [showCustomBuilder, setShowCustomBuilder] = useState(false);
 
   // Check backend health on mount
   useEffect(() => {
@@ -60,6 +62,13 @@ const App = () => {
 
   const handleModelSelect = (modelId) => {
     setModel(modelId);
+    setTrainingComplete(false);
+    setShowCustomBuilder(false);
+  };
+
+  const handleCustomModelCreated = (config) => {
+    setModel(`${config.type}-custom`);
+    setShowCustomBuilder(false);
     setTrainingComplete(false);
   };
 
@@ -86,7 +95,22 @@ const App = () => {
         {/* Left Column: Input */}
         <div className="space-y-8">
           <DatasetUploader onDatasetSelect={handleDatasetSelect} />
-          <ModelSelector onModelSelect={handleModelSelect} />
+          
+          {!showCustomBuilder ? (
+            <ModelSelector onModelSelect={handleModelSelect} />
+          ) : (
+            <CustomModelBuilder onModelCreated={handleCustomModelCreated} />
+          )}
+          
+          {/* Toggle between preset and custom */}
+          <div className="text-center">
+            <button
+              onClick={() => setShowCustomBuilder(!showCustomBuilder)}
+              className="text-sm text-cyan-400 hover:underline"
+            >
+              {showCustomBuilder ? "← Use Preset Models" : "🔧 Build a Custom Model"}
+            </button>
+          </div>
         </div>
 
         {/* Right Column: Output & Actions */}
@@ -125,7 +149,7 @@ const App = () => {
           Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
         </p>
         <div className="mt-4 text-xs opacity-70">
-          AetherAI v0.2.0 • Built for accessibility, education, and global impact
+          AetherAI v0.3.0 • Built for accessibility, education, and global impact
         </div>
       </footer>
     </div>
