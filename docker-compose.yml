@@ -1,0 +1,57 @@
+# AetherAI - Docker Compose Configuration
+# Created by Kareem Mostafa | Cairo, Egypt | 2025
+# Full local stack: FastAPI backend + PostgreSQL database
+# Designed for students in developing countries with limited resources
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://aether_user:secret@db:5432/aetherdb
+      - ENVIRONMENT=development
+    depends_on:
+      - db
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app/backend
+    networks:
+      - aether-network
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=aetherdb
+      - POSTGRES_USER=aether_user
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - aether-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aether_user -d aetherdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
+networks:
+  aether-network:
+    driver: bridge
+
+# Usage:
+#   docker-compose up --build
+#   Visit: http://localhost:8000
+#
+# For students: This setup runs entirely on a laptop. No cloud needed for testing.
+# For production: Replace secrets and use AWS RDS / GCP Cloud SQL.
