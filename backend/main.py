@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v0.3 with Custom Model Creation)
+AetherAI - Main Backend Application (v0.4 with Dataset Analysis)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including dynamic model creation
+Purpose: Entry point with all routes integrated, including automatic dataset analysis
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -11,12 +11,13 @@ Email: kareemcompsci.07@gmail.com
 
 This is the central FastAPI application that integrates:
 - Dataset management (upload or select preloaded)
+- Automatic dataset analysis (NEW)
 - Cloud-based training simulation (for students without GPU)
 - Real-time training progress tracking
 - Results visualization with AI-generated insights
 - Auto-generated PDF experiment reports
 - AI-powered natural language analysis
-- Dynamic model creation (NEW)
+- Dynamic model creation
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -31,13 +32,14 @@ from routes.training import router as training_router
 from routes.results import router as results_router
 from routes.reports import router as reports_router
 from routes.ai_insights import router as ai_insights_router
-from routes.custom_model import router as custom_model_router  # NEW: Custom model creation
+from routes.custom_model import router as custom_model_router
+from routes.dataset_analysis import router as dataset_analysis_router  # NEW: Dataset analysis
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="0.3.0",  # Updated version
+    version="0.4.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -68,7 +70,8 @@ app.include_router(training_router)
 app.include_router(results_router)
 app.include_router(reports_router)
 app.include_router(ai_insights_router)
-app.include_router(custom_model_router)  # ✅ Include Custom Model API
+app.include_router(custom_model_router)
+app.include_router(dataset_analysis_router)  # ✅ Include Dataset Analysis API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -87,17 +90,18 @@ def home():
         "mission": "To become the 'Kaggle for Students' — accessible, educational, and free",
         "features": [
             "Upload or select datasets (MNIST, CIFAR-10)",
+            "Automatic dataset analysis with educational suggestions (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
             "AI-powered insights in natural language",
-            "Create custom AI models (NEW)"
+            "Create custom AI models"
         ],
         "documentation": "Visit /docs for full API reference",
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "0.3.0"  # Updated
+        "version": "0.4.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -108,12 +112,12 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Dynamic model creation via /api/v1/models/create"
+        "new_feature": "Automatic dataset analysis with educational suggestions"
     }
 
 # Instructions for running
@@ -130,10 +134,11 @@ docker-compose up --build
 
 # Note: All routes are now connected:
 # - /api/v1/datasets
+# - /api/v1/datasets/analyze  ✅ NEW
 # - /api/v1/training
 # - /api/v1/results
 # - /api/v1/reports
 # - /api/v1/ai-insights
-# - /api/v1/models/create  ✅ NEW
+# - /api/v1/models/create
 # 
 # The system is fully integrated and ready for frontend connection.
