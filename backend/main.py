@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application
+AetherAI - Main Backend Application (v0.2 with AI Insights)
 File: backend/main.py
-Purpose: Entry point with all routes integrated
+Purpose: Entry point with all routes integrated, including AI-powered analysis
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -15,6 +15,7 @@ This is the central FastAPI application that integrates:
 - Real-time training progress tracking
 - Results visualization with AI-generated insights
 - Auto-generated PDF experiment reports
+- AI-powered natural language analysis (NEW)
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -28,12 +29,13 @@ from routes.datasets import router as datasets_router
 from routes.training import router as training_router
 from routes.results import router as results_router
 from routes.reports import router as reports_router
+from routes.ai_insights import router as ai_insights_router  # NEW: AI explains AI
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="0.1.0",
+    version="0.2.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -51,7 +53,7 @@ app = FastAPI(
 # Add CORS middleware (critical for frontend connectivity)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Will be restricted in production (e.g., to aetherai.app)
+    allow_origins=["*"],  # Will be restricted in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -63,6 +65,7 @@ app.include_router(datasets_router)
 app.include_router(training_router)
 app.include_router(results_router)
 app.include_router(reports_router)
+app.include_router(ai_insights_router)  # ✅ Include AI Insights API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -79,11 +82,18 @@ def home():
         "graduation_year": 2026,
         "vision": "Democratizing AI research for students in developing countries",
         "mission": "To become the 'Kaggle for Students' — accessible, educational, and free",
+        "features": [
+            "Upload or select datasets (MNIST, CIFAR-10)",
+            "Train models without GPU (cloud simulation)",
+            "Real-time training dashboard",
+            "Auto-generated PDF reports",
+            "AI-powered insights in natural language (NEW)"
+        ],
         "documentation": "Visit /docs for full API reference",
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "0.1.0"
+        "version": "0.2.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -94,11 +104,12 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
-        "goal": "Enable AI research for students without GPUs"
+        "goal": "Enable AI research for students without GPUs",
+        "new_feature": "AI-powered natural language insights (ai-insights API)"
     }
 
 # Instructions for running
@@ -118,5 +129,6 @@ docker-compose up --build
 # - /api/v1/training
 # - /api/v1/results
 # - /api/v1/reports
+# - /api/v1/ai-insights  ✅ NEW
 # 
 # The system is fully integrated and ready for frontend connection.
