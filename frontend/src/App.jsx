@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v1.7)
+ * AetherAI - Final Integrated Frontend Application (v1.8)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with AI-powered debugging
+ * Purpose: Full AI experiment workflow with environmental impact
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with debugging:
+ * This component orchestrates the entire user journey with sustainability:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -18,12 +18,13 @@
  * 8. Get AI-powered experiment review
  * 9. View global leaderboard
  * 10. Debug errors with AI assistance
- * 11. See the social impact of AetherAI
- * 12. Choose or build a custom model
- * 13. Train on cloud (simulated)
- * 14. View results with charts
- * 15. Get AI-generated natural language insights
- * 16. Generate professional PDF report
+ * 11. See environmental impact
+ * 12. See the social impact of AetherAI
+ * 13. Choose or build a custom model
+ * 14. Train on cloud (simulated)
+ * 15. View results with charts
+ * 16. Get AI-generated natural language insights
+ * 17. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -43,6 +44,7 @@ import AIGoodDashboard from './components/AIGoodDashboard';
 import ExperimentReviewer from './components/ExperimentReviewer';
 import Leaderboard from './components/Leaderboard';
 import DebugAssistant from './components/DebugAssistant';
+import CarbonSavings from './components/CarbonSavings';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -185,6 +187,8 @@ const App = () => {
           <Leaderboard />
           
           <DebugAssistant />
+          
+          <CarbonSavings trainingTimeMinutes={240} />
           
           <AIGoodDashboard />
           
