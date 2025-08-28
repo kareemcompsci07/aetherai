@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v1.5 with Global Leaderboard)
+AetherAI - Main Backend Application (v1.6 with Training Simulation API)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including global competition
+Purpose: Entry point with all routes integrated, including real-time simulation
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -15,9 +15,10 @@ This is the central FastAPI application that integrates:
 - Smart hyperparameter suggestions
 - AI-powered student mentoring
 - Interactive training visualization
+- Real-time training simulation (NEW)
 - Student collaboration and sharing
 - AI-powered experiment review
-- Global leaderboard for student competition (NEW)
+- Global leaderboard for student competition
 - Cloud-based training simulation (for students without GPU)
 - Real-time training progress tracking
 - Results visualization with AI-generated insights
@@ -44,13 +45,14 @@ from routes.mentor import router as mentor_router
 from routes.visualization import router as visualization_router
 from routes.collaboration import router as collaboration_router
 from routes.ai_review import router as ai_review_router
-from routes.leaderboard import router as leaderboard_router  # NEW: Global Leaderboard
+from routes.leaderboard import router as leaderboard_router
+from routes.training_simulation import router as training_simulation_router  # NEW: Training Simulation
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="1.5.0",  # Updated version
+    version="1.6.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -88,7 +90,8 @@ app.include_router(mentor_router)
 app.include_router(visualization_router)
 app.include_router(collaboration_router)
 app.include_router(ai_review_router)
-app.include_router(leaderboard_router)  # ✅ Include Leaderboard API
+app.include_router(leaderboard_router)
+app.include_router(training_simulation_router)  # ✅ Include Training Simulation API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -111,9 +114,10 @@ def home():
             "Smart hyperparameter suggestions based on model & dataset",
             "AI-powered student mentoring with educational responses",
             "Interactive training visualization with metrics and feature maps",
+            "Real-time training simulation with animated network (NEW)",
             "Student collaboration: share experiments with classmates",
             "AI-powered experiment review with smart feedback",
-            "Global leaderboard: compete with students worldwide (NEW)",
+            "Global leaderboard: compete with students worldwide",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -124,7 +128,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "1.5.0"  # Updated
+        "version": "1.6.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -135,10 +139,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "1.5.0",
+        "version": "1.6.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Global leaderboard via /api/v1/leaderboard/{dataset}"
+        "new_feature": "Real-time training simulation via /api/v1/simulation/{model}/{dataset}"
     }
