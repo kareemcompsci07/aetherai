@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v0.7 with AI Mentor)
+AetherAI - Main Backend Application (v0.9 with Training Visualization)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including AI-powered mentoring
+Purpose: Entry point with all routes integrated, including interactive visualization
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -13,7 +13,8 @@ This is the central FastAPI application that integrates:
 - Dataset management (upload or select preloaded)
 - Automatic dataset analysis
 - Smart hyperparameter suggestions
-- AI-powered student mentoring (NEW)
+- AI-powered student mentoring
+- Interactive training visualization (NEW)
 - Cloud-based training simulation (for students without GPU)
 - Real-time training progress tracking
 - Results visualization with AI-generated insights
@@ -36,13 +37,14 @@ from routes.ai_insights import router as ai_insights_router
 from routes.custom_model import router as custom_model_router
 from routes.dataset_analysis import router as dataset_analysis_router
 from routes.hyperparameter_suggestion import router as hyperparameter_suggestion_router
-from routes.mentor import router as mentor_router  # NEW: AI Mentor
+from routes.mentor import router as mentor_router
+from routes.visualization import router as visualization_router  # NEW: Training Visualization
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="0.7.0",  # Updated version
+    version="0.9.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -76,7 +78,8 @@ app.include_router(ai_insights_router)
 app.include_router(custom_model_router)
 app.include_router(dataset_analysis_router)
 app.include_router(hyperparameter_suggestion_router)
-app.include_router(mentor_router)  # ✅ Include AI Mentor API
+app.include_router(mentor_router)
+app.include_router(visualization_router)  # ✅ Include Visualization API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -97,7 +100,8 @@ def home():
             "Upload or select datasets (MNIST, CIFAR-10)",
             "Automatic dataset analysis with educational suggestions",
             "Smart hyperparameter suggestions based on model & dataset",
-            "AI-powered student mentoring with educational responses (NEW)",
+            "AI-powered student mentoring with educational responses",
+            "Interactive training visualization with metrics and feature maps (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -108,7 +112,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "0.7.0"  # Updated
+        "version": "0.9.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -119,35 +123,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "0.7.0",
+        "version": "0.9.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "AI Mentor chat via /api/v1/mentor/chat"
+        "new_feature": "Interactive training visualization via /api/v1/visualization/{id}"
     }
-
-# Instructions for running
-"""
-To run this server:
-uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
-
-To build Docker image:
-docker build -t aetherai-backend .
-
-To run with docker-compose:
-docker-compose up --build
-"""
-
-# Note: All routes are now connected:
-# - /api/v1/datasets
-# - /api/v1/datasets/analyze
-# - /api/v1/suggestions/hyperparameters
-# - /api/v1/mentor/chat  ✅ NEW
-# - /api/v1/training
-# - /api/v1/results
-# - /api/v1/reports
-# - /api/v1/ai-insights
-# - /api/v1/models/create
-# 
-# The system is fully integrated and ready for frontend connection.
