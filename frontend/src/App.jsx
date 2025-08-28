@@ -1,28 +1,30 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v0.8)
+ * AetherAI - Final Integrated Frontend Application (v1.0 with Multi-Language Support)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with interactive training visualization
+ * Purpose: Full AI experiment workflow with Arabic/English language support
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey:
+ * This component orchestrates the entire user journey with full i18n support:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
  * 5. Visualize training process interactively
- * 6. Choose or build a custom model
- * 7. Train on cloud (simulated)
- * 8. View results with charts
- * 9. Get AI-generated natural language insights
- * 10. Generate professional PDF report
+ * 6. Switch between Arabic and English
+ * 7. Choose or build a custom model
+ * 8. Train on cloud (simulated)
+ * 9. View results with charts
+ * 10. Get AI-generated natural language insights
+ * 11. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
 
 import React, { useState, useEffect } from 'react';
+import i18n from './i18n';
 
 // Components
 import DatasetUploader from './components/DatasetUploader';
@@ -36,6 +38,7 @@ import TrainingDashboard from './components/TrainingDashboard';
 import ResultsViewer from './components/ResultsViewer';
 import AIInsights from './components/AIInsights';
 import ReportGenerator from './components/ReportGenerator';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 // Services
 import ApiService from './services/api';
@@ -49,6 +52,7 @@ const App = () => {
   const [backendStatus, setBackendStatus] = useState('checking...');
   const [showCustomBuilder, setShowCustomBuilder] = useState(false);
   const [analysis, setAnalysis] = useState(null);
+  const [language, setLanguage] = useState(i18n.getLanguage());
 
   // Check backend health on mount
   useEffect(() => {
@@ -61,6 +65,14 @@ const App = () => {
       }
     };
     checkHealth();
+  }, []);
+
+  // Subscribe to language changes
+  useEffect(() => {
+    const unsubscribe = i18n.subscribe((lang) => {
+      setLanguage(lang);
+    });
+    return unsubscribe;
   }, []);
 
   // Handlers
@@ -90,8 +102,12 @@ const App = () => {
     setAnalysis(analysisData.analysis);
   };
 
+  const handleLanguageChange = (lang) => {
+    i18n.setLanguage(lang);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Navbar */}
       <nav className="bg-black bg-opacity-50 backdrop-blur-md border-b border-gray-700 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
@@ -99,7 +115,12 @@ const App = () => {
             <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
             <h1 className="text-2xl font-bold">Aether<span className="text-cyan-400">AI</span></h1>
           </div>
-          <div className="text-sm text-gray-300">Backend: {backendStatus}</div>
+          <div className="flex items-center space-x-4">
+            <div className="text-sm text-gray-300">
+              {i18n.t('app.backendStatus', { status: backendStatus })}
+            </div>
+            <LanguageSwitcher onLanguageChange={handleLanguageChange} />
+          </div>
         </div>
       </nav>
 
@@ -175,16 +196,14 @@ const App = () => {
       {/* Footer */}
       <footer className="text-center py-8 text-gray-500 text-sm border-t border-gray-800">
         <p>
-          Developed by <strong className="text-cyan-400">Kareem Mostafa</strong> with ❤️ in 
+          {i18n.t('footer.developedBy')} <strong className="text-cyan-400">Kareem Mostafa</strong> {i18n.t('footer.with')} ❤️ {i18n.t('footer.in')} 
           <span className="text-yellow-400"> Future City, Cairo, Egypt</span>
         </p>
         <p className="mt-1">
-          Open-source platform for students without GPUs. 
-          <br />
-          Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
+          {i18n.t('footer.vision')}
         </p>
         <div className="mt-4 text-xs opacity-70">
-          AetherAI v0.8.0 • Built for accessibility, education, and global impact
+          {i18n.t('footer.version')}
         </div>
       </footer>
     </div>
