@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v0.9 with Training Visualization)
+AetherAI - Main Backend Application (v1.1 with Student Collaboration)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including interactive visualization
+Purpose: Entry point with all routes integrated, including student collaboration
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -14,7 +14,8 @@ This is the central FastAPI application that integrates:
 - Automatic dataset analysis
 - Smart hyperparameter suggestions
 - AI-powered student mentoring
-- Interactive training visualization (NEW)
+- Interactive training visualization
+- Student collaboration and sharing (NEW)
 - Cloud-based training simulation (for students without GPU)
 - Real-time training progress tracking
 - Results visualization with AI-generated insights
@@ -38,13 +39,14 @@ from routes.custom_model import router as custom_model_router
 from routes.dataset_analysis import router as dataset_analysis_router
 from routes.hyperparameter_suggestion import router as hyperparameter_suggestion_router
 from routes.mentor import router as mentor_router
-from routes.visualization import router as visualization_router  # NEW: Training Visualization
+from routes.visualization import router as visualization_router
+from routes.collaboration import router as collaboration_router  # NEW: Student Collaboration
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="0.9.0",  # Updated version
+    version="1.1.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -79,7 +81,8 @@ app.include_router(custom_model_router)
 app.include_router(dataset_analysis_router)
 app.include_router(hyperparameter_suggestion_router)
 app.include_router(mentor_router)
-app.include_router(visualization_router)  # ✅ Include Visualization API
+app.include_router(visualization_router)
+app.include_router(collaboration_router)  # ✅ Include Collaboration API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -101,7 +104,8 @@ def home():
             "Automatic dataset analysis with educational suggestions",
             "Smart hyperparameter suggestions based on model & dataset",
             "AI-powered student mentoring with educational responses",
-            "Interactive training visualization with metrics and feature maps (NEW)",
+            "Interactive training visualization with metrics and feature maps",
+            "Student collaboration: share experiments with classmates (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -112,7 +116,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "0.9.0"  # Updated
+        "version": "1.1.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -123,10 +127,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "0.9.0",
+        "version": "1.1.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Interactive training visualization via /api/v1/visualization/{id}"
+        "new_feature": "Student collaboration via /api/v1/collaboration/share"
     }
