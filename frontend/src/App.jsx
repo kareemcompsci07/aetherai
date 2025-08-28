@@ -1,24 +1,25 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v1.1)
+ * AetherAI - Final Integrated Frontend Application (v1.2)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with student collaboration
+ * Purpose: Full AI experiment workflow with AI for Good Dashboard
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with collaboration:
+ * This component orchestrates the entire user journey with social impact:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
  * 5. Visualize training process interactively
  * 6. Share experiment with classmates
- * 7. Choose or build a custom model
- * 8. Train on cloud (simulated)
- * 9. View results with charts
- * 10. Get AI-generated natural language insights
- * 11. Generate professional PDF report
+ * 7. See the social impact of AetherAI
+ * 8. Choose or build a custom model
+ * 9. Train on cloud (simulated)
+ * 10. View results with charts
+ * 11. Get AI-generated natural language insights
+ * 12. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -33,6 +34,7 @@ import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import CollaborationManager from './components/CollaborationManager';
+import AIGoodDashboard from './components/AIGoodDashboard';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -156,6 +158,8 @@ const App = () => {
           {trainingComplete && (
             <CollaborationManager experimentId="exp_123" />
           )}
+          
+          <AIGoodDashboard />
           
           {!showCustomBuilder ? (
             <ModelSelector onModelSelect={handleModelSelect} />
