@@ -1,7 +1,7 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v0.6)
+ * AetherAI - Final Integrated Frontend Application (v0.8)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with AI Mentor chat
+ * Purpose: Full AI experiment workflow with interactive training visualization
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
@@ -12,11 +12,12 @@
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
- * 5. Choose or build a custom model
- * 6. Train on cloud (simulated)
- * 7. View results with charts
- * 8. Get AI-generated natural language insights
- * 9. Generate professional PDF report
+ * 5. Visualize training process interactively
+ * 6. Choose or build a custom model
+ * 7. Train on cloud (simulated)
+ * 8. View results with charts
+ * 9. Get AI-generated natural language insights
+ * 10. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -28,6 +29,7 @@ import DatasetUploader from './components/DatasetUploader';
 import DatasetAnalysis from './components/DatasetAnalysis';
 import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
+import TrainingVisualizer from './components/TrainingVisualizer';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -119,6 +121,16 @@ const App = () => {
           
           <AIMentor />
           
+          {trainingComplete && (
+            <TrainingVisualizer 
+              metrics={{
+                accuracy: [0.1, 0.45, 0.67, 0.78, 0.82, 0.86, 0.89, 0.91, 0.95, 0.983],
+                loss: [2.3, 1.8, 1.4, 1.1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.054]
+              }}
+              modelType={model}
+            />
+          )}
+          
           {!showCustomBuilder ? (
             <ModelSelector onModelSelect={handleModelSelect} />
           ) : (
@@ -172,7 +184,7 @@ const App = () => {
           Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
         </p>
         <div className="mt-4 text-xs opacity-70">
-          AetherAI v0.6.0 • Built for accessibility, education, and global impact
+          AetherAI v0.8.0 • Built for accessibility, education, and global impact
         </div>
       </footer>
     </div>
