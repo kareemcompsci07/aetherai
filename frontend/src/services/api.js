@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v1.6 with Training Simulation)
+ * AetherAI - API Service Layer (v1.7 with Debug Assistant)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -176,19 +176,29 @@ const ApiService = {
     }
   },
 
-  // NEW: Get real-time training simulation data
+  // Get real-time training simulation data
   async getTrainingSimulation(model, dataset) {
-    /**
-     * Get simulated training data for real-time visualization
-     * @param {string} model - Model type (cnn, mlp, lstm)
-     * @param {string} dataset - Dataset name (mnist, cifar10, imdb)
-     * @returns {Object} Simulated training data for animation
-     */
     try {
       const response = await api.get(`/api/v1/simulation/${model}/${dataset}`);
       return response.data;
     } catch (error) {
       console.error('Training Simulation API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Debug error log
+  async debugError(errorLog) {
+    /**
+     * Get AI-powered debugging suggestions for an error log
+     * @param {string} errorLog - The error message to debug
+     * @returns {Object} Analysis and solutions for the error
+     */
+    try {
+      const response = await api.post('/api/v1/debug/analyze', { error_log: errorLog });
+      return response.data;
+    } catch (error) {
+      console.error('Debug Assistant API Error:', error);
       throw error;
     }
   },
