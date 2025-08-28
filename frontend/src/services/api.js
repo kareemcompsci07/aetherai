@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v1.9 with Carbon Savings)
+ * AetherAI - API Service Layer (v2.0 with Career Advisor)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -198,13 +198,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Calculate carbon savings
+  // Calculate carbon savings
   async calculateCarbonSavings(trainingTimeMinutes) {
-    /**
-     * Calculate environmental impact of simulated training
-     * @param {number} trainingTimeMinutes - Duration of training in minutes
-     * @returns {Object} Energy saved, carbon emissions avoided, and equivalents
-     */
     try {
       const response = await api.post('/api/v1/carbon/calculate', { 
         training_time_minutes: trainingTimeMinutes 
@@ -212,6 +207,22 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error('Carbon Savings API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get career advice
+  async getCareerAdvice(profile) {
+    /**
+     * Get AI-powered career advice based on student performance
+     * @param {Object} profile - Student performance data
+     * @returns {Object} Career guidance and recommendations
+     */
+    try {
+      const response = await api.post('/api/v1/career/advise', profile);
+      return response.data;
+    } catch (error) {
+      console.error('Career Advisor API Error:', error);
       throw error;
     }
   },
