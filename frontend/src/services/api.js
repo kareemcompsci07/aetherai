@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v0.4 with Dataset Analysis)
+ * AetherAI - API Service Layer (v0.5 with Hyperparameter Suggestions)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -92,13 +92,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Analyze dataset
+  // Analyze dataset
   async analyzeDataset(file) {
-    /**
-     * Analyze an uploaded dataset and get educational insights
-     * @param {File} file - The dataset .zip file
-     * @returns {Object} Analysis results with suggestions and issues
-     */
     const formData = new FormData();
     formData.append('file', file);
 
@@ -111,6 +106,22 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error('Dataset Analysis API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get hyperparameter suggestion
+  async getHyperparameterSuggestion(config) {
+    /**
+     * Get smart hyperparameter suggestions based on model and dataset
+     * @param {Object} config - Model and dataset configuration
+     * @example { model: "cnn", dataset: "mnist" }
+     */
+    try {
+      const response = await api.post('/api/v1/suggestions/hyperparameters', config);
+      return response.data;
+    } catch (error) {
+      console.error('Hyperparameter Suggestion API Error:', error);
       throw error;
     }
   },
