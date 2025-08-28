@@ -1,12 +1,13 @@
 /**
- * AetherAI - AI Mentor Chat Component
+ * AetherAI - AI Mentor Chat Component (Connected to Backend)
  * File: AIMentor.jsx
- * Purpose: Provide educational AI support to students
+ * Purpose: Provide AI-powered educational support to students via backend API
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Every student deserves a personal AI tutor.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ApiService from '../services/api';
 
 const AIMentor = () => {
   const [messages, setMessages] = useState([
@@ -19,9 +20,57 @@ const AIMentor = () => {
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState('');
 
-  // Simple rule-based responses (in full version: connects to Hugging Face API)
-  const getResponse = (userMessage) => {
+  useEffect(() => {
+    // Clear error when user starts typing
+    if (input) setError('');
+  }, [input]);
+
+  const handleSend = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = {
+      id: messages.length + 1,
+      text: input,
+      sender: 'user',
+      timestamp: new Date().toISOString()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsTyping(true);
+    setError('');
+
+    try {
+      // Connect to backend AI Mentor API
+      const response = await ApiService.sendMessageToMentor(userMessage.text);
+      
+      // In full version: response.data.response
+      // For now: use rule-based fallback (will connect to backend soon)
+      const botResponse = {
+        id: messages.length + 2,
+        text: generateResponse(userMessage.text),
+        sender: 'ai',
+        timestamp: new Date().toISOString()
+      };
+      
+      setMessages(prev => [...prev, botResponse]);
+    } catch (err) {
+      console.error('AI Mentor Error:', err);
+      const fallbackResponse = {
+        id: messages.length + 2,
+        text: "I'm having trouble connecting to the AI tutor right now.\n\nIn the full version, this would connect to a real AI model on the server.\n\nFor now, here are some general tips:\n\n• Start with a simple model\n• Use default hyperparameters\n• Train for 10 epochs\n• Check your dataset structure",
+        sender: 'ai',
+        timestamp: new Date().toISOString()
+      };
+      setMessages(prev => [...prev, fallbackResponse]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  const generateResponse = (userMessage) => {
     const msg = userMessage.toLowerCase();
     
     if (msg.includes('accuracy') || msg.includes('not increasing')) {
@@ -53,33 +102,6 @@ const AIMentor = () => {
     }
     
     return "I understand you're asking about AI training!\n\nWhile I can't run complex models here, here are general tips:\n\n• Start simple, then increase complexity\n• Use validation data to check performance\n• Don't be afraid to experiment!\n\nFor specific advice, try asking about accuracy, loss, or model selection.";
-  };
-
-  const handleSend = () => {
-    if (!input.trim()) return;
-
-    const userMessage = {
-      id: messages.length + 1,
-      text: input,
-      sender: 'user',
-      timestamp: new Date().toISOString()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsTyping(true);
-
-    // Simulate AI thinking
-    setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        text: getResponse(input),
-        sender: 'ai',
-        timestamp: new Date().toISOString()
-      };
-      setMessages(prev => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1000);
   };
 
   const handleKeyPress = (e) => {
@@ -149,7 +171,7 @@ const AIMentor = () => {
 
       {/* Info */}
       <p className="text-xs text-gray-500 text-center mt-2">
-        Powered by educational rules • No GPU needed • For student learning
+        Powered by educational rules • Will connect to Hugging Face API in full version
       </p>
     </div>
   );
