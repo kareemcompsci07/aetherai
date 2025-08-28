@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v1.7 with Debug Assistant)
+AetherAI - Main Backend Application (v1.9 with Carbon Savings)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including AI-powered debugging
+Purpose: Entry point with all routes integrated, including environmental impact
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -19,7 +19,8 @@ This is the central FastAPI application that integrates:
 - Student collaboration and sharing
 - AI-powered experiment review
 - Global leaderboard for student competition
-- AI-powered debugging assistant (NEW)
+- AI-powered debugging assistant
+- Environmental impact calculation (NEW)
 - Cloud-based training simulation (for students without GPU)
 - Real-time training progress tracking
 - Results visualization with AI-generated insights
@@ -48,13 +49,14 @@ from routes.collaboration import router as collaboration_router
 from routes.ai_review import router as ai_review_router
 from routes.leaderboard import router as leaderboard_router
 from routes.training_simulation import router as training_simulation_router
-from routes.debug_assistant import router as debug_assistant_router  # NEW: Debug Assistant
+from routes.debug_assistant import router as debug_assistant_router
+from routes.carbon_savings import router as carbon_savings_router  # NEW: Carbon Savings
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="1.7.0",  # Updated version
+    version="1.9.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -94,7 +96,8 @@ app.include_router(collaboration_router)
 app.include_router(ai_review_router)
 app.include_router(leaderboard_router)
 app.include_router(training_simulation_router)
-app.include_router(debug_assistant_router)  # ✅ Include Debug Assistant API
+app.include_router(debug_assistant_router)
+app.include_router(carbon_savings_router)  # ✅ Include Carbon Savings API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -121,7 +124,8 @@ def home():
             "Student collaboration: share experiments with classmates",
             "AI-powered experiment review with smart feedback",
             "Global leaderboard: compete with students worldwide",
-            "AI-powered debugging assistant: fix errors with AI help (NEW)",
+            "AI-powered debugging assistant: fix errors with AI help",
+            "Environmental impact calculator: reduce carbon emissions (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -132,7 +136,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "1.7.0"  # Updated
+        "version": "1.9.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -143,10 +147,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "1.7.0",
+        "version": "1.9.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "AI-powered debugging via /api/v1/debug/analyze"
-}
+        "new_feature": "Carbon savings calculation via /api/v1/carbon/calculate"
+    }
