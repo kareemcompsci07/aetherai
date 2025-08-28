@@ -1,26 +1,27 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v1.3)
+ * AetherAI - Final Integrated Frontend Application (v1.4)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with AI-powered experiment review
+ * Purpose: Full AI experiment workflow with real-time training simulation
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with AI review:
+ * This component orchestrates the entire user journey with training simulation:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
  * 5. Visualize training process interactively
- * 6. Share experiment with classmates
- * 7. Get AI-powered experiment review
- * 8. See the social impact of AetherAI
- * 9. Choose or build a custom model
- * 10. Train on cloud (simulated)
- * 11. View results with charts
- * 12. Get AI-generated natural language insights
- * 13. Generate professional PDF report
+ * 6. Simulate training with animation
+ * 7. Share experiment with classmates
+ * 8. Get AI-powered experiment review
+ * 9. See the social impact of AetherAI
+ * 10. Choose or build a custom model
+ * 11. Train on cloud (simulated)
+ * 12. View results with charts
+ * 13. Get AI-generated natural language insights
+ * 14. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -34,6 +35,7 @@ import DatasetAnalysis from './components/DatasetAnalysis';
 import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
 import TrainingVisualizer from './components/TrainingVisualizer';
+import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
 import AIGoodDashboard from './components/AIGoodDashboard';
 import ExperimentReviewer from './components/ExperimentReviewer';
@@ -156,6 +158,8 @@ const App = () => {
               modelType={model}
             />
           )}
+          
+          <TrainingSimulator modelType={model} dataset={dataset} />
           
           {trainingComplete && (
             <CollaborationManager experimentId="exp_123" />
