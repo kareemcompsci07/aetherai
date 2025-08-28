@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v1.5 with Global Leaderboard)
+ * AetherAI - API Service Layer (v1.6 with Training Simulation)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -165,18 +165,30 @@ const ApiService = {
     }
   },
 
-  // NEW: Get global leaderboard
+  // Get global leaderboard
   async getLeaderboard(dataset) {
-    /**
-     * Get global leaderboard for a specific dataset
-     * @param {string} dataset - Dataset name (mnist, cifar10, imdb)
-     * @returns {Object} Leaderboard data with rankings
-     */
     try {
       const response = await api.get(`/api/v1/leaderboard/${dataset}`);
       return response.data;
     } catch (error) {
       console.error('Leaderboard API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get real-time training simulation data
+  async getTrainingSimulation(model, dataset) {
+    /**
+     * Get simulated training data for real-time visualization
+     * @param {string} model - Model type (cnn, mlp, lstm)
+     * @param {string} dataset - Dataset name (mnist, cifar10, imdb)
+     * @returns {Object} Simulated training data for animation
+     */
+    try {
+      const response = await api.get(`/api/v1/simulation/${model}/${dataset}`);
+      return response.data;
+    } catch (error) {
+      console.error('Training Simulation API Error:', error);
       throw error;
     }
   },
