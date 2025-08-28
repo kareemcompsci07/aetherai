@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v0.5 with Hyperparameter Suggestions)
+ * AetherAI - API Service Layer (v0.6 with AI Mentor)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -110,18 +110,36 @@ const ApiService = {
     }
   },
 
-  // NEW: Get hyperparameter suggestion
+  // Get hyperparameter suggestion
   async getHyperparameterSuggestion(config) {
-    /**
-     * Get smart hyperparameter suggestions based on model and dataset
-     * @param {Object} config - Model and dataset configuration
-     * @example { model: "cnn", dataset: "mnist" }
-     */
     try {
       const response = await api.post('/api/v1/suggestions/hyperparameters', config);
       return response.data;
     } catch (error) {
       console.error('Hyperparameter Suggestion API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Send message to AI Mentor
+  async sendMessageToMentor(message) {
+    /**
+     * Send a message to the AI Mentor and get educational response
+     * @param {string} message - Student's question about AI
+     * @returns {Object} AI response with educational content
+     */
+    try {
+      // In full version: connect to Hugging Face API
+      // const response = await api.post('/api/v1/mentor/chat', { message });
+      // return response.data;
+
+      // For now: return success to simulate
+      return {
+        success: true,
+        message: "Message received. In full version: connects to Hugging Face for AI responses."
+      };
+    } catch (error) {
+      console.error('AI Mentor API Error:', error);
       throw error;
     }
   },
