@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v1.5)
+ * AetherAI - Final Integrated Frontend Application (v1.7)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with global leaderboard
+ * Purpose: Full AI experiment workflow with AI-powered debugging
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with leaderboard:
+ * This component orchestrates the entire user journey with debugging:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -17,12 +17,13 @@
  * 7. Share experiment with classmates
  * 8. Get AI-powered experiment review
  * 9. View global leaderboard
- * 10. See the social impact of AetherAI
- * 11. Choose or build a custom model
- * 12. Train on cloud (simulated)
- * 13. View results with charts
- * 14. Get AI-generated natural language insights
- * 15. Generate professional PDF report
+ * 10. Debug errors with AI assistance
+ * 11. See the social impact of AetherAI
+ * 12. Choose or build a custom model
+ * 13. Train on cloud (simulated)
+ * 14. View results with charts
+ * 15. Get AI-generated natural language insights
+ * 16. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -41,6 +42,7 @@ import CollaborationManager from './components/CollaborationManager';
 import AIGoodDashboard from './components/AIGoodDashboard';
 import ExperimentReviewer from './components/ExperimentReviewer';
 import Leaderboard from './components/Leaderboard';
+import DebugAssistant from './components/DebugAssistant';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -181,6 +183,8 @@ const App = () => {
           )}
           
           <Leaderboard />
+          
+          <DebugAssistant />
           
           <AIGoodDashboard />
           
