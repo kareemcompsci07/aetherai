@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v1.7 with Debug Assistant)
+ * AetherAI - API Service Layer (v1.9 with Carbon Savings)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -187,18 +187,31 @@ const ApiService = {
     }
   },
 
-  // NEW: Debug error log
+  // Debug error log
   async debugError(errorLog) {
-    /**
-     * Get AI-powered debugging suggestions for an error log
-     * @param {string} errorLog - The error message to debug
-     * @returns {Object} Analysis and solutions for the error
-     */
     try {
       const response = await api.post('/api/v1/debug/analyze', { error_log: errorLog });
       return response.data;
     } catch (error) {
       console.error('Debug Assistant API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Calculate carbon savings
+  async calculateCarbonSavings(trainingTimeMinutes) {
+    /**
+     * Calculate environmental impact of simulated training
+     * @param {number} trainingTimeMinutes - Duration of training in minutes
+     * @returns {Object} Energy saved, carbon emissions avoided, and equivalents
+     */
+    try {
+      const response = await api.post('/api/v1/carbon/calculate', { 
+        training_time_minutes: trainingTimeMinutes 
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Carbon Savings API Error:', error);
       throw error;
     }
   },
