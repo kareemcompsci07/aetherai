@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v1.8)
+ * AetherAI - Final Integrated Frontend Application (v2.0)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with environmental impact
+ * Purpose: Full AI experiment workflow with career guidance
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with sustainability:
+ * This component orchestrates the entire user journey with career planning:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -19,12 +19,13 @@
  * 9. View global leaderboard
  * 10. Debug errors with AI assistance
  * 11. See environmental impact
- * 12. See the social impact of AetherAI
- * 13. Choose or build a custom model
- * 14. Train on cloud (simulated)
- * 15. View results with charts
- * 16. Get AI-generated natural language insights
- * 17. Generate professional PDF report
+ * 12. Get AI-powered career guidance
+ * 13. See the social impact of AetherAI
+ * 14. Choose or build a custom model
+ * 15. Train on cloud (simulated)
+ * 16. View results with charts
+ * 17. Get AI-generated natural language insights
+ * 18. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -45,6 +46,7 @@ import ExperimentReviewer from './components/ExperimentReviewer';
 import Leaderboard from './components/Leaderboard';
 import DebugAssistant from './components/DebugAssistant';
 import CarbonSavings from './components/CarbonSavings';
+import CareerAdvisor from './components/CareerAdvisor';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -189,6 +191,16 @@ const App = () => {
           <DebugAssistant />
           
           <CarbonSavings trainingTimeMinutes={240} />
+          
+          <CareerAdvisor 
+            studentProfile={{
+              bestAccuracy: 0.983,
+              projectsCompleted: 5,
+              collaborationScore: 0.9,
+              improvementRate: 0.15,
+              country: "Egypt"
+            }} 
+          />
           
           <AIGoodDashboard />
           
