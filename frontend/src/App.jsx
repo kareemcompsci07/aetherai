@@ -1,7 +1,7 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v0.5)
+ * AetherAI - Final Integrated Frontend Application (v0.6)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with smart hyperparameter suggestions
+ * Purpose: Full AI experiment workflow with AI Mentor chat
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
@@ -11,11 +11,12 @@
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
- * 4. Choose or build a custom model
- * 5. Train on cloud (simulated)
- * 6. View results with charts
- * 7. Get AI-generated natural language insights
- * 8. Generate professional PDF report
+ * 4. Chat with AI Mentor for help
+ * 5. Choose or build a custom model
+ * 6. Train on cloud (simulated)
+ * 7. View results with charts
+ * 8. Get AI-generated natural language insights
+ * 9. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -26,6 +27,7 @@ import React, { useState, useEffect } from 'react';
 import DatasetUploader from './components/DatasetUploader';
 import DatasetAnalysis from './components/DatasetAnalysis';
 import HyperparameterSuggester from './components/HyperparameterSuggester';
+import AIMentor from './components/AIMentor';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -115,6 +117,8 @@ const App = () => {
             <HyperparameterSuggester model={model} dataset={dataset} />
           )}
           
+          <AIMentor />
+          
           {!showCustomBuilder ? (
             <ModelSelector onModelSelect={handleModelSelect} />
           ) : (
@@ -168,7 +172,7 @@ const App = () => {
           Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
         </p>
         <div className="mt-4 text-xs opacity-70">
-          AetherAI v0.5.0 • Built for accessibility, education, and global impact
+          AetherAI v0.6.0 • Built for accessibility, education, and global impact
         </div>
       </footer>
     </div>
