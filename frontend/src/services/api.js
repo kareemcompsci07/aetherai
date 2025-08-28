@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v0.8 with Training Visualization)
+ * AetherAI - API Service Layer (v1.1 with Student Collaboration)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -132,18 +132,29 @@ const ApiService = {
     }
   },
 
-  // NEW: Get visualization data
+  // Get visualization data
   async getVisualizationData(experimentId) {
-    /**
-     * Get training visualization data (metrics, confusion matrix, feature maps)
-     * @param {string} experimentId - ID of the training experiment
-     * @returns {Object} Visualization data for charts and analysis
-     */
     try {
       const response = await api.get(`/api/v1/visualization/${experimentId}`);
       return response.data;
     } catch (error) {
       console.error('Visualization API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Share experiment with classmates
+  async shareExperiment(config) {
+    /**
+     * Share an experiment with classmates via a secure link
+     * @param {Object} config - Experiment sharing configuration
+     * @example { experiment_id: "exp_123", creator_name: "Kareem", expires_in_hours: 24 }
+     */
+    try {
+      const response = await api.post('/api/v1/collaboration/share', config);
+      return response.data;
+    } catch (error) {
+      console.error('Collaboration API Error:', error);
       throw error;
     }
   },
