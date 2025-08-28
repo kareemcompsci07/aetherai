@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v0.7 with Real AI Mentor Connection)
+ * AetherAI - API Service Layer (v0.8 with Training Visualization)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -121,18 +121,29 @@ const ApiService = {
     }
   },
 
-  // NEW: Send message to AI Mentor (REAL backend connection)
+  // Send message to AI Mentor
   async sendMessageToMentor(message) {
-    /**
-     * Send a message to the AI Mentor and get response from backend
-     * @param {string} message - Student's question about AI
-     * @returns {Object} AI response with educational content
-     */
     try {
       const response = await api.post('/api/v1/mentor/chat', { message });
       return response.data;
     } catch (error) {
       console.error('AI Mentor API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get visualization data
+  async getVisualizationData(experimentId) {
+    /**
+     * Get training visualization data (metrics, confusion matrix, feature maps)
+     * @param {string} experimentId - ID of the training experiment
+     * @returns {Object} Visualization data for charts and analysis
+     */
+    try {
+      const response = await api.get(`/api/v1/visualization/${experimentId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Visualization API Error:', error);
       throw error;
     }
   },
