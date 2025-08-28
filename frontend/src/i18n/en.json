@@ -1,0 +1,104 @@
+{
+  "app": {
+    "title": "AetherAI",
+    "backendConnected": "Connected ✅",
+    "backendNotReachable": "Not reachable ⚠️ (Run backend)"
+  },
+  "navbar": {
+    "connected": "Connected"
+  },
+  "datasetUploader": {
+    "title": "Upload Dataset",
+    "drag": "Drag & drop a ZIP file here, or",
+    "browse": "browse files",
+    "supported": "Supported: .zip (MNIST, CIFAR-10)",
+    "uploading": "Uploading...",
+    "uploaded": "Uploaded successfully!"
+  },
+  "modelSelector": {
+    "title": "Choose AI Model",
+    "mlp": "MLP",
+    "mlpDesc": "Good for numerical or flattened data",
+    "cnn": "CNN",
+    "cnnDesc": "Ideal for image classification",
+    "lstm": "LSTM",
+    "lstmDesc": "For text or sequential data"
+  },
+  "trainingDashboard": {
+    "title": "Training Dashboard",
+    "start": "Start Training",
+    "stop": "Stop",
+    "status": "Status:",
+    "training": "Training...",
+    "complete": "Complete!",
+    "accuracy": "Accuracy:",
+    "loss": "Loss:",
+    "epoch": "Epoch:",
+    "eta": "Time remaining:"
+  },
+  "resultsViewer": {
+    "title": "Experiment Results",
+    "finalAccuracy": "Final Accuracy:",
+    "finalLoss": "Final Loss:",
+    "trainingTime": "Training Time:",
+    "model": "Model:",
+    "dataset": "Dataset:",
+    "metricsChart": "Metrics Charts",
+    "accuracy": "Accuracy",
+    "loss": "Loss"
+  },
+  "aiInsights": {
+    "title": "AI-Powered Insights 🤖",
+    "description": "Let AI explain your experiment results in simple, educational language."
+  },
+  "reportGenerator": {
+    "title": "Auto-Generated Report",
+    "generate": "Generate PDF Report",
+    "generating": "Generating report...",
+    "download": "Download Report"
+  },
+  "customModelBuilder": {
+    "title": "Build Your Own Model",
+    "description": "No coding needed. Just configure your AI model and start training.",
+    "modelType": "Model Architecture",
+    "dataset": "Dataset",
+    "hiddenLayers": "Hidden Layers",
+    "hiddenSize": "Hidden Layer Size",
+    "vocabSize": "Vocabulary Size",
+    "lstmLayers": "LSTM Layers",
+    "createModel": "🔧 Create Custom Model"
+  },
+  "datasetAnalysis": {
+    "title": "Dataset Analysis 📊",
+    "description": "Automatic insights about your dataset to help you choose the right model and configuration.",
+    "totalFiles": "Total Files",
+    "size": "Size",
+    "dirs": "Dirs",
+    "images": "Images",
+    "structure": "Structure",
+    "rootFolders": "Root Folders:",
+    "hasTrainSplit": "Has Train Split:",
+    "hasValidationSplit": "Has Validation Split:",
+    "hasTestSplit": "Has Test Split:",
+    "suggestions": "Suggestions",
+    "issues": "Issues Detected"
+  },
+  "hyperparameterSuggester": {
+    "title": "Smart Training Suggestions 💡",
+    "description": "AI-powered recommendations for optimal training configuration based on your model and dataset."
+  },
+  "aiMentor": {
+    "title": "AI Mentor Chat 🤖",
+    "placeholder": "Ask AetherAI Mentor anything about AI training..."
+  },
+  "trainingVisualizer": {
+    "title": "Training Visualizer 📊",
+    "description": "Interactive visualization of your model's learning process."
+  },
+  "footer": {
+    "developedBy": "Developed by",
+    "in": "in",
+    "vision": "Vision: To become the \"Kaggle for Students\" in developing countries.",
+    "version": "AetherAI v0.9.0 • Built for accessibility, education, and global impact"
+  }
+}
