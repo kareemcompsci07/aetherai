@@ -1,19 +1,19 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v1.0 with Multi-Language Support)
+ * AetherAI - Final Integrated Frontend Application (v1.1)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with Arabic/English language support
+ * Purpose: Full AI experiment workflow with student collaboration
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with full i18n support:
+ * This component orchestrates the entire user journey with collaboration:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
  * 5. Visualize training process interactively
- * 6. Switch between Arabic and English
+ * 6. Share experiment with classmates
  * 7. Choose or build a custom model
  * 8. Train on cloud (simulated)
  * 9. View results with charts
@@ -32,6 +32,7 @@ import DatasetAnalysis from './components/DatasetAnalysis';
 import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
 import TrainingVisualizer from './components/TrainingVisualizer';
+import CollaborationManager from './components/CollaborationManager';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -150,6 +151,10 @@ const App = () => {
               }}
               modelType={model}
             />
+          )}
+          
+          {trainingComplete && (
+            <CollaborationManager experimentId="exp_123" />
           )}
           
           {!showCustomBuilder ? (
