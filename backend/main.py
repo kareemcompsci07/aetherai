@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v1.9 with Carbon Savings)
+AetherAI - Main Backend Application (v2.0 with Career Advisor)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including environmental impact
+Purpose: Entry point with all routes integrated, including career guidance
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -20,12 +20,13 @@ This is the central FastAPI application that integrates:
 - AI-powered experiment review
 - Global leaderboard for student competition
 - AI-powered debugging assistant
-- Environmental impact calculation (NEW)
+- Environmental impact calculation
 - Cloud-based training simulation (for students without GPU)
 - Real-time training progress tracking
 - Results visualization with AI-generated insights
 - Auto-generated PDF experiment reports
 - Dynamic model creation
+- AI-powered career path advisor (NEW)
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -50,13 +51,14 @@ from routes.ai_review import router as ai_review_router
 from routes.leaderboard import router as leaderboard_router
 from routes.training_simulation import router as training_simulation_router
 from routes.debug_assistant import router as debug_assistant_router
-from routes.carbon_savings import router as carbon_savings_router  # NEW: Carbon Savings
+from routes.carbon_savings import router as carbon_savings_router
+from routes.career_advisor import router as career_advisor_router  # NEW: Career Advisor
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="1.9.0",  # Updated version
+    version="2.0.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -97,7 +99,8 @@ app.include_router(ai_review_router)
 app.include_router(leaderboard_router)
 app.include_router(training_simulation_router)
 app.include_router(debug_assistant_router)
-app.include_router(carbon_savings_router)  # ✅ Include Carbon Savings API
+app.include_router(carbon_savings_router)
+app.include_router(career_advisor_router)  # ✅ Include Career Advisor API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -125,7 +128,8 @@ def home():
             "AI-powered experiment review with smart feedback",
             "Global leaderboard: compete with students worldwide",
             "AI-powered debugging assistant: fix errors with AI help",
-            "Environmental impact calculator: reduce carbon emissions (NEW)",
+            "Environmental impact calculator: reduce carbon emissions",
+            "AI-powered career path advisor: plan your future (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -136,7 +140,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "1.9.0"  # Updated
+        "version": "2.0.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -147,10 +151,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "1.9.0",
+        "version": "2.0.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Carbon savings calculation via /api/v1/carbon/calculate"
+        "new_feature": "Career guidance via /api/v1/career/advise"
     }
