@@ -1,7 +1,7 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v0.4)
+ * AetherAI - Final Integrated Frontend Application (v0.5)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with automatic dataset analysis
+ * Purpose: Full AI experiment workflow with smart hyperparameter suggestions
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
@@ -10,11 +10,12 @@
  * This component orchestrates the entire user journey:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
- * 3. Choose or build a custom model
- * 4. Train on cloud (simulated)
- * 5. View results with charts
- * 6. Get AI-generated natural language insights
- * 7. Generate professional PDF report
+ * 3. Get smart hyperparameter recommendations
+ * 4. Choose or build a custom model
+ * 5. Train on cloud (simulated)
+ * 6. View results with charts
+ * 7. Get AI-generated natural language insights
+ * 8. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -24,6 +25,7 @@ import React, { useState, useEffect } from 'react';
 // Components
 import DatasetUploader from './components/DatasetUploader';
 import DatasetAnalysis from './components/DatasetAnalysis';
+import HyperparameterSuggester from './components/HyperparameterSuggester';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -109,6 +111,10 @@ const App = () => {
           
           {analysis && <DatasetAnalysis analysis={analysis} />}
           
+          {(dataset && model) && (
+            <HyperparameterSuggester model={model} dataset={dataset} />
+          )}
+          
           {!showCustomBuilder ? (
             <ModelSelector onModelSelect={handleModelSelect} />
           ) : (
@@ -162,7 +168,7 @@ const App = () => {
           Vision: To become the <strong>"Kaggle for Students"</strong> in developing countries.
         </p>
         <div className="mt-4 text-xs opacity-70">
-          AetherAI v0.4.0 • Built for accessibility, education, and global impact
+          AetherAI v0.5.0 • Built for accessibility, education, and global impact
         </div>
       </footer>
     </div>
