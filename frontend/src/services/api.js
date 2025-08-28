@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v1.1 with Student Collaboration)
+ * AetherAI - API Service Layer (v1.3 with AI-Powered Experiment Review)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -143,18 +143,29 @@ const ApiService = {
     }
   },
 
-  // NEW: Share experiment with classmates
+  // Share experiment with classmates
   async shareExperiment(config) {
-    /**
-     * Share an experiment with classmates via a secure link
-     * @param {Object} config - Experiment sharing configuration
-     * @example { experiment_id: "exp_123", creator_name: "Kareem", expires_in_hours: 24 }
-     */
     try {
       const response = await api.post('/api/v1/collaboration/share', config);
       return response.data;
     } catch (error) {
       console.error('Collaboration API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get AI-powered experiment review
+  async reviewExperiment(results) {
+    /**
+     * Get AI-powered review of an experiment
+     * @param {Object} results - Experiment results (accuracy, loss, model, etc.)
+     * @returns {Object} AI-generated feedback and suggestions
+     */
+    try {
+      const response = await api.post('/api/v1/review/experiment', results);
+      return response.data;
+    } catch (error) {
+      console.error('Experiment Review API Error:', error);
       throw error;
     }
   },
