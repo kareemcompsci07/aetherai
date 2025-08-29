@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v3.5)
+ * AetherAI - Final Integrated Frontend Application (v3.6)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with modular multilingual support
+ * Purpose: Full AI experiment workflow with progress prediction
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with modular i18n:
+ * This component orchestrates the entire user journey with predictive analytics:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -18,21 +18,22 @@
  * 8. Work offline with PWA capabilities
  * 9. Share experiments in global social feed
  * 10. Get personalized learning path recommendations
- * 11. Switch between multiple languages (modular i18n)
- * 12. Simulate training with animation
- * 13. Get AI-powered experiment review
- * 14. View global leaderboard
- * 15. Debug errors with AI assistance
- * 16. See environmental impact
- * 17. Get AI-powered career guidance
- * 18. Monitor students with teacher dashboard
- * 19. Generate research papers from experiments
- * 20. See the social impact of AetherAI
- * 21. Choose or build a custom model
- * 22. Train on cloud (simulated)
- * 23. View results with charts
- * 24. Get AI-generated natural language insights
- * 25. Generate professional PDF report
+ * 11. Switch between multiple languages
+ * 12. Predict future performance and get motivational insights
+ * 13. Simulate training with animation
+ * 14. Get AI-powered experiment review
+ * 15. View global leaderboard
+ * 16. Debug errors with AI assistance
+ * 17. See environmental impact
+ * 18. Get AI-powered career guidance
+ * 19. Monitor students with teacher dashboard
+ * 20. Generate research papers from experiments
+ * 21. See the social impact of AetherAI
+ * 22. Choose or build a custom model
+ * 23. Train on cloud (simulated)
+ * 24. View results with charts
+ * 25. Get AI-generated natural language insights
+ * 26. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -51,6 +52,7 @@ import EthicsDetector from './components/EthicsDetector';
 import PWANotification from './components/PWANotification';
 import SocialFeed from './components/SocialFeed';
 import LearningPathGenerator from './components/LearningPathGenerator';
+import ProgressPredictor from './components/ProgressPredictor';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -203,6 +205,25 @@ const App = () => {
               projects_completed: trainingComplete ? 1 : 0,
               collaboration_score: trainingComplete ? 0.9 : 0.5,
               improvement_rate: trainingComplete ? 0.15 : 0.1
+            }} 
+          />
+          
+          <ProgressPredictor 
+            studentProfile={{
+              student_id: "std_123",
+              name: "Kareem Mostafa",
+              country: "Egypt",
+              current_level: trainingComplete ? "intermediate" : "beginner",
+              best_accuracy: trainingComplete ? 0.983 : 0.7,
+              improvement_rate: trainingComplete ? 0.15 : 0.1,
+              collaboration_score: trainingComplete ? 0.9 : 0.5,
+              projects_completed: trainingComplete ? 1 : 0,
+              past_experiments: trainingComplete ? [
+                { accuracy: 0.85, loss: 0.4, model: "MLP", dataset: "MNIST" },
+                { accuracy: 0.92, loss: 0.2, model: "CNN", dataset: "MNIST" },
+                { accuracy: 0.96, loss: 0.1, model: "CNN", dataset: "CIFAR-10" },
+                { accuracy: 0.983, loss: 0.054, model: "Custom CNN", dataset: "MNIST" }
+              ] : []
             }} 
           />
           
