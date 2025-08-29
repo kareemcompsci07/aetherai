@@ -1,19 +1,19 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.3)
+ * AetherAI - Final Integrated Frontend Application (v2.4)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with voice assistant
+ * Purpose: Full AI experiment workflow with AR/VR visualization
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with voice interaction:
+ * This component orchestrates the entire user journey with immersive visualization:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
  * 5. Use voice assistant for hands-free interaction
- * 6. Visualize training process interactively
+ * 6. Visualize training in 3D AR/VR
  * 7. Simulate training with animation
  * 8. Share experiment with classmates
  * 9. Get AI-powered experiment review
@@ -42,6 +42,7 @@ import DatasetAnalysis from './components/DatasetAnalysis';
 import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
 import VoiceAssistant from './components/VoiceAssistant';
+import ARTrainingVisualizer from './components/ARTrainingVisualizer';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -169,6 +170,8 @@ const App = () => {
           <AIMentor />
           
           <VoiceAssistant onSendMessage={handleSendMessage} />
+          
+          <ARTrainingVisualizer modelType={model} dataset={dataset} />
           
           {trainingComplete && (
             <TrainingVisualizer 
