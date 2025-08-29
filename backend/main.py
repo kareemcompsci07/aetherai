@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v3.6 with Progress Prediction)
+AetherAI - Main Backend Application (v3.7 with Teacher Alerts)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including progress prediction
+Purpose: Entry point with all routes integrated, including teacher intervention alerts
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -36,7 +36,8 @@ This is the central FastAPI application that integrates:
 - Social feed for experiment sharing
 - Personalized learning path generation
 - Multilingual support
-- Student progress prediction (NEW)
+- Student progress prediction
+- Teacher intervention alerts (NEW)
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -68,13 +69,14 @@ from routes.paper_generator import router as paper_generator_router
 from routes.ethics_detector import router as ethics_detector_router
 from routes.social_feed import router as social_feed_router
 from routes.learning_path import router as learning_path_router
-from routes.progress_predictor import router as progress_predictor_router  # NEW: Progress Predictor
+from routes.progress_predictor import router as progress_predictor_router
+from routes.teacher_alerts import router as teacher_alerts_router  # NEW: Teacher Alerts
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="3.6.0",  # Updated version
+    version="3.7.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -122,7 +124,8 @@ app.include_router(paper_generator_router)
 app.include_router(ethics_detector_router)
 app.include_router(social_feed_router)
 app.include_router(learning_path_router)
-app.include_router(progress_predictor_router)  # ✅ Include Progress Predictor API
+app.include_router(progress_predictor_router)
+app.include_router(teacher_alerts_router)  # ✅ Include Teacher Alerts API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -161,7 +164,8 @@ def home():
             "Social feed: share experiments and build community",
             "Personalized learning paths: your unique journey in AI",
             "Multilingual interface: Arabic, English, French, Spanish, Chinese",
-            "Progress prediction: forecast your future performance (NEW)",
+            "Progress prediction: forecast your future performance",
+            "Teacher alerts: identify students needing support (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -172,7 +176,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "3.6.0"  # Updated
+        "version": "3.7.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -183,10 +187,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "3.6.0",
+        "version": "3.7.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Progress prediction via /api/v1/predict/progress"
-}
+        "new_feature": "Teacher alerts via /api/v1/teacher-alerts/generate"
+    }
