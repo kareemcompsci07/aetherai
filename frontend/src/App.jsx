@@ -1,33 +1,34 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.2)
+ * AetherAI - Final Integrated Frontend Application (v2.3)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with research paper generation
+ * Purpose: Full AI experiment workflow with voice assistant
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with academic publishing:
+ * This component orchestrates the entire user journey with voice interaction:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
- * 5. Visualize training process interactively
- * 6. Simulate training with animation
- * 7. Share experiment with classmates
- * 8. Get AI-powered experiment review
- * 9. View global leaderboard
- * 10. Debug errors with AI assistance
- * 11. See environmental impact
- * 12. Get AI-powered career guidance
- * 13. Monitor students with teacher dashboard
- * 14. Generate research papers from experiments
- * 15. See the social impact of AetherAI
- * 16. Choose or build a custom model
- * 17. Train on cloud (simulated)
- * 18. View results with charts
- * 19. Get AI-generated natural language insights
- * 20. Generate professional PDF report
+ * 5. Use voice assistant for hands-free interaction
+ * 6. Visualize training process interactively
+ * 7. Simulate training with animation
+ * 8. Share experiment with classmates
+ * 9. Get AI-powered experiment review
+ * 10. View global leaderboard
+ * 11. Debug errors with AI assistance
+ * 12. See environmental impact
+ * 13. Get AI-powered career guidance
+ * 14. Monitor students with teacher dashboard
+ * 15. Generate research papers from experiments
+ * 16. See the social impact of AetherAI
+ * 17. Choose or build a custom model
+ * 18. Train on cloud (simulated)
+ * 19. View results with charts
+ * 20. Get AI-generated natural language insights
+ * 21. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -40,6 +41,7 @@ import DatasetUploader from './components/DatasetUploader';
 import DatasetAnalysis from './components/DatasetAnalysis';
 import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
+import VoiceAssistant from './components/VoiceAssistant';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -125,6 +127,11 @@ const App = () => {
     i18n.setLanguage(lang);
   };
 
+  const handleSendMessage = (message) => {
+    console.log('Voice message sent:', message);
+    // This would connect to the AI mentor API in full version
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Navbar */}
@@ -160,6 +167,8 @@ const App = () => {
           )}
           
           <AIMentor />
+          
+          <VoiceAssistant onSendMessage={handleSendMessage} />
           
           {trainingComplete && (
             <TrainingVisualizer 
