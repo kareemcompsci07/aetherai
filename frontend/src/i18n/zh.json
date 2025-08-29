@@ -1,0 +1,107 @@
+{
+  "app": {
+    "backendStatus": "后端状态：{{status}}",
+    "title": "以太AI"
+  },
+  "navbar": {
+    "home": "首页",
+    "dashboard": "仪表板",
+    "experiments": "实验",
+    "community": "社区",
+    "profile": "个人资料"
+  },
+  "dataset": {
+    "upload": "上传数据集",
+    "select": "选择数据集",
+    "analyze": "分析数据集",
+    "placeholder": "拖放您的数据集或点击浏览",
+    "supported": "支持CSV、JSON和图像数据集"
+  },
+  "training": {
+    "start": "开始训练",
+    "model": "模型",
+    "epochs": "训练轮数",
+    "batch": "批次大小",
+    "optimizer": "优化器",
+    "lr": "学习率",
+    "progress": "训练进度",
+    "accuracy": "准确率",
+    "loss": "损失"
+  },
+  "results": {
+    "title": "结果",
+    "finalAccuracy": "最终准确率",
+    "finalLoss": "最终损失",
+    "trainingTime": "训练时间",
+    "metrics": "训练指标",
+    "featureMaps": "特征图"
+  },
+  "mentor": {
+    "title": "AI导师",
+    "placeholder": "问我关于AI、机器学习或您的实验的任何问题...",
+    "send": "发送",
+    "thinking": "AI正在思考...",
+    "welcome": "你好！我是你的AI导师。今天我能如何帮助你学习AI？"
+  },
+  "visualization": {
+    "title": "3D训练可视化",
+    "description": "实时观察你的神经网络学习过程"
+  },
+  "collaboration": {
+    "title": "分享实验",
+    "placeholder": "给同学们添加一条消息...",
+    "share": "与同学分享",
+    "success": "实验已成功分享！"
+  },
+  "leaderboard": {
+    "title": "全球排行榜",
+    "rank": "排名",
+    "student": "学生",
+    "accuracy": "准确率",
+    "dataset": "数据集",
+    "model": "模型"
+  },
+  "debug": {
+    "title": "调试助手",
+    "placeholder": "在此粘贴您的错误日志...",
+    "analyze": "分析错误",
+    "help": "我将帮助您修复AI错误"
+  },
+  "carbon": {
+    "title": "碳排放节省",
+    "saved": "使用以太AI节省的碳排放",
+    "equivalent": "相当于",
+    "trees": "棵树种植"
+  },
+  "career": {
+    "title": "职业顾问",
+    "advice": "根据您的进度提供个性化职业指导"
+  },
+  "classroom": {
+    "title": "教师仪表板",
+    "summary": "班级进度摘要",
+    "monitor": "监控学生进度"
+  },
+  "paper": {
+    "title": "研究论文生成器",
+    "generate": "生成研究论文",
+    "download": "下载PDF"
+  },
+  "model": {
+    "title": "模型选择器",
+    "custom": "构建自定义模型",
+    "select": "选择模型架构"
+  },
+  "report": {
+    "title": "实验报告",
+    "generate": "生成PDF报告",
+    "download": "下载报告"
+  },
+  "footer": {
+    "developedBy": "由",
+    "with": "与",
+    "in": "在",
+    "vision": "为发展中国家的学生普及AI研究",
+    "version": "版本 3.5.0 • 完全从移动设备构建"
+  }
+}
