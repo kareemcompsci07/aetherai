@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.9)
+ * AetherAI - Final Integrated Frontend Application (v3.1)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with PWA offline mode
+ * Purpose: Full AI experiment workflow with social community
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with offline capabilities:
+ * This component orchestrates the entire user journey with social interaction:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -16,8 +16,8 @@
  * 6. Visualize training in true 3D with Three.js
  * 7. Detect bias and ethical issues in datasets
  * 8. Work offline with PWA capabilities
- * 9. Simulate training with animation
- * 10. Share experiment with classmates
+ * 9. Share experiments in global social feed
+ * 10. Simulate training with animation
  * 11. Get AI-powered experiment review
  * 12. View global leaderboard
  * 13. Debug errors with AI assistance
@@ -47,6 +47,7 @@ import VoiceAssistant from './components/VoiceAssistant';
 import ARTrainingVisualizer from './components/ARTrainingVisualizer';
 import EthicsDetector from './components/EthicsDetector';
 import PWANotification from './components/PWANotification';
+import SocialFeed from './components/SocialFeed';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -177,6 +178,16 @@ const App = () => {
           <ARTrainingVisualizer modelType={model} dataset={dataset} />
           
           <EthicsDetector datasetName={dataset} />
+          
+          <SocialFeed 
+            experimentData={{
+              model: model,
+              dataset: dataset,
+              finalAccuracy: trainingComplete ? 0.983 : 0,
+              finalLoss: trainingComplete ? 0.054 : 0,
+              trainingTime: trainingComplete ? 240 : 0
+            }} 
+          />
           
           {trainingComplete && (
             <TrainingVisualizer 
