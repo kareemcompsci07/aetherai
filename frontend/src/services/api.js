@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v3.2 with Learning Path)
+ * AetherAI - API Service Layer (v3.6 with Progress Prediction)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -342,13 +342,19 @@ const ApiService = {
     }
   },
 
-  // NEW: Generate learning path
+  // Get learning resources
+  async getLearningResources(level = "all") {
+    try {
+      const response = await api.get(`/api/v1/learning-path/resources?level=${level}`);
+      return response.data;
+    } catch (error) {
+      console.error('Learning Resources API Error:', error);
+      throw error;
+    }
+  },
+
+  // Generate learning path
   async generateLearningPath(studentProfile) {
-    /**
-     * Generate personalized learning path for a student
-     * @param {Object} studentProfile - Student characteristics and progress
-     * @returns {Object} Personalized learning path with recommendations
-     */
     try {
       const response = await api.post('/api/v1/learning-path/generate', studentProfile);
       return response.data;
@@ -358,18 +364,34 @@ const ApiService = {
     }
   },
 
-  // NEW: Get learning resources
-  async getLearningResources(level = "all") {
+  // NEW: Predict student progress
+  async predictStudentProgress(studentData) {
     /**
-     * Get curated learning resources for AI education
-     * @param {string} level - Level of resources (beginner, intermediate, advanced, all)
-     * @returns {Object} Curated learning resources
+     * Predict student's future performance based on historical data
+     * @param {Object} studentData - Student characteristics and past experiments
+     * @returns {Object} Prediction with accuracy, loss, and confidence
      */
     try {
-      const response = await api.get(`/api/v1/learning-path/resources?level=${level}`);
+      const response = await api.post('/api/v1/predict/progress', studentData);
       return response.data;
     } catch (error) {
-      console.error('Learning Resources API Error:', error);
+      console.error('Progress Prediction API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get progress insights
+  async getProgressInsights(studentData) {
+    /**
+     * Get motivational insights and growth analysis for student
+     * @param {Object} studentData - Student characteristics and past experiments
+     * @returns {Object} Insights, encouragement, and growth metrics
+     */
+    try {
+      const response = await api.post('/api/v1/predict/insights', studentData);
+      return response.data;
+    } catch (error) {
+      console.error('Progress Insights API Error:', error);
       throw error;
     }
   },
