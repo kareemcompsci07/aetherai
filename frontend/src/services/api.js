@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v3.0 with Social Feed)
+ * AetherAI - API Service Layer (v3.2 with Learning Path)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -277,14 +277,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Get social feed
+  // Get social feed
   async getSocialFeed(page = 1, limit = 10) {
-    /**
-     * Get the global social feed of shared experiments
-     * @param {number} page - Page number for pagination
-     * @param {number} limit - Number of posts per page
-     * @returns {Object} Social feed with posts and pagination
-     */
     try {
       const response = await api.get(`/api/v1/social/feed?page=${page}&limit=${limit}`);
       return response.data;
@@ -294,13 +288,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Get specific social post
+  // Get specific social post
   async getSocialPost(postId) {
-    /**
-     * Get a specific post and its comments
-     * @param {string} postId - ID of the post
-     * @returns {Object} Post details and comments
-     */
     try {
       const response = await api.get(`/api/v1/social/post/${postId}`);
       return response.data;
@@ -310,16 +299,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Create social post
+  // Create social post
   async createSocialPost(studentId, experimentId, content, tags = []) {
-    /**
-     * Create a new post sharing an experiment
-     * @param {string} studentId - ID of the student
-     * @param {string} experimentId - ID of the experiment
-     * @param {string} content - Content of the post
-     * @param {Array} tags - Array of hashtags
-     * @returns {Object} Created post
-     */
     try {
       const response = await api.post('/api/v1/social/post', {
         student_id: studentId,
@@ -334,14 +315,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Like social post
+  // Like social post
   async likeSocialPost(postId, studentId) {
-    /**
-     * Like a social post
-     * @param {string} postId - ID of the post
-     * @param {string} studentId - ID of the student
-     * @returns {Object} Updated like count
-     */
     try {
       const response = await api.post(`/api/v1/social/like/${postId}`, {
         student_id: studentId
@@ -353,15 +328,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Add comment to social post
+  // Add comment to social post
   async addSocialComment(postId, studentId, content) {
-    /**
-     * Add a comment to a social post
-     * @param {string} postId - ID of the post
-     * @param {string} studentId - ID of the student
-     * @param {string} content - Comment content
-     * @returns {Object} Added comment
-     */
     try {
       const response = await api.post(`/api/v1/social/comment/${postId}`, {
         student_id: studentId,
@@ -370,6 +338,38 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error('Add Social Comment API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Generate learning path
+  async generateLearningPath(studentProfile) {
+    /**
+     * Generate personalized learning path for a student
+     * @param {Object} studentProfile - Student characteristics and progress
+     * @returns {Object} Personalized learning path with recommendations
+     */
+    try {
+      const response = await api.post('/api/v1/learning-path/generate', studentProfile);
+      return response.data;
+    } catch (error) {
+      console.error('Learning Path API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get learning resources
+  async getLearningResources(level = "all") {
+    /**
+     * Get curated learning resources for AI education
+     * @param {string} level - Level of resources (beginner, intermediate, advanced, all)
+     * @returns {Object} Curated learning resources
+     */
+    try {
+      const response = await api.get(`/api/v1/learning-path/resources?level=${level}`);
+      return response.data;
+    } catch (error) {
+      console.error('Learning Resources API Error:', error);
       throw error;
     }
   },
