@@ -1,0 +1,107 @@
+{
+  "app": {
+    "backendStatus": "État du backend : {{status}}",
+    "title": "AetherIA"
+  },
+  "navbar": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "experiments": "Expériences",
+    "community": "Communauté",
+    "profile": "Profil"
+  },
+  "dataset": {
+    "upload": "Téléverser le jeu de données",
+    "select": "Sélectionner le jeu de données",
+    "analyze": "Analyser le jeu de données",
+    "placeholder": "Glissez-déposez votre jeu de données ou cliquez pour parcourir",
+    "supported": "Prend en charge CSV, JSON et les jeux de données d'images"
+  },
+  "training": {
+    "start": "Démarrer l'entraînement",
+    "model": "Modèle",
+    "epochs": "Époques",
+    "batch": "Taille du lot",
+    "optimizer": "Optimiseur",
+    "lr": "Taux d'apprentissage",
+    "progress": "Progression de l'entraînement",
+    "accuracy": "Précision",
+    "loss": "Perte"
+  },
+  "results": {
+    "title": "Résultats",
+    "finalAccuracy": "Précision finale",
+    "finalLoss": "Perte finale",
+    "trainingTime": "Temps d'entraînement",
+    "metrics": "Métriques d'entraînement",
+    "featureMaps": "Cartes de caractéristiques"
+  },
+  "mentor": {
+    "title": "Mentor IA",
+    "placeholder": "Demandez-moi tout sur l'IA, l'apprentissage automatique ou votre expérience...",
+    "send": "Envoyer",
+    "thinking": "L'IA réfléchit...",
+    "welcome": "Bonjour ! Je suis votre mentor IA. Comment puis-je vous aider dans votre parcours IA aujourd'hui ?"
+  },
+  "visualization": {
+    "title": "Visualisation 3D de l'entraînement",
+    "description": "Regardez votre réseau de neurones apprendre en temps réel"
+  },
+  "collaboration": {
+    "title": "Partager l'expérience",
+    "placeholder": "Ajoutez un message à vos camarades de classe...",
+    "share": "Partager avec les camarades",
+    "success": "Expérience partagée avec succès !"
+  },
+  "leaderboard": {
+    "title": "Classement mondial",
+    "rank": "Rang",
+    "student": "Étudiant",
+    "accuracy": "Précision",
+    "dataset": "Jeu de données",
+    "model": "Modèle"
+  },
+  "debug": {
+    "title": "Assistant de débogage",
+    "placeholder": "Collez votre journal d'erreur ici...",
+    "analyze": "Analyser l'erreur",
+    "help": "Je vais vous aider à corriger vos erreurs d'IA"
+  },
+  "carbon": {
+    "title": "Économies de carbone",
+    "saved": "Carbone économisé en utilisant AetherIA",
+    "equivalent": "Équivalent à",
+    "trees": "arbres plantés"
+  },
+  "career": {
+    "title": "Conseiller en carrière",
+    "advice": "Orientation professionnelle personnalisée en fonction de votre progression"
+  },
+  "classroom": {
+    "title": "Tableau de bord enseignant",
+    "summary": "Résumé de la progression de la classe",
+    "monitor": "Surveiller la progression des étudiants"
+  },
+  "paper": {
+    "title": "Générateur d'articles de recherche",
+    "generate": "Générer un article de recherche",
+    "download": "Télécharger PDF"
+  },
+  "model": {
+    "title": "Sélecteur de modèle",
+    "custom": "Créer un modèle personnalisé",
+    "select": "Sélectionner l'architecture du modèle"
+  },
+  "report": {
+    "title": "Rapport d'expérience",
+    "generate": "Générer un rapport PDF",
+    "download": "Télécharger le rapport"
+  },
+  "footer": {
+    "developedBy": "Développé par",
+    "with": "avec",
+    "in": "à",
+    "vision": "Démocratiser la recherche en IA pour les étudiants des pays en développement",
+    "version": "Version 3.5.0 • Construit entièrement depuis un appareil mobile"
+  }
+}
