@@ -1,81 +1,116 @@
 /**
- * AetherAI - Internationalization (i18n) System
- * File: i18n/index.js
- * Purpose: Centralized translation management for Arabic and English
+ * AetherAI - Modular Internationalization System
+ * File: index.js
+ * Purpose: Load and manage multilingual support
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
- * Vision: Make AetherAI accessible to Arabic-speaking students.
+ * Vision: Make AI education accessible in every language.
  */
 
+import en from './en.json';
 import ar from './ar.json';
-import en from './en.json'; // We'll create this next
+import fr from './fr.json';
+import es from './es.json';
+import zh from './zh.json';
 
-// Default language
-const DEFAULT_LANGUAGE = 'en';
-
-// Get user's preferred language
-const getPreferredLanguage = () => {
-  const savedLang = localStorage.getItem('aetherai-language');
-  if (savedLang && ['en', 'ar'].includes(savedLang)) {
-    return savedLang;
+class I18n {
+  constructor() {
+    this.resources = { en, ar, fr, es, zh };
+    this.language = localStorage.getItem('aetherai_language') || 'en';
+    this.observers = [];
+    
+    // Apply RTL for Arabic
+    this.applyDirection();
   }
-  
-  // Detect browser language
-  const browserLang = navigator.language.split('-')[0];
-  if (browserLang === 'ar') {
-    return 'ar';
+
+  getLanguage() {
+    return this.language;
   }
-  
-  return DEFAULT_LANGUAGE;
-};
 
-// Current language
-let currentLang = getPreferredLanguage();
-
-// Set of listeners to notify when language changes
-const listeners = new Set();
-
-// Update listeners
-const notifyListeners = () => {
-  listeners.forEach(listener => listener(currentLang));
-};
-
-// Change language
-const setLanguage = (lang) => {
-  if (['en', 'ar'].includes(lang)) {
-    currentLang = lang;
-    localStorage.setItem('aetherai-language', lang);
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    notifyListeners();
+  setLanguage(lang) {
+    if (this.resources[lang]) {
+      this.language = lang;
+      localStorage.setItem('aetherai_language', lang);
+      this.applyDirection();
+      this.notifyObservers(lang);
+    }
   }
-};
 
-// Subscribe to language changes
-const subscribe = (listener) => {
-  listeners.add(listener);
-  // Call immediately with current language
-  listener(currentLang);
-  return () => listeners.delete(listener);
-};
+  applyDirection() {
+    document.dir = this.language === 'ar' ? 'rtl' : 'ltr';
+  }
 
-// Translate function
-const t = (key, lang = currentLang) => {
-  const translations = lang === 'ar' ? ar : en;
-  return key.split('.').reduce((obj, k) => obj?.[k] || k, translations) || key;
-};
+  t(key, params = {}) {
+    const keys = key.split('.');
+    let value = this.resources[this.language];
+    
+    for (const k of keys) {
+      if (value && value[k] !== undefined) {
+        value = value[k];
+      } else {
+        // Fallback to English
+        value = this.fallbackT(key, params, 'en');
+        break;
+      }
+    }
 
-// Get current language
-const getLanguage = () => currentLang;
+    if (typeof value === 'string') {
+      Object.entries(params).forEach(([k, v]) => {
+        value = value.replace(`{{${k}}}`, v);
+      });
+    }
 
-// Export functions
-export default {
-  t,
-  setLanguage,
-  getLanguage,
-  subscribe
-};
+    return value || key;
+  }
 
-// Add to window for debugging (optional)
-if (typeof window !== 'undefined') {
-  window.i18n = { t, setLanguage, getLanguage };
+  fallbackT(key, params, lang) {
+    const keys = key.split('.');
+    let value = this.resources[lang];
+    
+    for (const k of keys) {
+      if (value && value[k] !== undefined) {
+        value = value[k];
+      } else {
+        return key;
+      }
+    }
+
+    if (typeof value === 'string') {
+      Object.entries(params).forEach(([k, v]) => {
+        value = value.replace(`{{${k}}}`, v);
+      });
+    }
+
+    return value;
+  }
+
+  subscribe(callback) {
+    this.observers.push(callback);
+    callback(this.language);
+    return () => {
+      this.observers = this.observers.filter(cb => cb !== callback);
+    };
+  }
+
+  notifyObservers(lang) {
+    this.observers.forEach(cb => {
+      try {
+        cb(lang);
+      } catch (error) {
+        console.error('Error in i18n observer:', error);
+      }
+    });
+  }
+
+  getAvailableLanguages() {
+    return [
+      { code: 'en', name: 'English', nativeName: 'English' },
+      { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
+      { code: 'fr', name: 'French', nativeName: 'Français' },
+      { code: 'es', name: 'Spanish', nativeName: 'Español' },
+      { code: 'zh', name: 'Chinese', nativeName: '中文' }
+    ];
+  }
 }
+
+const i18n = new I18n();
+export default i18n;
