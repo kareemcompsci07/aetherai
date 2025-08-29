@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v2.1 with Classroom Mode)
+ * AetherAI - API Service Layer (v2.2 with Research Paper Generator)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -222,13 +222,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Get classroom summary
+  // Get classroom summary
   async getClassroomSummary(classId) {
-    /**
-     * Get classroom summary for teacher dashboard
-     * @param {string} classId - Classroom identifier
-     * @returns {Object} Classroom statistics and top performers
-     */
     try {
       const response = await api.get(`/api/v1/classroom/summary/${classId}`);
       return response.data;
@@ -238,19 +233,29 @@ const ApiService = {
     }
   },
 
-  // NEW: Get student progress
+  // Get student progress
   async getStudentProgress(classId, studentId) {
-    /**
-     * Get individual student progress report
-     * @param {string} classId - Classroom identifier
-     * @param {string} studentId - Student identifier
-     * @returns {Object} Student progress and recommendations
-     */
     try {
       const response = await api.get(`/api/v1/classroom/student/${classId}/${studentId}`);
       return response.data;
     } catch (error) {
       console.error('Student Progress API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Generate research paper
+  async generateResearchPaper(experimentData) {
+    /**
+     * Generate a complete academic research paper from experiment data
+     * @param {Object} experimentData - Experiment results and configuration
+     * @returns {Object} Academic paper in structured format
+     */
+    try {
+      const response = await api.post('/api/v1/paper/generate', experimentData);
+      return response.data;
+    } catch (error) {
+      console.error('Research Paper Generator API Error:', error);
       throw error;
     }
   },
