@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v3.6)
+ * AetherAI - Final Integrated Frontend Application (v3.7)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with progress prediction
+ * Purpose: Full AI experiment workflow with teacher intervention alerts
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with predictive analytics:
+ * This component orchestrates the entire user journey with teacher alerts:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -20,20 +20,21 @@
  * 10. Get personalized learning path recommendations
  * 11. Switch between multiple languages
  * 12. Predict future performance and get motivational insights
- * 13. Simulate training with animation
- * 14. Get AI-powered experiment review
- * 15. View global leaderboard
- * 16. Debug errors with AI assistance
- * 17. See environmental impact
- * 18. Get AI-powered career guidance
- * 19. Monitor students with teacher dashboard
- * 20. Generate research papers from experiments
- * 21. See the social impact of AetherAI
- * 22. Choose or build a custom model
- * 23. Train on cloud (simulated)
- * 24. View results with charts
- * 25. Get AI-generated natural language insights
- * 26. Generate professional PDF report
+ * 13. Get teacher alerts for classroom intervention
+ * 14. Simulate training with animation
+ * 15. Get AI-powered experiment review
+ * 16. View global leaderboard
+ * 17. Debug errors with AI assistance
+ * 18. See environmental impact
+ * 19. Get AI-powered career guidance
+ * 20. Monitor students with teacher dashboard
+ * 21. Generate research papers from experiments
+ * 22. See the social impact of AetherAI
+ * 23. Choose or build a custom model
+ * 24. Train on cloud (simulated)
+ * 25. View results with charts
+ * 26. Get AI-generated natural language insights
+ * 27. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -53,6 +54,7 @@ import PWANotification from './components/PWANotification';
 import SocialFeed from './components/SocialFeed';
 import LearningPathGenerator from './components/LearningPathGenerator';
 import ProgressPredictor from './components/ProgressPredictor';
+import TeacherAlerts from './components/TeacherAlerts';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -224,6 +226,35 @@ const App = () => {
                 { accuracy: 0.96, loss: 0.1, model: "CNN", dataset: "CIFAR-10" },
                 { accuracy: 0.983, loss: 0.054, model: "Custom CNN", dataset: "MNIST" }
               ] : []
+            }} 
+          />
+          
+          <TeacherAlerts 
+            classroom={{
+              class_id: "cls_101",
+              teacher_id: "tch_001",
+              students: [
+                {
+                  student_id: "std_001",
+                  name: "Kareem Mostafa",
+                  country: "Egypt",
+                  accuracy_history: [0.85, 0.92, 0.96, 0.983],
+                  activity_level: 0.9,
+                  collaboration_score: 0.9,
+                  improvement_rate: 0.15,
+                  projects_completed: 5
+                },
+                {
+                  student_id: "std_002",
+                  name: "Yusuf Mohammed",
+                  country: "Egypt",
+                  accuracy_history: [0.65, 0.68, 0.70, 0.69, 0.71],
+                  activity_level: 0.2,
+                  collaboration_score: 0.3,
+                  improvement_rate: 0.01,
+                  projects_completed: 2
+                }
+              ]
             }} 
           />
           
