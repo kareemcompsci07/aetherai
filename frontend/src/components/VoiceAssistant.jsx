@@ -1,20 +1,24 @@
 /**
- * AetherAI - Voice Assistant Component
+ * AetherAI - Voice Assistant Component (Updated)
  * File: VoiceAssistant.jsx
- * Purpose: Enable voice interaction with the AI assistant
+ * Purpose: Enable voice interaction with the AI assistant using real API
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Make AI education accessible through voice for all students.
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import ApiService from '../services/api';
 
 const VoiceAssistant = ({ onSendMessage }) => {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [response, setResponse] = useState('');
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [error, setError] = useState('');
+  const [language, setLanguage] = useState('en'); // 'en' or 'ar'
   const recognitionRef = useRef(null);
   const synthRef = useRef(window.speechSynthesis);
+  const utteranceRef = useRef(null);
 
   // Check if browser supports speech recognition
   const isSpeechRecognitionAvailable = () => {
@@ -29,27 +33,43 @@ const VoiceAssistant = ({ onSendMessage }) => {
     const recognition = new SpeechRecognition();
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US'; // Can be dynamically set to 'ar-EG'
+    recognition.lang = language === 'ar' ? 'ar-EG' : 'en-US';
 
     recognition.onstart = () => {
       setIsListening(true);
       setTranscript('');
       setResponse('');
+      setError('');
     };
 
-    recognition.onresult = (event) => {
+    recognition.onresult = async (event) => {
       const speechResult = event.results[0][0].transcript;
       setTranscript(speechResult);
       
-      // Auto-send message
-      if (onSendMessage && speechResult.trim()) {
-        onSendMessage(speechResult);
-        generateAIResponse(speechResult);
+      try {
+        // Send to AI Mentor API
+        const aiResponse = await ApiService.sendMessageToMentor(speechResult);
+        const message = aiResponse.response || "I understand you're asking about AI. Could you please provide more details?";
+        setResponse(message);
+        
+        // Speak the response
+        speakResponse(message);
+        
+        // Call parent callback
+        if (onSendMessage) {
+          onSendMessage(speechResult, message);
+        }
+      } catch (err) {
+        const errorMsg = "I couldn't process your request. Please try again.";
+        setResponse(errorMsg);
+        speakResponse(errorMsg);
+        setError('Failed to get AI response');
       }
     };
 
     recognition.onerror = (event) => {
       console.error('Speech recognition error', event.error);
+      setError(`Speech error: ${event.error}`);
       setIsListening(false);
     };
 
@@ -62,7 +82,7 @@ const VoiceAssistant = ({ onSendMessage }) => {
 
   const toggleListening = () => {
     if (!isSpeechRecognitionAvailable()) {
-      alert('Your browser does not support speech recognition. Please use Chrome or Edge.');
+      setError('Your browser does not support speech recognition. Please use Chrome or Edge.');
       return;
     }
 
@@ -79,55 +99,30 @@ const VoiceAssistant = ({ onSendMessage }) => {
     }
   };
 
-  const generateAIResponse = (userMessage) => {
+  const speakResponse = (text) => {
     setIsSpeaking(true);
     
-    // Simulate AI thinking
-    setTimeout(() => {
-      let aiResponse = '';
-      
-      const msg = userMessage.toLowerCase();
-      
-      if (msg.includes('hello') || msg.includes('hi')) {
-        aiResponse = "Hello! I'm your AI assistant. How can I help you with AI today?";
-      }
-      else if (msg.includes('accuracy') || msg.includes('loss')) {
-        aiResponse = "Your model has achieved 98.3% accuracy with a loss of 0.054. This indicates excellent performance on the MNIST dataset.";
-      }
-      else if (msg.includes('error') || msg.includes('problem')) {
-        aiResponse = "I can help you debug that. Please share the error message, and I'll provide specific solutions to fix it.";
-      }
-      else if (msg.includes('hyperparameter') || msg.includes('learning rate')) {
-        aiResponse = "For your CNN model, I recommend a learning rate of 0.001 with the Adam optimizer. Consider batch sizes of 32 or 64 for optimal performance.";
-      }
-      else if (msg.includes('career') || msg.includes('university')) {
-        aiResponse = "Based on your excellent performance, I recommend applying to MIT or Stanford for AI research programs. Your skills are world-class!";
-      }
-      else if (msg.includes('paper') || msg.includes('publish')) {
-        aiResponse = "You can generate a research paper from your experiment using the Research Paper Generator. Your results are publication-worthy!";
-      }
-      else {
-        aiResponse = "I understand you're asking about AI. Could you please provide more details about what you'd like to know? I'm here to help you learn.";
-      }
-      
-      setResponse(aiResponse);
-      
-      // Text to speech
-      if (synthRef.current) {
-        const utterance = new SpeechSynthesisUtterance(aiResponse);
-        utterance.rate = 0.9;
-        utterance.pitch = 1;
-        utterance.volume = 1;
-        
-        utterance.onend = () => {
-          setIsSpeaking(false);
-        };
-        
-        synthRef.current.speak(utterance);
-      } else {
-        setIsSpeaking(false);
-      }
-    }, 1000);
+    if (utteranceRef.current) {
+      synthRef.current.cancel();
+    }
+    
+    utteranceRef.current = new SpeechSynthesisUtterance(text);
+    utteranceRef.current.rate = 0.9;
+    utteranceRef.current.pitch = 1;
+    utteranceRef.current.volume = 1;
+    utteranceRef.current.lang = language === 'ar' ? 'ar-EG' : 'en-US';
+    
+    utteranceRef.current.onend = () => {
+      setIsSpeaking(false);
+      utteranceRef.current = null;
+    };
+    
+    utteranceRef.current.onerror = () => {
+      setIsSpeaking(false);
+      utteranceRef.current = null;
+    };
+    
+    synthRef.current.speak(utteranceRef.current);
   };
 
   const stopSpeaking = () => {
@@ -136,6 +131,23 @@ const VoiceAssistant = ({ onSendMessage }) => {
     }
     setIsSpeaking(false);
   };
+
+  const clearConversation = () => {
+    setTranscript('');
+    setResponse('');
+    setError('');
+  };
+
+  // Update recognition when language changes
+  useEffect(() => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      setTimeout(() => {
+        recognitionRef.current = initSpeechRecognition();
+        recognitionRef.current.start();
+      }, 100);
+    }
+  }, [language]);
 
   return (
     <div className="bg-gray-800 bg-opacity-70 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 shadow-xl">
@@ -147,6 +159,35 @@ const VoiceAssistant = ({ onSendMessage }) => {
       <p className="text-gray-300 mb-6 text-sm">
         Speak to your AI assistant in English or Arabic. Press the microphone to start.
       </p>
+
+      {/* Language Selection */}
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Language
+        </label>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => setLanguage('en')}
+            className={`flex-1 py-2 font-bold rounded-lg transition ${
+              language === 'en'
+                ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-black'
+                : 'bg-gray-700 text-gray-300'
+            }`}
+          >
+            🇬🇧 English
+          </button>
+          <button
+            onClick={() => setLanguage('ar')}
+            className={`flex-1 py-2 font-bold rounded-lg transition ${
+              language === 'ar'
+                ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-black'
+                : 'bg-gray-700 text-gray-300'
+            }`}
+          >
+            🇪🇬 العربية
+          </button>
+        </div>
+      </div>
 
       {/* Voice Input */}
       <div className="mb-6">
@@ -237,29 +278,33 @@ const VoiceAssistant = ({ onSendMessage }) => {
         </div>
       )}
 
-      {/* Language Selection */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Language
-        </label>
-        <select
-          className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-cyan-500"
-          defaultValue="en"
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 p-3 bg-red-900 bg-opacity-40 border border-red-700 rounded-lg">
+          <p className="text-red-200 text-sm">{error}</p>
+        </div>
+      )}
+
+      {/* Controls */}
+      <div className="flex flex-wrap gap-3">
+        <button
+          onClick={clearConversation}
+          disabled={!transcript && !response}
+          className="px-4 py-2 bg-gradient-to-r from-gray-600 to-gray-700 disabled:from-gray-800 text-black font-bold rounded-lg hover:opacity-90 transition"
         >
-          <option value="en">English</option>
-          <option value="ar">العربية</option>
-        </select>
+          🗑️ Clear
+        </button>
       </div>
 
       {/* Features */}
-      <div className="p-4 bg-gray-900 bg-opacity-50 rounded-lg border border-gray-700">
-        <h4 className="font-medium text-purple-300 mb-2">Supported Commands:</h4>
+      <div className="mt-6 p-4 bg-gray-900 bg-opacity-50 rounded-lg border border-gray-700">
+        <h4 className="font-medium text-purple-300 mb-2">How It Works:</h4>
         <ul className="text-gray-300 text-xs space-y-1">
-          <li>• "What's my model accuracy?"</li>
-          <li>• "How do I fix this error?"</li>
-          <li>• "What university should I apply to?"</li>
-          <li>• "Generate a research paper"</li>
-          <li>• "Explain neural networks"</li>
+          <li>• Press the microphone to start speaking</li>
+          <li>• Your speech is converted to text</li>
+          <li>• The AI Mentor processes your question</li>
+          <li>• The response is spoken back to you</li>
+          <li>• Supports both English and Arabic</li>
         </ul>
       </div>
     </div>
