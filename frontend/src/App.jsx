@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.8)
+ * AetherAI - Final Integrated Frontend Application (v2.9)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with ethics detection
+ * Purpose: Full AI experiment workflow with PWA offline mode
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with ethical AI:
+ * This component orchestrates the entire user journey with offline capabilities:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -15,21 +15,22 @@
  * 5. Use voice assistant in Arabic or English
  * 6. Visualize training in true 3D with Three.js
  * 7. Detect bias and ethical issues in datasets
- * 8. Simulate training with animation
- * 9. Share experiment with classmates
- * 10. Get AI-powered experiment review
- * 11. View global leaderboard
- * 12. Debug errors with AI assistance
- * 13. See environmental impact
- * 14. Get AI-powered career guidance
- * 15. Monitor students with teacher dashboard
- * 16. Generate research papers from experiments
- * 17. See the social impact of AetherAI
- * 18. Choose or build a custom model
- * 19. Train on cloud (simulated)
- * 20. View results with charts
- * 21. Get AI-generated natural language insights
- * 22. Generate professional PDF report
+ * 8. Work offline with PWA capabilities
+ * 9. Simulate training with animation
+ * 10. Share experiment with classmates
+ * 11. Get AI-powered experiment review
+ * 12. View global leaderboard
+ * 13. Debug errors with AI assistance
+ * 14. See environmental impact
+ * 15. Get AI-powered career guidance
+ * 16. Monitor students with teacher dashboard
+ * 17. Generate research papers from experiments
+ * 18. See the social impact of AetherAI
+ * 19. Choose or build a custom model
+ * 20. Train on cloud (simulated)
+ * 21. View results with charts
+ * 22. Get AI-generated natural language insights
+ * 23. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -45,6 +46,7 @@ import AIMentor from './components/AIMentor';
 import VoiceAssistant from './components/VoiceAssistant';
 import ARTrainingVisualizer from './components/ARTrainingVisualizer';
 import EthicsDetector from './components/EthicsDetector';
+import PWANotification from './components/PWANotification';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -290,6 +292,9 @@ const App = () => {
           {i18n.t('footer.version')}
         </div>
       </footer>
+
+      {/* PWA Notification */}
+      <PWANotification />
     </div>
   );
 };
