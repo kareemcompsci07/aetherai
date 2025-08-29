@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v3.4)
+ * AetherAI - Final Integrated Frontend Application (v3.5)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with multilingual support
+ * Purpose: Full AI experiment workflow with modular multilingual support
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with multilingual support:
+ * This component orchestrates the entire user journey with modular i18n:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -18,7 +18,7 @@
  * 8. Work offline with PWA capabilities
  * 9. Share experiments in global social feed
  * 10. Get personalized learning path recommendations
- * 11. Switch between multiple languages
+ * 11. Switch between multiple languages (modular i18n)
  * 12. Simulate training with animation
  * 13. Get AI-powered experiment review
  * 14. View global leaderboard
@@ -38,7 +38,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import i18n from './i18n';
+import i18n from './i18n'; // Now imports from ./i18n/index.js
 
 // Components
 import DatasetUploader from './components/DatasetUploader';
