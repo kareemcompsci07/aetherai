@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v2.7 with Ethics Detection)
+ * AetherAI - API Service Layer (v3.0 with Social Feed)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -255,13 +255,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Detect bias in dataset
+  // Detect bias in dataset
   async detectBias(datasetInfo) {
-    /**
-     * Detect potential bias and ethical concerns in a dataset
-     * @param {Object} datasetInfo - Dataset characteristics
-     * @returns {Object} Bias report with ethical concerns and recommendations
-     */
     try {
       const response = await api.post('/api/v1/ethics/detect', datasetInfo);
       return response.data;
@@ -271,18 +266,110 @@ const ApiService = {
     }
   },
 
-  // NEW: Generate ethics report
+  // Generate ethics report
   async generateEthicsReport(datasetInfo) {
-    /**
-     * Generate comprehensive ethics report for a dataset
-     * @param {Object} datasetInfo - Dataset characteristics
-     * @returns {Object} Comprehensive ethics report with educational content
-     */
     try {
       const response = await api.post('/api/v1/ethics/report', datasetInfo);
       return response.data;
     } catch (error) {
       console.error('Ethics Report API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get social feed
+  async getSocialFeed(page = 1, limit = 10) {
+    /**
+     * Get the global social feed of shared experiments
+     * @param {number} page - Page number for pagination
+     * @param {number} limit - Number of posts per page
+     * @returns {Object} Social feed with posts and pagination
+     */
+    try {
+      const response = await api.get(`/api/v1/social/feed?page=${page}&limit=${limit}`);
+      return response.data;
+    } catch (error) {
+      console.error('Social Feed API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get specific social post
+  async getSocialPost(postId) {
+    /**
+     * Get a specific post and its comments
+     * @param {string} postId - ID of the post
+     * @returns {Object} Post details and comments
+     */
+    try {
+      const response = await api.get(`/api/v1/social/post/${postId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Get Social Post API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Create social post
+  async createSocialPost(studentId, experimentId, content, tags = []) {
+    /**
+     * Create a new post sharing an experiment
+     * @param {string} studentId - ID of the student
+     * @param {string} experimentId - ID of the experiment
+     * @param {string} content - Content of the post
+     * @param {Array} tags - Array of hashtags
+     * @returns {Object} Created post
+     */
+    try {
+      const response = await api.post('/api/v1/social/post', {
+        student_id: studentId,
+        experiment_id: experimentId,
+        content,
+        tags
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Create Social Post API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Like social post
+  async likeSocialPost(postId, studentId) {
+    /**
+     * Like a social post
+     * @param {string} postId - ID of the post
+     * @param {string} studentId - ID of the student
+     * @returns {Object} Updated like count
+     */
+    try {
+      const response = await api.post(`/api/v1/social/like/${postId}`, {
+        student_id: studentId
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Like Social Post API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Add comment to social post
+  async addSocialComment(postId, studentId, content) {
+    /**
+     * Add a comment to a social post
+     * @param {string} postId - ID of the post
+     * @param {string} studentId - ID of the student
+     * @param {string} content - Comment content
+     * @returns {Object} Added comment
+     */
+    try {
+      const response = await api.post(`/api/v1/social/comment/${postId}`, {
+        student_id: studentId,
+        content
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Add Social Comment API Error:', error);
       throw error;
     }
   },
