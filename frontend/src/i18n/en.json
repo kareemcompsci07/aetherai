@@ -1,104 +1,107 @@
 {
   "app": {
-    "title": "AetherAI",
-    "backendConnected": "Connected ✅",
-    "backendNotReachable": "Not reachable ⚠️ (Run backend)"
+    "backendStatus": "Backend status: {{status}}",
+    "title": "AetherAI"
   },
   "navbar": {
-    "connected": "Connected"
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "experiments": "Experiments",
+    "community": "Community",
+    "profile": "Profile"
   },
-  "datasetUploader": {
-    "title": "Upload Dataset",
-    "drag": "Drag & drop a ZIP file here, or",
-    "browse": "browse files",
-    "supported": "Supported: .zip (MNIST, CIFAR-10)",
-    "uploading": "Uploading...",
-    "uploaded": "Uploaded successfully!"
+  "dataset": {
+    "upload": "Upload Dataset",
+    "select": "Select Dataset",
+    "analyze": "Analyze Dataset",
+    "placeholder": "Drag & drop your dataset or click to browse",
+    "supported": "Supports CSV, JSON, and image datasets"
   },
-  "modelSelector": {
-    "title": "Choose AI Model",
-    "mlp": "MLP",
-    "mlpDesc": "Good for numerical or flattened data",
-    "cnn": "CNN",
-    "cnnDesc": "Ideal for image classification",
-    "lstm": "LSTM",
-    "lstmDesc": "For text or sequential data"
-  },
-  "trainingDashboard": {
-    "title": "Training Dashboard",
+  "training": {
     "start": "Start Training",
-    "stop": "Stop",
-    "status": "Status:",
-    "training": "Training...",
-    "complete": "Complete!",
-    "accuracy": "Accuracy:",
-    "loss": "Loss:",
-    "epoch": "Epoch:",
-    "eta": "Time remaining:"
-  },
-  "resultsViewer": {
-    "title": "Experiment Results",
-    "finalAccuracy": "Final Accuracy:",
-    "finalLoss": "Final Loss:",
-    "trainingTime": "Training Time:",
-    "model": "Model:",
-    "dataset": "Dataset:",
-    "metricsChart": "Metrics Charts",
+    "model": "Model",
+    "epochs": "Epochs",
+    "batch": "Batch Size",
+    "optimizer": "Optimizer",
+    "lr": "Learning Rate",
+    "progress": "Training Progress",
     "accuracy": "Accuracy",
     "loss": "Loss"
   },
-  "aiInsights": {
-    "title": "AI-Powered Insights 🤖",
-    "description": "Let AI explain your experiment results in simple, educational language."
+  "results": {
+    "title": "Results",
+    "finalAccuracy": "Final Accuracy",
+    "finalLoss": "Final Loss",
+    "trainingTime": "Training Time",
+    "metrics": "Training Metrics",
+    "featureMaps": "Feature Maps"
   },
-  "reportGenerator": {
-    "title": "Auto-Generated Report",
-    "generate": "Generate PDF Report",
-    "generating": "Generating report...",
-    "download": "Download Report"
+  "mentor": {
+    "title": "AI Mentor",
+    "placeholder": "Ask me anything about AI, machine learning, or your experiment...",
+    "send": "Send",
+    "thinking": "AI is thinking...",
+    "welcome": "Hello! I'm your AI mentor. How can I help you with your AI journey today?"
   },
-  "customModelBuilder": {
-    "title": "Build Your Own Model",
-    "description": "No coding needed. Just configure your AI model and start training.",
-    "modelType": "Model Architecture",
+  "visualization": {
+    "title": "3D Training Visualization",
+    "description": "Watch your neural network learn in real-time"
+  },
+  "collaboration": {
+    "title": "Share Experiment",
+    "placeholder": "Add a message to your classmates...",
+    "share": "Share with Classmates",
+    "success": "Experiment shared successfully!"
+  },
+  "leaderboard": {
+    "title": "Global Leaderboard",
+    "rank": "Rank",
+    "student": "Student",
+    "accuracy": "Accuracy",
     "dataset": "Dataset",
-    "hiddenLayers": "Hidden Layers",
-    "hiddenSize": "Hidden Layer Size",
-    "vocabSize": "Vocabulary Size",
-    "lstmLayers": "LSTM Layers",
-    "createModel": "🔧 Create Custom Model"
+    "model": "Model"
   },
-  "datasetAnalysis": {
-    "title": "Dataset Analysis 📊",
-    "description": "Automatic insights about your dataset to help you choose the right model and configuration.",
-    "totalFiles": "Total Files",
-    "size": "Size",
-    "dirs": "Dirs",
-    "images": "Images",
-    "structure": "Structure",
-    "rootFolders": "Root Folders:",
-    "hasTrainSplit": "Has Train Split:",
-    "hasValidationSplit": "Has Validation Split:",
-    "hasTestSplit": "Has Test Split:",
-    "suggestions": "Suggestions",
-    "issues": "Issues Detected"
+  "debug": {
+    "title": "Debug Assistant",
+    "placeholder": "Paste your error log here...",
+    "analyze": "Analyze Error",
+    "help": "I'll help you fix your AI errors"
   },
-  "hyperparameterSuggester": {
-    "title": "Smart Training Suggestions 💡",
-    "description": "AI-powered recommendations for optimal training configuration based on your model and dataset."
+  "carbon": {
+    "title": "Carbon Savings",
+    "saved": "Carbon saved by using AetherAI",
+    "equivalent": "Equivalent to",
+    "trees": "trees planted"
   },
-  "aiMentor": {
-    "title": "AI Mentor Chat 🤖",
-    "placeholder": "Ask AetherAI Mentor anything about AI training..."
+  "career": {
+    "title": "Career Advisor",
+    "advice": "Personalized career guidance based on your progress"
   },
-  "trainingVisualizer": {
-    "title": "Training Visualizer 📊",
-    "description": "Interactive visualization of your model's learning process."
+  "classroom": {
+    "title": "Teacher Dashboard",
+    "summary": "Class progress summary",
+    "monitor": "Monitor student progress"
+  },
+  "paper": {
+    "title": "Research Paper Generator",
+    "generate": "Generate Research Paper",
+    "download": "Download PDF"
+  },
+  "model": {
+    "title": "Model Selector",
+    "custom": "Build Custom Model",
+    "select": "Select Model Architecture"
+  },
+  "report": {
+    "title": "Experiment Report",
+    "generate": "Generate PDF Report",
+    "download": "Download Report"
   },
   "footer": {
     "developedBy": "Developed by",
+    "with": "with",
     "in": "in",
-    "vision": "Vision: To become the \"Kaggle for Students\" in developing countries.",
-    "version": "AetherAI v0.9.0 • Built for accessibility, education, and global impact"
+    "vision": "Democratizing AI research for students in developing countries",
+    "version": "Version 3.5.0 • Built entirely from a mobile device"
   }
 }
