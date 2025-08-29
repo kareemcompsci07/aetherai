@@ -1,19 +1,19 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.4)
+ * AetherAI - Final Integrated Frontend Application (v2.5)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with AR/VR visualization
+ * Purpose: Full AI experiment workflow with advanced 3D visualization
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with immersive visualization:
+ * This component orchestrates the entire user journey with immersive 3D:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
  * 5. Use voice assistant for hands-free interaction
- * 6. Visualize training in 3D AR/VR
+ * 6. Visualize training in true 3D with Three.js
  * 7. Simulate training with animation
  * 8. Share experiment with classmates
  * 9. Get AI-powered experiment review
