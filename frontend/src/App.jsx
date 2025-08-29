@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v3.8)
+ * AetherAI - Final Integrated Frontend Application (v3.9)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with research trend analysis
+ * Purpose: Full AI experiment workflow with code auto-completion
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with research trends:
+ * This component orchestrates the entire user journey with code completion:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -22,20 +22,21 @@
  * 12. Predict future performance and get motivational insights
  * 13. Get teacher alerts for classroom intervention
  * 14. Discover research trends and emerging areas
- * 15. Simulate training with animation
- * 16. Get AI-powered experiment review
- * 17. View global leaderboard
- * 18. Debug errors with AI assistance
- * 19. See environmental impact
- * 20. Get AI-powered career guidance
- * 21. Monitor students with teacher dashboard
- * 22. Generate research papers from experiments
- * 23. See the social impact of AetherAI
- * 24. Choose or build a custom model
- * 25. Train on cloud (simulated)
- * 26. View results with charts
- * 27. Get AI-generated natural language insights
- * 28. Generate professional PDF report
+ * 15. Get AI-powered code suggestions and error help
+ * 16. Simulate training with animation
+ * 17. Get AI-powered experiment review
+ * 18. View global leaderboard
+ * 19. Debug errors with AI assistance
+ * 20. See environmental impact
+ * 21. Get AI-powered career guidance
+ * 22. Monitor students with teacher dashboard
+ * 23. Generate research papers from experiments
+ * 24. See the social impact of AetherAI
+ * 25. Choose or build a custom model
+ * 26. Train on cloud (simulated)
+ * 27. View results with charts
+ * 28. Get AI-generated natural language insights
+ * 29. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -57,6 +58,7 @@ import LearningPathGenerator from './components/LearningPathGenerator';
 import ProgressPredictor from './components/ProgressPredictor';
 import TeacherAlerts from './components/TeacherAlerts';
 import ResearchTrends from './components/ResearchTrends';
+import CodeAutoComplete from './components/CodeAutoComplete';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -270,6 +272,12 @@ const App = () => {
               best_accuracy: trainingComplete ? 0.983 : 0.7,
               projects_completed: trainingComplete ? 5 : 2
             }} 
+          />
+          
+          <CodeAutoComplete 
+            codeContext={`import torch
+import torch.nn as nn
+class MNISTClassifier(nn.Module):`}
           />
           
           {trainingComplete && (
