@@ -1,42 +1,43 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v3.9)
+ * AetherAI - Final Integrated Frontend Application (v4.0)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with code auto-completion
+ * Purpose: Full AI experiment workflow with dataset quality scoring
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with code completion:
+ * This component orchestrates the entire user journey with dataset quality:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
- * 3. Get smart hyperparameter recommendations
- * 4. Chat with AI Mentor for help
- * 5. Use voice assistant in Arabic or English
- * 6. Visualize training in true 3D with Three.js
- * 7. Detect bias and ethical issues in datasets
- * 8. Work offline with PWA capabilities
- * 9. Share experiments in global social feed
- * 10. Get personalized learning path recommendations
- * 11. Switch between multiple languages
- * 12. Predict future performance and get motivational insights
- * 13. Get teacher alerts for classroom intervention
- * 14. Discover research trends and emerging areas
- * 15. Get AI-powered code suggestions and error help
- * 16. Simulate training with animation
- * 17. Get AI-powered experiment review
- * 18. View global leaderboard
- * 19. Debug errors with AI assistance
- * 20. See environmental impact
- * 21. Get AI-powered career guidance
- * 22. Monitor students with teacher dashboard
- * 23. Generate research papers from experiments
- * 24. See the social impact of AetherAI
- * 25. Choose or build a custom model
- * 26. Train on cloud (simulated)
- * 27. View results with charts
- * 28. Get AI-generated natural language insights
- * 29. Generate professional PDF report
+ * 3. Evaluate dataset quality before training
+ * 4. Get smart hyperparameter recommendations
+ * 5. Chat with AI Mentor for help
+ * 6. Use voice assistant in Arabic or English
+ * 7. Visualize training in true 3D with Three.js
+ * 8. Detect bias and ethical issues in datasets
+ * 9. Work offline with PWA capabilities
+ * 10. Share experiments in global social feed
+ * 11. Get personalized learning path recommendations
+ * 12. Switch between multiple languages
+ * 13. Predict future performance and get motivational insights
+ * 14. Get teacher alerts for classroom intervention
+ * 15. Discover research trends and emerging areas
+ * 16. Get AI-powered code suggestions and error help
+ * 17. Simulate training with animation
+ * 18. Get AI-powered experiment review
+ * 19. View global leaderboard
+ * 20. Debug errors with AI assistance
+ * 21. See environmental impact
+ * 22. Get AI-powered career guidance
+ * 23. Monitor students with teacher dashboard
+ * 24. Generate research papers from experiments
+ * 25. See the social impact of AetherAI
+ * 26. Choose or build a custom model
+ * 27. Train on cloud (simulated)
+ * 28. View results with charts
+ * 29. Get AI-generated natural language insights
+ * 30. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -47,6 +48,7 @@ import i18n from './i18n'; // Now imports from ./i18n/index.js
 // Components
 import DatasetUploader from './components/DatasetUploader';
 import DatasetAnalysis from './components/DatasetAnalysis';
+import DatasetQuality from './components/DatasetQuality';
 import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
 import VoiceAssistant from './components/VoiceAssistant';
@@ -177,6 +179,25 @@ const App = () => {
           />
           
           {analysis && <DatasetAnalysis analysis={analysis} />}
+          
+          {dataset && (
+            <DatasetQuality 
+              datasetInfo={{
+                name: dataset,
+                model_type: "cnn",
+                target_variable: "label",
+                feature_count: dataset === "MNIST" ? 784 : 3072,
+                sample_count: dataset === "MNIST" ? 60000 : 50000,
+                class_distribution: dataset === "MNIST" ? 
+                  {0: 5923, 1: 6742, 2: 5958, 3: 6131, 4: 5842, 5: 5421, 6: 5918, 7: 6265, 8: 5851, 9: 5949} :
+                  {0: 5000, 1: 5000, 2: 5000, 3: 5000, 4: 5000, 5: 5000, 6: 5000, 7: 5000, 8: 5000, 9: 5000},
+                missing_values: 0,
+                duplicates: 0,
+                outliers: 100,
+                student_name: "Kareem Mostafa"
+              }} 
+            />
+          )}
           
           {(dataset && model) && (
             <HyperparameterSuggester model={model} dataset={dataset} />
