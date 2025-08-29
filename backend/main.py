@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v3.9 with Code Auto-Completion)
+AetherAI - Main Backend Application (v4.0 with Dataset Quality)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including code auto-completion
+Purpose: Entry point with all routes integrated, including dataset quality scoring
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -39,7 +39,8 @@ This is the central FastAPI application that integrates:
 - Student progress prediction
 - Teacher intervention alerts
 - Research trend analysis
-- Code auto-completion (NEW)
+- Code auto-completion
+- Dataset quality scoring (NEW)
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -74,13 +75,14 @@ from routes.learning_path import router as learning_path_router
 from routes.progress_predictor import router as progress_predictor_router
 from routes.teacher_alerts import router as teacher_alerts_router
 from routes.research_trends import router as research_trends_router
-from routes.code_autocomplete import router as code_autocomplete_router  # NEW: Code Auto-Completion
+from routes.code_autocomplete import router as code_autocomplete_router
+from routes.dataset_quality import router as dataset_quality_router  # NEW: Dataset Quality
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="3.9.0",  # Updated version
+    version="4.0.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -131,7 +133,8 @@ app.include_router(learning_path_router)
 app.include_router(progress_predictor_router)
 app.include_router(teacher_alerts_router)
 app.include_router(research_trends_router)
-app.include_router(code_autocomplete_router)  # ✅ Include Code Auto-Completion API
+app.include_router(code_autocomplete_router)
+app.include_router(dataset_quality_router)  # ✅ Include Dataset Quality API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -173,7 +176,8 @@ def home():
             "Progress prediction: forecast your future performance",
             "Teacher alerts: identify students needing support",
             "Research trends: discover emerging areas",
-            "Code auto-completion: get intelligent suggestions (NEW)",
+            "Code auto-completion: get intelligent suggestions",
+            "Dataset quality: evaluate data health (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -184,7 +188,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "3.9.0"  # Updated
+        "version": "4.0.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -195,10 +199,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "3.9.0",
+        "version": "4.0.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Code auto-completion via /api/v1/code-autocomplete/suggest"
+        "new_feature": "Dataset quality scoring via /api/v1/dataset-quality/score"
 }
