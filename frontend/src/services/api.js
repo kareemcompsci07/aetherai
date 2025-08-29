@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v3.8 with Research Trends)
+ * AetherAI - API Service Layer (v3.9 with Code Auto-Completion)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -408,13 +408,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Analyze research trends
+  // Analyze research trends
   async analyzeResearchTrends(studentData) {
-    /**
-     * Analyze current research trends and suggest future directions
-     * @param {Object} studentData - Student characteristics and interests
-     * @returns {Object} Trend report with emerging areas and suggestions
-     */
     try {
       const response = await api.post('/api/v1/research-trends/analyze', studentData);
       return response.data;
@@ -424,17 +419,60 @@ const ApiService = {
     }
   },
 
-  // NEW: Get future directions
+  // Get future directions
   async getFutureDirections() {
-    /**
-     * Get future directions in AI research
-     * @returns {Object} List of future research directions
-     */
     try {
       const response = await api.get('/api/v1/research-trends/future-directions');
       return response.data;
     } catch (error) {
       console.error('Future Directions API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Suggest code completion
+  async suggestCodeCompletion(codeContext) {
+    /**
+     * Generate intelligent code completion suggestions based on context
+     * @param {string} codeContext - The current code context
+     * @returns {Object} Suggestions with code snippets and confidence
+     */
+    try {
+      const response = await api.post('/api/v1/code-autocomplete/suggest', { context: codeContext });
+      return response.data;
+    } catch (error) {
+      console.error('Code Auto-Completion API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Analyze code error
+  async analyzeCodeError(errorLog) {
+    /**
+     * Analyze code error and provide solutions
+     * @param {string} errorLog - The error message from the code
+     * @returns {Object} Error analysis with explanation and solutions
+     */
+    try {
+      const response = await api.post('/api/v1/code-autocomplete/analyze-error', { error_message: errorLog });
+      return response.data;
+    } catch (error) {
+      console.error('Code Error Analysis API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get best practices
+  async getBestPractices() {
+    /**
+     * Get best practices for AI code development
+     * @returns {Object} Best practices categorized by development area
+     */
+    try {
+      const response = await api.get('/api/v1/code-autocomplete/best-practices');
+      return response.data;
+    } catch (error) {
+      console.error('Best Practices API Error:', error);
       throw error;
     }
   },
