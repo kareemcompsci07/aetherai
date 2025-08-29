@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v3.1)
+ * AetherAI - Final Integrated Frontend Application (v3.3)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with social community
+ * Purpose: Full AI experiment workflow with personalized learning paths
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with social interaction:
+ * This component orchestrates the entire user journey with adaptive learning:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -17,20 +17,21 @@
  * 7. Detect bias and ethical issues in datasets
  * 8. Work offline with PWA capabilities
  * 9. Share experiments in global social feed
- * 10. Simulate training with animation
- * 11. Get AI-powered experiment review
- * 12. View global leaderboard
- * 13. Debug errors with AI assistance
- * 14. See environmental impact
- * 15. Get AI-powered career guidance
- * 16. Monitor students with teacher dashboard
- * 17. Generate research papers from experiments
- * 18. See the social impact of AetherAI
- * 19. Choose or build a custom model
- * 20. Train on cloud (simulated)
- * 21. View results with charts
- * 22. Get AI-generated natural language insights
- * 23. Generate professional PDF report
+ * 10. Get personalized learning path recommendations
+ * 11. Simulate training with animation
+ * 12. Get AI-powered experiment review
+ * 13. View global leaderboard
+ * 14. Debug errors with AI assistance
+ * 15. See environmental impact
+ * 16. Get AI-powered career guidance
+ * 17. Monitor students with teacher dashboard
+ * 18. Generate research papers from experiments
+ * 19. See the social impact of AetherAI
+ * 20. Choose or build a custom model
+ * 21. Train on cloud (simulated)
+ * 22. View results with charts
+ * 23. Get AI-generated natural language insights
+ * 24. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -48,6 +49,7 @@ import ARTrainingVisualizer from './components/ARTrainingVisualizer';
 import EthicsDetector from './components/EthicsDetector';
 import PWANotification from './components/PWANotification';
 import SocialFeed from './components/SocialFeed';
+import LearningPathGenerator from './components/LearningPathGenerator';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -184,8 +186,22 @@ const App = () => {
               model: model,
               dataset: dataset,
               finalAccuracy: trainingComplete ? 0.983 : 0,
-              finalLoss: trainingComplete ? 0.054 : 0,
+              finalLoss: 0.054,
               trainingTime: trainingComplete ? 240 : 0
+            }} 
+          />
+          
+          <LearningPathGenerator 
+            studentProfile={{
+              student_id: "std_123",
+              current_level: trainingComplete ? "intermediate" : "beginner",
+              interests: ["AI", "Machine Learning"],
+              goals: trainingComplete ? ["become AI researcher"] : ["learn AI basics"],
+              country: "Egypt",
+              best_accuracy: trainingComplete ? 0.983 : 0.7,
+              projects_completed: trainingComplete ? 1 : 0,
+              collaboration_score: trainingComplete ? 0.9 : 0.5,
+              improvement_rate: trainingComplete ? 0.15 : 0.1
             }} 
           />
           
