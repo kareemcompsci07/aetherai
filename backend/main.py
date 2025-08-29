@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v2.2 with Research Paper Generator)
+AetherAI - Main Backend Application (v2.7 with Ethics Detector)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including research paper generation
+Purpose: Entry point with all routes integrated, including ethics detection
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -28,7 +28,10 @@ This is the central FastAPI application that integrates:
 - Dynamic model creation
 - AI-powered career path advisor
 - Teacher classroom dashboard
-- AI-powered research paper generator (NEW)
+- AI-powered research paper generator
+- Voice-enabled AI assistant
+- AR/VR training visualization
+- AI ethics and bias detection (NEW)
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -56,13 +59,14 @@ from routes.debug_assistant import router as debug_assistant_router
 from routes.carbon_savings import router as carbon_savings_router
 from routes.career_advisor import router as career_advisor_router
 from routes.classroom_mode import router as classroom_mode_router
-from routes.paper_generator import router as paper_generator_router  # NEW: Research Paper Generator
+from routes.paper_generator import router as paper_generator_router
+from routes.ethics_detector import router as ethics_detector_router  # NEW: Ethics Detector
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="2.2.0",  # Updated version
+    version="2.7.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -106,7 +110,8 @@ app.include_router(debug_assistant_router)
 app.include_router(carbon_savings_router)
 app.include_router(career_advisor_router)
 app.include_router(classroom_mode_router)
-app.include_router(paper_generator_router)  # ✅ Include Research Paper Generator API
+app.include_router(paper_generator_router)
+app.include_router(ethics_detector_router)  # ✅ Include Ethics Detector API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -137,7 +142,10 @@ def home():
             "Environmental impact calculator: reduce carbon emissions",
             "AI-powered career path advisor: plan your future",
             "Teacher classroom dashboard: monitor student progress",
-            "AI-powered research paper generator: publish your work (NEW)",
+            "AI-powered research paper generator: publish your work",
+            "Voice-enabled AI assistant: speak in Arabic or English",
+            "AR/VR training visualization: 3D neural network exploration",
+            "AI ethics and bias detection: promote responsible AI (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -148,7 +156,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "2.2.0"  # Updated
+        "version": "2.7.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -159,10 +167,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "2.2.0",
+        "version": "2.7.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Research paper generation via /api/v1/paper/generate"
+        "new_feature": "Ethics detection via /api/v1/ethics/detect"
 }
