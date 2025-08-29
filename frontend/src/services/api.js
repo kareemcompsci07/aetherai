@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v3.9 with Code Auto-Completion)
+ * AetherAI - API Service Layer (v4.0 with Dataset Quality)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -430,13 +430,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Suggest code completion
+  // Suggest code completion
   async suggestCodeCompletion(codeContext) {
-    /**
-     * Generate intelligent code completion suggestions based on context
-     * @param {string} codeContext - The current code context
-     * @returns {Object} Suggestions with code snippets and confidence
-     */
     try {
       const response = await api.post('/api/v1/code-autocomplete/suggest', { context: codeContext });
       return response.data;
@@ -446,13 +441,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Analyze code error
+  // Analyze code error
   async analyzeCodeError(errorLog) {
-    /**
-     * Analyze code error and provide solutions
-     * @param {string} errorLog - The error message from the code
-     * @returns {Object} Error analysis with explanation and solutions
-     */
     try {
       const response = await api.post('/api/v1/code-autocomplete/analyze-error', { error_message: errorLog });
       return response.data;
@@ -462,17 +452,44 @@ const ApiService = {
     }
   },
 
-  // NEW: Get best practices
+  // Get best practices
   async getBestPractices() {
-    /**
-     * Get best practices for AI code development
-     * @returns {Object} Best practices categorized by development area
-     */
     try {
       const response = await api.get('/api/v1/code-autocomplete/best-practices');
       return response.data;
     } catch (error) {
       console.error('Best Practices API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Score dataset quality
+  async scoreDatasetQuality(datasetInfo) {
+    /**
+     * Analyze dataset quality and return comprehensive score
+     * @param {Object} datasetInfo - Dataset information and characteristics
+     * @returns {Object} Quality report with score, metrics, and suggestions
+     */
+    try {
+      const response = await api.post('/api/v1/dataset-quality/score', datasetInfo);
+      return response.data;
+    } catch (error) {
+      console.error('Dataset Quality API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get quality guidelines
+  async getQualityGuidelines() {
+    /**
+     * Get guidelines for high-quality datasets
+     * @returns {Object} Best practices for data collection, cleaning, balancing, etc.
+     */
+    try {
+      const response = await api.get('/api/v1/dataset-quality/guidelines');
+      return response.data;
+    } catch (error) {
+      console.error('Quality Guidelines API Error:', error);
       throw error;
     }
   },
