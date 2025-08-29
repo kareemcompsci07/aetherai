@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v2.0 with Career Advisor)
+ * AetherAI - API Service Layer (v2.1 with Classroom Mode)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -211,18 +211,46 @@ const ApiService = {
     }
   },
 
-  // NEW: Get career advice
+  // Get career advice
   async getCareerAdvice(profile) {
-    /**
-     * Get AI-powered career advice based on student performance
-     * @param {Object} profile - Student performance data
-     * @returns {Object} Career guidance and recommendations
-     */
     try {
       const response = await api.post('/api/v1/career/advise', profile);
       return response.data;
     } catch (error) {
       console.error('Career Advisor API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get classroom summary
+  async getClassroomSummary(classId) {
+    /**
+     * Get classroom summary for teacher dashboard
+     * @param {string} classId - Classroom identifier
+     * @returns {Object} Classroom statistics and top performers
+     */
+    try {
+      const response = await api.get(`/api/v1/classroom/summary/${classId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Classroom Summary API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get student progress
+  async getStudentProgress(classId, studentId) {
+    /**
+     * Get individual student progress report
+     * @param {string} classId - Classroom identifier
+     * @param {string} studentId - Student identifier
+     * @returns {Object} Student progress and recommendations
+     */
+    try {
+      const response = await api.get(`/api/v1/classroom/student/${classId}/${studentId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Student Progress API Error:', error);
       throw error;
     }
   },
