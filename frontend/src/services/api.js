@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v3.7 with Teacher Alerts)
+ * AetherAI - API Service Layer (v3.8 with Research Trends)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -386,13 +386,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Generate teacher alerts
+  // Generate teacher alerts
   async generateTeacherAlerts(classroomData) {
-    /**
-     * Generate intelligent alerts for a teacher about student progress
-     * @param {Object} classroomData - Classroom information and student data
-     * @returns {Object} Alerts with recommendations and severity levels
-     */
     try {
       const response = await api.post('/api/v1/teacher-alerts/generate', classroomData);
       return response.data;
@@ -402,17 +397,44 @@ const ApiService = {
     }
   },
 
-  // NEW: Get intervention strategies
+  // Get intervention strategies
   async getInterventionStrategies() {
-    /**
-     * Get evidence-based intervention strategies for different student needs
-     * @returns {Object} Strategies for basic concepts, motivation, technical barriers, etc.
-     */
     try {
       const response = await api.get('/api/v1/teacher-alerts/strategies');
       return response.data;
     } catch (error) {
       console.error('Intervention Strategies API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Analyze research trends
+  async analyzeResearchTrends(studentData) {
+    /**
+     * Analyze current research trends and suggest future directions
+     * @param {Object} studentData - Student characteristics and interests
+     * @returns {Object} Trend report with emerging areas and suggestions
+     */
+    try {
+      const response = await api.post('/api/v1/research-trends/analyze', studentData);
+      return response.data;
+    } catch (error) {
+      console.error('Research Trends API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get future directions
+  async getFutureDirections() {
+    /**
+     * Get future directions in AI research
+     * @returns {Object} List of future research directions
+     */
+    try {
+      const response = await api.get('/api/v1/research-trends/future-directions');
+      return response.data;
+    } catch (error) {
+      console.error('Future Directions API Error:', error);
       throw error;
     }
   },
