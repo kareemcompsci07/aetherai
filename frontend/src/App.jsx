@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.1)
+ * AetherAI - Final Integrated Frontend Application (v2.2)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with teacher dashboard
+ * Purpose: Full AI experiment workflow with research paper generation
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with classroom management:
+ * This component orchestrates the entire user journey with academic publishing:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
@@ -21,12 +21,13 @@
  * 11. See environmental impact
  * 12. Get AI-powered career guidance
  * 13. Monitor students with teacher dashboard
- * 14. See the social impact of AetherAI
- * 15. Choose or build a custom model
- * 16. Train on cloud (simulated)
- * 17. View results with charts
- * 18. Get AI-generated natural language insights
- * 19. Generate professional PDF report
+ * 14. Generate research papers from experiments
+ * 15. See the social impact of AetherAI
+ * 16. Choose or build a custom model
+ * 17. Train on cloud (simulated)
+ * 18. View results with charts
+ * 19. Get AI-generated natural language insights
+ * 20. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -49,6 +50,7 @@ import DebugAssistant from './components/DebugAssistant';
 import CarbonSavings from './components/CarbonSavings';
 import CareerAdvisor from './components/CareerAdvisor';
 import TeacherDashboard from './components/TeacherDashboard';
+import ResearchPaperGenerator from './components/ResearchPaperGenerator';
 import ModelSelector from './components/ModelSelector';
 import CustomModelBuilder from './components/CustomModelBuilder';
 import TrainingDashboard from './components/TrainingDashboard';
@@ -205,6 +207,17 @@ const App = () => {
           />
           
           <TeacherDashboard />
+          
+          <ResearchPaperGenerator 
+            experimentData={{
+              model: "cnn",
+              dataset: "mnist",
+              finalAccuracy: 0.983,
+              finalLoss: 0.054,
+              trainingTime: 240,
+              epochs: 10
+            }} 
+          />
           
           <AIGoodDashboard />
           
