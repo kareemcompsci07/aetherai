@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v3.8 with Research Trends)
+AetherAI - Main Backend Application (v3.9 with Code Auto-Completion)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including research trend analysis
+Purpose: Entry point with all routes integrated, including code auto-completion
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -38,7 +38,8 @@ This is the central FastAPI application that integrates:
 - Multilingual support
 - Student progress prediction
 - Teacher intervention alerts
-- Research trend analysis (NEW)
+- Research trend analysis
+- Code auto-completion (NEW)
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -72,13 +73,14 @@ from routes.social_feed import router as social_feed_router
 from routes.learning_path import router as learning_path_router
 from routes.progress_predictor import router as progress_predictor_router
 from routes.teacher_alerts import router as teacher_alerts_router
-from routes.research_trends import router as research_trends_router  # NEW: Research Trends
+from routes.research_trends import router as research_trends_router
+from routes.code_autocomplete import router as code_autocomplete_router  # NEW: Code Auto-Completion
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="3.8.0",  # Updated version
+    version="3.9.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -128,7 +130,8 @@ app.include_router(social_feed_router)
 app.include_router(learning_path_router)
 app.include_router(progress_predictor_router)
 app.include_router(teacher_alerts_router)
-app.include_router(research_trends_router)  # ✅ Include Research Trends API
+app.include_router(research_trends_router)
+app.include_router(code_autocomplete_router)  # ✅ Include Code Auto-Completion API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -169,7 +172,8 @@ def home():
             "Multilingual interface: Arabic, English, French, Spanish, Chinese",
             "Progress prediction: forecast your future performance",
             "Teacher alerts: identify students needing support",
-            "Research trends: discover emerging areas (NEW)",
+            "Research trends: discover emerging areas",
+            "Code auto-completion: get intelligent suggestions (NEW)",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -180,7 +184,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "3.8.0"  # Updated
+        "version": "3.9.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -191,10 +195,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "3.8.0",
+        "version": "3.9.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Research trends via /api/v1/research-trends/analyze"
-    }
+        "new_feature": "Code auto-completion via /api/v1/code-autocomplete/suggest"
+}
