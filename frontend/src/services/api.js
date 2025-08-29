@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v3.6 with Progress Prediction)
+ * AetherAI - API Service Layer (v3.7 with Teacher Alerts)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -364,13 +364,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Predict student progress
+  // Predict student progress
   async predictStudentProgress(studentData) {
-    /**
-     * Predict student's future performance based on historical data
-     * @param {Object} studentData - Student characteristics and past experiments
-     * @returns {Object} Prediction with accuracy, loss, and confidence
-     */
     try {
       const response = await api.post('/api/v1/predict/progress', studentData);
       return response.data;
@@ -380,18 +375,44 @@ const ApiService = {
     }
   },
 
-  // NEW: Get progress insights
+  // Get progress insights
   async getProgressInsights(studentData) {
-    /**
-     * Get motivational insights and growth analysis for student
-     * @param {Object} studentData - Student characteristics and past experiments
-     * @returns {Object} Insights, encouragement, and growth metrics
-     */
     try {
       const response = await api.post('/api/v1/predict/insights', studentData);
       return response.data;
     } catch (error) {
       console.error('Progress Insights API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Generate teacher alerts
+  async generateTeacherAlerts(classroomData) {
+    /**
+     * Generate intelligent alerts for a teacher about student progress
+     * @param {Object} classroomData - Classroom information and student data
+     * @returns {Object} Alerts with recommendations and severity levels
+     */
+    try {
+      const response = await api.post('/api/v1/teacher-alerts/generate', classroomData);
+      return response.data;
+    } catch (error) {
+      console.error('Teacher Alerts API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get intervention strategies
+  async getInterventionStrategies() {
+    /**
+     * Get evidence-based intervention strategies for different student needs
+     * @returns {Object} Strategies for basic concepts, motivation, technical barriers, etc.
+     */
+    try {
+      const response = await api.get('/api/v1/teacher-alerts/strategies');
+      return response.data;
+    } catch (error) {
+      console.error('Intervention Strategies API Error:', error);
       throw error;
     }
   },
