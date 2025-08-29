@@ -1,0 +1,107 @@
+{
+  "app": {
+    "backendStatus": "Estado del backend: {{status}}",
+    "title": "AetherIA"
+  },
+  "navbar": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "experiments": "Experimentos",
+    "community": "Comunidad",
+    "profile": "Perfil"
+  },
+  "dataset": {
+    "upload": "Subir conjunto de datos",
+    "select": "Seleccionar conjunto de datos",
+    "analyze": "Analizar conjunto de datos",
+    "placeholder": "Arrastra y suelta tu conjunto de datos o haz clic para explorar",
+    "supported": "Soporta CSV, JSON y conjuntos de datos de imágenes"
+  },
+  "training": {
+    "start": "Iniciar entrenamiento",
+    "model": "Modelo",
+    "epochs": "Épocas",
+    "batch": "Tamaño de lote",
+    "optimizer": "Optimizador",
+    "lr": "Tasa de aprendizaje",
+    "progress": "Progreso del entrenamiento",
+    "accuracy": "Precisión",
+    "loss": "Pérdida"
+  },
+  "results": {
+    "title": "Resultados",
+    "finalAccuracy": "Precisión final",
+    "finalLoss": "Pérdida final",
+    "trainingTime": "Tiempo de entrenamiento",
+    "metrics": "Métricas de entrenamiento",
+    "featureMaps": "Mapas de características"
+  },
+  "mentor": {
+    "title": "Mentor IA",
+    "placeholder": "Pregúntame cualquier cosa sobre IA, aprendizaje automático o tu experimento...",
+    "send": "Enviar",
+    "thinking": "La IA está pensando...",
+    "welcome": "¡Hola! Soy tu mentor IA. ¿Cómo puedo ayudarte en tu viaje de IA hoy?"
+  },
+  "visualization": {
+    "title": "Visualización 3D del entrenamiento",
+    "description": "Observa cómo tu red neuronal aprende en tiempo real"
+  },
+  "collaboration": {
+    "title": "Compartir experimento",
+    "placeholder": "Agrega un mensaje a tus compañeros de clase...",
+    "share": "Compartir con compañeros",
+    "success": "¡Experimento compartido con éxito!"
+  },
+  "leaderboard": {
+    "title": "Clasificación mundial",
+    "rank": "Rango",
+    "student": "Estudiante",
+    "accuracy": "Precisión",
+    "dataset": "Conjunto de datos",
+    "model": "Modelo"
+  },
+  "debug": {
+    "title": "Asistente de depuración",
+    "placeholder": "Pega tu registro de errores aquí...",
+    "analyze": "Analizar error",
+    "help": "Te ayudaré a corregir tus errores de IA"
+  },
+  "carbon": {
+    "title": "Ahorro de carbono",
+    "saved": "Carbono ahorrado usando AetherIA",
+    "equivalent": "Equivalente a",
+    "trees": "árboles plantados"
+  },
+  "career": {
+    "title": "Asesor de carrera",
+    "advice": "Orientación profesional personalizada según tu progreso"
+  },
+  "classroom": {
+    "title": "Panel de profesor",
+    "summary": "Resumen del progreso de la clase",
+    "monitor": "Monitorear el progreso de los estudiantes"
+  },
+  "paper": {
+    "title": "Generador de artículos de investigación",
+    "generate": "Generar artículo de investigación",
+    "download": "Descargar PDF"
+  },
+  "model": {
+    "title": "Selector de modelo",
+    "custom": "Crear modelo personalizado",
+    "select": "Seleccionar arquitectura del modelo"
+  },
+  "report": {
+    "title": "Informe de experimento",
+    "generate": "Generar informe PDF",
+    "download": "Descargar informe"
+  },
+  "footer": {
+    "developedBy": "Desarrollado por",
+    "with": "con",
+    "in": "en",
+    "vision": "Democratizar la investigación en IA para estudiantes de países en desarrollo",
+    "version": "Versión 3.5.0 • Construido completamente desde un dispositivo móvil"
+  }
+}
