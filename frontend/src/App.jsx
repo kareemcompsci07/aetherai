@@ -1,34 +1,35 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.6)
+ * AetherAI - Final Integrated Frontend Application (v2.8)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with multilingual voice assistant
+ * Purpose: Full AI experiment workflow with ethics detection
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with voice interaction:
+ * This component orchestrates the entire user journey with ethical AI:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
  * 5. Use voice assistant in Arabic or English
  * 6. Visualize training in true 3D with Three.js
- * 7. Simulate training with animation
- * 8. Share experiment with classmates
- * 9. Get AI-powered experiment review
- * 10. View global leaderboard
- * 11. Debug errors with AI assistance
- * 12. See environmental impact
- * 13. Get AI-powered career guidance
- * 14. Monitor students with teacher dashboard
- * 15. Generate research papers from experiments
- * 16. See the social impact of AetherAI
- * 17. Choose or build a custom model
- * 18. Train on cloud (simulated)
- * 19. View results with charts
- * 20. Get AI-generated natural language insights
- * 21. Generate professional PDF report
+ * 7. Detect bias and ethical issues in datasets
+ * 8. Simulate training with animation
+ * 9. Share experiment with classmates
+ * 10. Get AI-powered experiment review
+ * 11. View global leaderboard
+ * 12. Debug errors with AI assistance
+ * 13. See environmental impact
+ * 14. Get AI-powered career guidance
+ * 15. Monitor students with teacher dashboard
+ * 16. Generate research papers from experiments
+ * 17. See the social impact of AetherAI
+ * 18. Choose or build a custom model
+ * 19. Train on cloud (simulated)
+ * 20. View results with charts
+ * 21. Get AI-generated natural language insights
+ * 22. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -43,6 +44,7 @@ import HyperparameterSuggester from './components/HyperparameterSuggester';
 import AIMentor from './components/AIMentor';
 import VoiceAssistant from './components/VoiceAssistant';
 import ARTrainingVisualizer from './components/ARTrainingVisualizer';
+import EthicsDetector from './components/EthicsDetector';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -130,7 +132,6 @@ const App = () => {
 
   const handleVoiceMessage = (userMessage, aiResponse) => {
     console.log('Voice interaction:', { userMessage, aiResponse });
-    // This could be used to log voice interactions
   };
 
   return (
@@ -172,6 +173,8 @@ const App = () => {
           <VoiceAssistant onSendMessage={handleVoiceMessage} />
           
           <ARTrainingVisualizer modelType={model} dataset={dataset} />
+          
+          <EthicsDetector datasetName={dataset} />
           
           {trainingComplete && (
             <TrainingVisualizer 
