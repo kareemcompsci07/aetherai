@@ -1,18 +1,18 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v2.5)
+ * AetherAI - Final Integrated Frontend Application (v2.6)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with advanced 3D visualization
+ * Purpose: Full AI experiment workflow with multilingual voice assistant
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with immersive 3D:
+ * This component orchestrates the entire user journey with voice interaction:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Get smart hyperparameter recommendations
  * 4. Chat with AI Mentor for help
- * 5. Use voice assistant for hands-free interaction
+ * 5. Use voice assistant in Arabic or English
  * 6. Visualize training in true 3D with Three.js
  * 7. Simulate training with animation
  * 8. Share experiment with classmates
@@ -128,9 +128,9 @@ const App = () => {
     i18n.setLanguage(lang);
   };
 
-  const handleSendMessage = (message) => {
-    console.log('Voice message sent:', message);
-    // This would connect to the AI mentor API in full version
+  const handleVoiceMessage = (userMessage, aiResponse) => {
+    console.log('Voice interaction:', { userMessage, aiResponse });
+    // This could be used to log voice interactions
   };
 
   return (
@@ -169,7 +169,7 @@ const App = () => {
           
           <AIMentor />
           
-          <VoiceAssistant onSendMessage={handleSendMessage} />
+          <VoiceAssistant onSendMessage={handleVoiceMessage} />
           
           <ARTrainingVisualizer modelType={model} dataset={dataset} />
           
