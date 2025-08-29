@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v2.2 with Research Paper Generator)
+ * AetherAI - API Service Layer (v2.7 with Ethics Detection)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -244,18 +244,45 @@ const ApiService = {
     }
   },
 
-  // NEW: Generate research paper
+  // Generate research paper
   async generateResearchPaper(experimentData) {
-    /**
-     * Generate a complete academic research paper from experiment data
-     * @param {Object} experimentData - Experiment results and configuration
-     * @returns {Object} Academic paper in structured format
-     */
     try {
       const response = await api.post('/api/v1/paper/generate', experimentData);
       return response.data;
     } catch (error) {
       console.error('Research Paper Generator API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Detect bias in dataset
+  async detectBias(datasetInfo) {
+    /**
+     * Detect potential bias and ethical concerns in a dataset
+     * @param {Object} datasetInfo - Dataset characteristics
+     * @returns {Object} Bias report with ethical concerns and recommendations
+     */
+    try {
+      const response = await api.post('/api/v1/ethics/detect', datasetInfo);
+      return response.data;
+    } catch (error) {
+      console.error('Ethics Detector API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Generate ethics report
+  async generateEthicsReport(datasetInfo) {
+    /**
+     * Generate comprehensive ethics report for a dataset
+     * @param {Object} datasetInfo - Dataset characteristics
+     * @returns {Object} Comprehensive ethics report with educational content
+     */
+    try {
+      const response = await api.post('/api/v1/ethics/report', datasetInfo);
+      return response.data;
+    } catch (error) {
+      console.error('Ethics Report API Error:', error);
       throw error;
     }
   },
