@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v4.1 with Model Interpretability)
+AetherAI - Main Backend Application (v4.2 with Energy Efficiency)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including model interpretability
+Purpose: Entry point with all routes integrated, including energy efficiency analysis
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -41,7 +41,8 @@ This is the central FastAPI application that integrates:
 - Research trend analysis
 - Code auto-completion
 - Dataset quality scoring
-- Model interpretability (NEW)
+- Model interpretability
+- Energy efficiency analysis (NEW)
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -78,13 +79,14 @@ from routes.teacher_alerts import router as teacher_alerts_router
 from routes.research_trends import router as research_trends_router
 from routes.code_autocomplete import router as code_autocomplete_router
 from routes.dataset_quality import router as dataset_quality_router
-from routes.model_interpretability import router as model_interpretability_router  # NEW: Model Interpretability
+from routes.model_interpretability import router as model_interpretability_router
+from routes.energy_efficiency import router as energy_efficiency_router  # NEW: Energy Efficiency
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="4.1.0",  # Updated version
+    version="4.2.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -137,7 +139,8 @@ app.include_router(teacher_alerts_router)
 app.include_router(research_trends_router)
 app.include_router(code_autocomplete_router)
 app.include_router(dataset_quality_router)
-app.include_router(model_interpretability_router)  # ✅ Include Model Interpretability API
+app.include_router(model_interpretability_router)
+app.include_router(energy_efficiency_router)  # ✅ Include Energy Efficiency API
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -166,6 +169,7 @@ def home():
             "Global leaderboard: compete with students worldwide",
             "AI-powered debugging assistant: fix errors with AI help",
             "Environmental impact calculator: reduce carbon emissions",
+            "Energy efficiency analysis: understand power consumption (NEW)",
             "AI-powered career path advisor: plan your future",
             "Teacher classroom dashboard: monitor student progress",
             "AI-powered research paper generator: publish your work",
@@ -181,7 +185,7 @@ def home():
             "Research trends: discover emerging areas",
             "Code auto-completion: get intelligent suggestions",
             "Dataset quality: evaluate data health",
-            "Model interpretability: understand model decisions (NEW)",
+            "Model interpretability: understand model decisions",
             "Train models without GPU (cloud simulation)",
             "Real-time training dashboard",
             "Auto-generated PDF reports",
@@ -192,7 +196,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "4.1.0"  # Updated
+        "version": "4.2.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -203,10 +207,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "4.1.0",
+        "version": "4.2.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Model interpretability via /api/v1/interpretability/explain"
+        "new_feature": "Energy efficiency analysis via /api/v1/energy-efficiency/analyze"
 }
