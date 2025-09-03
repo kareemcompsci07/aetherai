@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v4.3 with Adaptive Learning)
+ * AetherAI - API Service Layer (v4.4 with Teacher Alerts)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -518,13 +518,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Generate learning path
+  // Generate learning path
   async generateLearningPath(studentProfile) {
-    /**
-     * Generate personalized learning path based on student profile
-     * @param {Object} studentProfile - Student characteristics and goals
-     * @returns {Object} Learning path with resources, milestones, and recommendations
-     */
     try {
       const response = await api.post('/api/v1/learning-path/generate', studentProfile);
       return response.data;
@@ -534,17 +529,44 @@ const ApiService = {
     }
   },
 
-  // NEW: Get learning guidelines
+  // Get learning guidelines
   async getLearningGuidelines() {
-    /**
-     * Get guidelines for effective AI learning
-     * @returns {Object} Best practices for study, projects, collaboration, and career
-     */
     try {
       const response = await api.get('/api/v1/learning-path/guidelines');
       return response.data;
     } catch (error) {
       console.error('Learning Guidelines API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Generate teacher alerts
+  async generateTeacherAlerts(classroomData) {
+    /**
+     * Generate alerts for teachers when students need intervention
+     * @param {Object} classroomData - Classroom and student performance data
+     * @returns {Object} Alert report with severity, conditions, and strategies
+     */
+    try {
+      const response = await api.post('/api/v1/teacher-alerts/generate', classroomData);
+      return response.data;
+    } catch (error) {
+      console.error('Teacher Alerts API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get intervention strategies
+  async getInterventionStrategies() {
+    /**
+     * Get guidelines for effective teacher interventions
+     * @returns {Object} Best practices for early intervention, personalized approach, and monitoring
+     */
+    try {
+      const response = await api.get('/api/v1/teacher-alerts/strategies');
+      return response.data;
+    } catch (error) {
+      console.error('Intervention Strategies API Error:', error);
       throw error;
     }
   },
