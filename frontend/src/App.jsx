@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v4.3)
+ * AetherAI - Final Integrated Frontend Application (v4.4)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with adaptive learning path
+ * Purpose: Full AI experiment workflow with teacher intervention alerts
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with adaptive learning:
+ * This component orchestrates the entire user journey with teacher alerts:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Evaluate dataset quality before training
@@ -27,20 +27,21 @@
  * 17. Understand model decisions with interpretability
  * 18. Analyze energy consumption and carbon savings
  * 19. Get personalized learning path
- * 20. Simulate training with animation
- * 21. Get AI-powered experiment review
- * 22. View global leaderboard
- * 23. Debug errors with AI assistance
- * 24. See environmental impact
- * 25. Get AI-powered career guidance
- * 26. Monitor students with teacher dashboard
- * 27. Generate research papers from experiments
- * 28. See the social impact of AetherAI
- * 29. Choose or build a custom model
- * 30. Train on cloud (simulated)
- * 31. View results with charts
- * 32. Get AI-generated natural language insights
- * 33. Generate professional PDF report
+ * 20. Get teacher alerts for struggling students
+ * 21. Simulate training with animation
+ * 22. Get AI-powered experiment review
+ * 23. View global leaderboard
+ * 24. Debug errors with AI assistance
+ * 25. See environmental impact
+ * 26. Get AI-powered career guidance
+ * 27. Monitor students with teacher dashboard
+ * 28. Generate research papers from experiments
+ * 29. See the social impact of AetherAI
+ * 30. Choose or build a custom model
+ * 31. Train on cloud (simulated)
+ * 32. View results with charts
+ * 33. Get AI-generated natural language insights
+ * 34. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
