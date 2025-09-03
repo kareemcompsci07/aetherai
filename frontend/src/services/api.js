@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v4.0 with Dataset Quality)
+ * AetherAI - API Service Layer (v4.1 with Model Interpretability)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -463,13 +463,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Score dataset quality
+  // Score dataset quality
   async scoreDatasetQuality(datasetInfo) {
-    /**
-     * Analyze dataset quality and return comprehensive score
-     * @param {Object} datasetInfo - Dataset information and characteristics
-     * @returns {Object} Quality report with score, metrics, and suggestions
-     */
     try {
       const response = await api.post('/api/v1/dataset-quality/score', datasetInfo);
       return response.data;
@@ -479,17 +474,44 @@ const ApiService = {
     }
   },
 
-  // NEW: Get quality guidelines
+  // Get quality guidelines
   async getQualityGuidelines() {
-    /**
-     * Get guidelines for high-quality datasets
-     * @returns {Object} Best practices for data collection, cleaning, balancing, etc.
-     */
     try {
       const response = await api.get('/api/v1/dataset-quality/guidelines');
       return response.data;
     } catch (error) {
       console.error('Quality Guidelines API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Explain model prediction
+  async explainModelPrediction(predictionData) {
+    /**
+     * Generate comprehensive explanation for a model prediction
+     * @param {Object} predictionData - Prediction characteristics and results
+     * @returns {Object} Interpretation report with explanations and insights
+     */
+    try {
+      const response = await api.post('/api/v1/interpretability/explain', predictionData);
+      return response.data;
+    } catch (error) {
+      console.error('Model Interpretability API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get interpretability guidelines
+  async getInterpretabilityGuidelines() {
+    /**
+     * Get guidelines for model interpretability
+     * @returns {Object} Best practices for visual, tabular, and ethical interpretability
+     */
+    try {
+      const response = await api.get('/api/v1/interpretability/guidelines');
+      return response.data;
+    } catch (error) {
+      console.error('Interpretability Guidelines API Error:', error);
       throw error;
     }
   },
