@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v4.1 with Model Interpretability)
+ * AetherAI - API Service Layer (v4.2 with Energy Efficiency)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -485,13 +485,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Explain model prediction
+  // Explain model prediction
   async explainModelPrediction(predictionData) {
-    /**
-     * Generate comprehensive explanation for a model prediction
-     * @param {Object} predictionData - Prediction characteristics and results
-     * @returns {Object} Interpretation report with explanations and insights
-     */
     try {
       const response = await api.post('/api/v1/interpretability/explain', predictionData);
       return response.data;
@@ -501,17 +496,44 @@ const ApiService = {
     }
   },
 
-  // NEW: Get interpretability guidelines
+  // Get interpretability guidelines
   async getInterpretabilityGuidelines() {
-    /**
-     * Get guidelines for model interpretability
-     * @returns {Object} Best practices for visual, tabular, and ethical interpretability
-     */
     try {
       const response = await api.get('/api/v1/interpretability/guidelines');
       return response.data;
     } catch (error) {
       console.error('Interpretability Guidelines API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Analyze energy efficiency
+  async analyzeEnergyEfficiency(trainingData) {
+    /**
+     * Analyze energy consumption and carbon savings of AI training
+     * @param {Object} trainingData - Training characteristics and results
+     * @returns {Object} Efficiency report with consumption, emissions, and suggestions
+     */
+    try {
+      const response = await api.post('/api/v1/energy-efficiency/analyze', trainingData);
+      return response.data;
+    } catch (error) {
+      console.error('Energy Efficiency API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get sustainability guidelines
+  async getSustainabilityGuidelines() {
+    /**
+     * Get guidelines for sustainable AI development
+     * @returns {Object} Best practices for energy-efficient training and model optimization
+     */
+    try {
+      const response = await api.get('/api/v1/energy-efficiency/guidelines');
+      return response.data;
+    } catch (error) {
+      console.error('Sustainability Guidelines API Error:', error);
       throw error;
     }
   },
