@@ -1,7 +1,7 @@
 """
-AetherAI - Main Backend Application (v4.2 with Energy Efficiency)
+AetherAI - Main Backend Application (v4.3 with Adaptive Learning)
 File: backend/main.py
-Purpose: Entry point with all routes integrated, including energy efficiency analysis
+Purpose: Entry point with all routes integrated, including adaptive learning paths
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -34,7 +34,7 @@ This is the central FastAPI application that integrates:
 - AI ethics and bias detection
 - Offline mode with PWA
 - Social feed for experiment sharing
-- Personalized learning path generation
+- Personalized learning path generation (NEW)
 - Multilingual support
 - Student progress prediction
 - Teacher intervention alerts
@@ -42,7 +42,7 @@ This is the central FastAPI application that integrates:
 - Code auto-completion
 - Dataset quality scoring
 - Model interpretability
-- Energy efficiency analysis (NEW)
+- Energy efficiency analysis
 
 Built entirely from a mobile device in Egypt — proving that innovation has no borders.
 No powerful laptop? No GPU? No problem.
@@ -73,20 +73,20 @@ from routes.classroom_mode import router as classroom_mode_router
 from routes.paper_generator import router as paper_generator_router
 from routes.ethics_detector import router as ethics_detector_router
 from routes.social_feed import router as social_feed_router
-from routes.learning_path import router as learning_path_router
+from routes.learning_path import router as learning_path_router  # NEW: Adaptive Learning
 from routes.progress_predictor import router as progress_predictor_router
 from routes.teacher_alerts import router as teacher_alerts_router
 from routes.research_trends import router as research_trends_router
 from routes.code_autocomplete import router as code_autocomplete_router
 from routes.dataset_quality import router as dataset_quality_router
 from routes.model_interpretability import router as model_interpretability_router
-from routes.energy_efficiency import router as energy_efficiency_router  # NEW: Energy Efficiency
+from routes.energy_efficiency import router as energy_efficiency_router
 
 # Initialize FastAPI app
 app = FastAPI(
     title="AetherAI Backend",
     description="An open-source AI research platform for high school & university students worldwide. Designed for accessibility, education, and equity in AI.",
-    version="4.2.0",  # Updated version
+    version="4.3.0",  # Updated version
     contact={
         "name": "Kareem Mostafa",
         "email": "kareemcompsci.07@gmail.com",
@@ -133,14 +133,14 @@ app.include_router(classroom_mode_router)
 app.include_router(paper_generator_router)
 app.include_router(ethics_detector_router)
 app.include_router(social_feed_router)
-app.include_router(learning_path_router)
+app.include_router(learning_path_router)  # ✅ Include Adaptive Learning API
 app.include_router(progress_predictor_router)
 app.include_router(teacher_alerts_router)
 app.include_router(research_trends_router)
 app.include_router(code_autocomplete_router)
 app.include_router(dataset_quality_router)
 app.include_router(model_interpretability_router)
-app.include_router(energy_efficiency_router)  # ✅ Include Energy Efficiency API
+app.include_router(energy_efficiency_router)
 
 # Root endpoint - Health & Info
 @app.get("/", tags=["root"])
@@ -169,7 +169,7 @@ def home():
             "Global leaderboard: compete with students worldwide",
             "AI-powered debugging assistant: fix errors with AI help",
             "Environmental impact calculator: reduce carbon emissions",
-            "Energy efficiency analysis: understand power consumption (NEW)",
+            "Energy efficiency analysis: understand power consumption",
             "AI-powered career path advisor: plan your future",
             "Teacher classroom dashboard: monitor student progress",
             "AI-powered research paper generator: publish your work",
@@ -178,7 +178,7 @@ def home():
             "AI ethics and bias detection: promote responsible AI",
             "Offline mode with PWA: work without internet",
             "Social feed: share experiments and build community",
-            "Personalized learning paths: your unique journey in AI",
+            "Personalized learning paths: your unique journey in AI (NEW)",
             "Multilingual interface: Arabic, English, French, Spanish, Chinese",
             "Progress prediction: forecast your future performance",
             "Teacher alerts: identify students needing support",
@@ -196,7 +196,7 @@ def home():
         "frontend": "https://github.com/kareemcompsci07/aetherai/tree/main/frontend",
         "source_code": "https://github.com/kareemcompsci07/aetherai",
         "license": "MIT",
-        "version": "4.2.0"  # Updated
+        "version": "4.3.0"  # Updated
     }
 
 @app.get("/health", tags=["health"])
@@ -207,10 +207,10 @@ def health_check():
     return {
         "status": "healthy",
         "service": "aetherai-backend",
-        "version": "4.2.0",
+        "version": "4.3.0",
         "timestamp": __import__('datetime').datetime.utcnow().isoformat(),
         "environment": "development",
         "developer": "Kareem Mostafa (Egypt)",
         "goal": "Enable AI research for students without GPUs",
-        "new_feature": "Energy efficiency analysis via /api/v1/energy-efficiency/analyze"
-}
+        "new_feature": "Adaptive learning paths via /api/v1/learning-path/generate"
+    }
