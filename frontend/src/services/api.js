@@ -1,5 +1,5 @@
 /**
- * AetherAI - API Service Layer (v4.2 with Energy Efficiency)
+ * AetherAI - API Service Layer (v4.3 with Adaptive Learning)
  * File: api.js
  * Purpose: Centralized HTTP client for frontend-backend communication
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
@@ -364,17 +364,6 @@ const ApiService = {
     }
   },
 
-  // Predict student progress
-  async predictStudentProgress(studentData) {
-    try {
-      const response = await api.post('/api/v1/predict/progress', studentData);
-      return response.data;
-    } catch (error) {
-      console.error('Progress Prediction API Error:', error);
-      throw error;
-    }
-  },
-
   // Get progress insights
   async getProgressInsights(studentData) {
     try {
@@ -507,13 +496,8 @@ const ApiService = {
     }
   },
 
-  // NEW: Analyze energy efficiency
+  // Analyze energy efficiency
   async analyzeEnergyEfficiency(trainingData) {
-    /**
-     * Analyze energy consumption and carbon savings of AI training
-     * @param {Object} trainingData - Training characteristics and results
-     * @returns {Object} Efficiency report with consumption, emissions, and suggestions
-     */
     try {
       const response = await api.post('/api/v1/energy-efficiency/analyze', trainingData);
       return response.data;
@@ -523,17 +507,44 @@ const ApiService = {
     }
   },
 
-  // NEW: Get sustainability guidelines
+  // Get sustainability guidelines
   async getSustainabilityGuidelines() {
-    /**
-     * Get guidelines for sustainable AI development
-     * @returns {Object} Best practices for energy-efficient training and model optimization
-     */
     try {
       const response = await api.get('/api/v1/energy-efficiency/guidelines');
       return response.data;
     } catch (error) {
       console.error('Sustainability Guidelines API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Generate learning path
+  async generateLearningPath(studentProfile) {
+    /**
+     * Generate personalized learning path based on student profile
+     * @param {Object} studentProfile - Student characteristics and goals
+     * @returns {Object} Learning path with resources, milestones, and recommendations
+     */
+    try {
+      const response = await api.post('/api/v1/learning-path/generate', studentProfile);
+      return response.data;
+    } catch (error) {
+      console.error('Adaptive Learning API Error:', error);
+      throw error;
+    }
+  },
+
+  // NEW: Get learning guidelines
+  async getLearningGuidelines() {
+    /**
+     * Get guidelines for effective AI learning
+     * @returns {Object} Best practices for study, projects, collaboration, and career
+     */
+    try {
+      const response = await api.get('/api/v1/learning-path/guidelines');
+      return response.data;
+    } catch (error) {
+      console.error('Learning Guidelines API Error:', error);
       throw error;
     }
   },
