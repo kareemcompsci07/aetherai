@@ -1,7 +1,7 @@
 /**
  * AetherAI - Teacher Alerts Component
  * File: TeacherAlerts.jsx
- * Purpose: Show intelligent alerts for teachers about student progress
+ * Purpose: Show alerts for teachers when students need intervention
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Help teachers identify and support struggling students.
  */
@@ -9,112 +9,132 @@
 import React, { useState, useEffect } from 'react';
 
 const TeacherAlerts = ({ classroom }) => {
-  const [alerts, setAlerts] = useState(null);
+  const [alertReport, setAlertReport] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('alerts');
+  const [activeTab, setActiveTab] = useState('summary');
 
   // Simulate API call
   useEffect(() => {
-    const generateAlerts = () => {
+    const generateAlertReport = () => {
       // Mock data based on classroom
-      const mockAlerts = {
-        class_id: classroom?.class_id || 'cls_101',
-        teacher_id: classroom?.teacher_id || 'tch_001',
-        total_alerts: 3,
-        alerts: [
-          {
-            alert_id: 'alert_001',
-            student_id: 'std_002',
-            student_name: 'Yusuf Mohammed',
-            type: 'struggling',
-            severity: 'high',
-            title: 'Yusuf is struggling with AI concepts',
-            message: 'Yusuf has been consistently scoring below 70% accuracy. He may need additional support.',
-            recommendations: [
-              'Schedule a one-on-one session',
-              'Review basic neural network concepts',
-              'Assign simpler experiments to rebuild confidence',
-              'Pair with a peer mentor'
-            ],
-            data_points: {
-              recent_accuracy: 0.69,
-              best_accuracy: 0.71,
-              improvement_rate: 0.01
-            }
-          },
-          {
-            alert_id: 'alert_002',
-            student_id: 'std_002',
-            student_name: 'Yusuf Mohammed',
-            type: 'disengaged',
-            severity: 'high',
-            title: 'Yusuf appears disengaged',
-            message: 'Yusuf has low activity and collaboration. He may be losing interest or facing challenges.',
-            recommendations: [
-              'Check in personally about his experience',
-              'Identify potential technical or motivational barriers',
-              'Connect him with peer study groups',
-              'Highlight his past successes to rebuild motivation'
-            ],
-            data_points: {
-              activity_level: 0.2,
-              collaboration_score: 0.3,
-              last_active: '2025-01-10'
-            }
-          },
-          {
-            alert_id: 'alert_003',
-            student_id: 'std_001',
-            student_name: 'Kareem Mostafa',
-            type: 'improving',
-            severity: 'low',
-            title: 'Kareem is making excellent progress!',
-            message: 'Kareem has shown rapid improvement and strong performance. He\'s on an excellent trajectory!',
-            recommendations: [
-              'Recognize his progress in class',
-              'Challenge him with advanced projects',
-              'Consider him as a peer mentor',
-              'Encourage him to share insights on social feed'
-            ],
-            data_points: {
-              recent_accuracy: 0.983,
-              improvement_rate: 0.15,
-              projects_completed: 5
-            }
-          }
-        ],
+      const mockReport = {
         summary: {
-          high_severity: 2,
-          medium_severity: 0,
-          low_severity: 1
+          class_id: classroom?.class_id || 'cls_101',
+          teacher_id: classroom?.teacher_id || 'tch_001',
+          total_students: classroom?.students?.length || 30,
+          students_with_alerts: classroom?.students?.filter(s => s.improvement_rate < 0.05).length || 2,
+          high_severity_alerts: classroom?.students?.filter(s => s.activity_level < 0.3).length || 1,
+          medium_severity_alerts: classroom?.students?.filter(s => s.collaboration_score < 0.5 && s.improvement_rate >= 0.05).length || 1,
+          summary_date: new Date().toISOString(),
+          urgency_level: 'Urgent'
         },
-        generated_at: new Date().toISOString()
+        alerts: classroom?.students?.map(student => {
+          const conditions = [];
+          const improvementRate = student.improvement_rate || 0;
+          const activityLevel = student.activity_level || 0;
+          const collaborationScore = student.collaboration_score || 0;
+
+          if (activityLevel < 0.3) {
+            conditions.push({
+              type: 'low_activity',
+              current_value: activityLevel.toFixed(2),
+              threshold: 0.3,
+              details: `Low activity level (${activityLevel.toFixed(2)} < 0.3)`
+            });
+          }
+
+          if (improvementRate < 0.03) {
+            conditions.push({
+              type: 'slow_progress',
+              current_value: improvementRate.toFixed(3),
+              threshold: 0.03,
+              details: `Slow improvement rate (${improvementRate.toFixed(3)} < 0.03)`
+            });
+          }
+
+          if (collaborationScore < 0.4) {
+            conditions.push({
+              type: 'low_collaboration',
+              current_value: collaborationScore.toFixed(2),
+              threshold: 0.4,
+              details: `Low collaboration score (${collaborationScore.toFixed(2)} < 0.4)`
+            });
+          }
+
+          return {
+            student_id: student.student_id,
+            name: student.name,
+            class_id: classroom?.class_id || 'cls_101',
+            teacher_id: classroom?.teacher_id || 'tch_001',
+            alert_date: new Date().toISOString(),
+            severity: conditions.length > 1 ? 'high' : 'medium',
+            conditions: conditions,
+            recommended_strategies: [
+              {
+                name: 'Personal Check-in',
+                description: 'Have a one-on-one conversation with the student',
+                effectiveness: 0.85,
+                time_required: '10-15 minutes'
+              },
+              {
+                name: 'Additional Resources',
+                description: 'Provide targeted learning materials',
+                effectiveness: 0.72,
+                time_required: '15 minutes'
+              }
+            ],
+            confidence: 0.85,
+            impact_prediction: conditions.length > 1 ? 'High' : 'Medium'
+          };
+        }).filter(alert => alert.conditions.length > 0) || [],
+        suggestions: [
+          'Address high-severity alerts immediately as they indicate critical student needs',
+          'Plan interventions for medium-severity alerts within the next week'
+        ],
+        recommendations: [
+          'Prioritize interventions based on alert severity',
+          'Document interventions and their outcomes',
+          'Follow up with students after interventions',
+          'Share best practices with other teachers'
+        ],
+        encouragement: `Great job monitoring your students, ${classroom?.teacher_name || 'Teacher'}! Your attention to individual needs makes a significant difference in their learning journey.`
       };
 
       setTimeout(() => {
-        setAlerts(mockAlerts);
+        setAlertReport(mockReport);
         setLoading(false);
       }, 1500);
     };
 
-    generateAlerts();
+    generateAlertReport();
   }, [classroom]);
 
   const getSeverityColor = (severity) => {
     switch (severity) {
-      case 'high': return 'bg-red-900 bg-opacity-40 border-red-700 text-red-200';
-      case 'medium': return 'bg-yellow-900 bg-opacity-40 border-yellow-700 text-yellow-200';
-      case 'low': return 'bg-green-900 bg-opacity-40 border-green-700 text-green-200';
-      default: return 'bg-gray-900 bg-opacity-40 border-gray-700 text-gray-200';
+      case 'critical': return 'text-red-400';
+      case 'high': return 'text-orange-400';
+      case 'medium': return 'text-yellow-400';
+      default: 'text-gray-400';
     }
   };
 
   const getSeverityIcon = (severity) => {
     switch (severity) {
-      case 'high': return '🔴';
+      case 'critical': return '🚨';
+      case 'high': return '⚠️';
       case 'medium': return '🟡';
-      case 'low': return '🟢';
-      default: return '⚪';
+      default: '⚪';
+    }
+  };
+
+  const getConditionIcon = (type) => {
+    switch (type) {
+      case 'low_activity': return '⚠️';
+      case 'slow_progress': return '🐢';
+      case 'low_collaboration': return '👥';
+      case 'technical_difficulty': return '💻';
+      case 'conceptual_misunderstanding': return '🧠';
+      default: 'ℹ️';
     }
   };
 
@@ -122,11 +142,11 @@ const TeacherAlerts = ({ classroom }) => {
     <div className="bg-gray-800 bg-opacity-70 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 shadow-xl">
       <h3 className="text-2xl font-bold mb-6 text-cyan-400 flex items-center">
         <span className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
-        Teacher Alerts 🎯
+        Teacher Alerts 🔔
       </h3>
 
       <p className="text-gray-300 mb-6 text-sm">
-        Get intelligent alerts about student progress and engagement. Identify students who need support or recognition.
+        Get intelligent alerts when students need intervention, with recommended strategies.
       </p>
 
       {/* Loading */}
@@ -139,20 +159,10 @@ const TeacherAlerts = ({ classroom }) => {
         </div>
       ) : null}
 
-      {!loading && alerts && (
+      {!loading && alertReport && (
         <>
           {/* Tabs */}
           <div className="flex space-x-1 mb-6">
-            <button
-              onClick={() => setActiveTab('alerts')}
-              className={`px-4 py-2 font-medium rounded-lg transition ${
-                activeTab === 'alerts'
-                  ? 'bg-cyan-400 text-black'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-              }`}
-            >
-              Alerts ({alerts.total_alerts})
-            </button>
             <button
               onClick={() => setActiveTab('summary')}
               className={`px-4 py-2 font-medium rounded-lg transition ${
@@ -163,52 +173,109 @@ const TeacherAlerts = ({ classroom }) => {
             >
               Summary
             </button>
+            <button
+              onClick={() => setActiveTab('alerts')}
+              className={`px-4 py-2 font-medium rounded-lg transition ${
+                activeTab === 'alerts'
+                  ? 'bg-cyan-400 text-black'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Alerts ({alertReport.alerts.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('suggestions')}
+              className={`px-4 py-2 font-medium rounded-lg transition ${
+                activeTab === 'suggestions'
+                  ? 'bg-cyan-400 text-black'
+                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+              }`}
+            >
+              Suggestions
+            </button>
           </div>
+
+          {/* Summary Tab */}
+          {activeTab === 'summary' && (
+            <div className="space-y-6">
+              {/* Classroom Overview */}
+              <div className="p-6 bg-gradient-to-r from-purple-900 to-indigo-900 bg-opacity-40 border border-purple-700 rounded-lg">
+                <div className="text-sm text-purple-300 mb-4">Classroom Summary</div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 bg-blue-900 bg-opacity-40 rounded-lg border border-blue-700">
+                    <div className="text-sm text-blue-300">Total Students</div>
+                    <div className="text-2xl font-bold text-white">{alertReport.summary.total_students}</div>
+                  </div>
+                  <div className="p-3 bg-green-900 bg-opacity-40 rounded-lg border border-green-700">
+                    <div className="text-sm text-green-300">With Alerts</div>
+                    <div className="text-2xl font-bold text-white">{alertReport.summary.students_with_alerts}</div>
+                  </div>
+                  <div className="p-3 bg-orange-900 bg-opacity-40 rounded-lg border border-orange-700">
+                    <div className="text-sm text-orange-300">High Severity</div>
+                    <div className="text-2xl font-bold text-white">{alertReport.summary.high_severity_alerts}</div>
+                  </div>
+                  <div className="p-3 bg-yellow-900 bg-opacity-40 rounded-lg border border-yellow-700">
+                    <div className="text-sm text-yellow-300">Medium Severity</div>
+                    <div className="text-2xl font-bold text-white">{alertReport.summary.medium_severity_alerts}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Urgency Level */}
+              <div className="p-4 bg-black bg-opacity-40 rounded-lg border border-gray-600">
+                <h4 className="font-medium text-cyan-300 mb-2">Urgency Level</h4>
+                <div className={`text-xl font-bold ${alertReport.summary.urgency_level === 'Critical' ? 'text-red-400' : alertReport.summary.urgency_level === 'Urgent' ? 'text-orange-400' : 'text-green-400'}`}>
+                  {getSeverityIcon(alertReport.summary.urgency_level.toLowerCase())} {alertReport.summary.urgency_level}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Alerts Tab */}
           {activeTab === 'alerts' && (
             <div className="space-y-4">
-              {alerts.alerts.map((alert) => (
+              {alertReport.alerts.map((alert, index) => (
                 <div
-                  key={alert.alert_id}
-                  className={`p-4 rounded-lg border-l-4 ${getSeverityColor(alert.severity)}`}
-                  style={{ borderLeftWidth: '6px' }}
+                  key={index}
+                  className="p-4 bg-gradient-to-r from-gray-900 to-gray-800 bg-opacity-40 border border-gray-600 rounded-lg"
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-lg">{getSeverityIcon(alert.severity)}</span>
-                      <h4 className="font-semibold">{alert.title}</h4>
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h4 className="font-semibold text-gray-200">{alert.name}</h4>
+                      <div className="text-sm text-gray-400">Student ID: {alert.student_id}</div>
                     </div>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      alert.severity === 'high' ? 'bg-red-800' :
-                      alert.severity === 'medium' ? 'bg-yellow-800' :
-                      'bg-green-800'
-                    }`}>
-                      {alert.severity.toUpperCase()}
-                    </span>
+                    <div className="text-right">
+                      <div className={`text-sm font-semibold ${getSeverityColor(alert.severity)}`}>
+                        {getSeverityIcon(alert.severity)} {alert.severity.toUpperCase()}
+                      </div>
+                      <div className="text-xs text-gray-400">Confidence: {(alert.confidence * 100).toFixed(0)}%</div>
+                    </div>
                   </div>
                   
-                  <p className="text-gray-300 mb-3 text-sm">{alert.message}</p>
-                  
-                  <div>
-                    <h5 className="font-medium text-yellow-400 mb-2">Recommended Actions:</h5>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {alert.recommendations.map((rec, i) => (
-                        <div
-                          key={i}
-                          className="p-2 bg-black bg-opacity-40 rounded border border-opacity-50 border-gray-600 text-sm"
-                        >
-                          • {rec}
+                  {/* Conditions */}
+                  <div className="mb-3">
+                    <h5 className="text-sm text-yellow-300 mb-2">⚠️ Alert Conditions</h5>
+                    <div className="space-y-1">
+                      {alert.conditions.map((condition, i) => (
+                        <div key={i} className="flex items-center text-sm">
+                          <span className="w-4 mr-2">{getConditionIcon(condition.type)}</span>
+                          <span className="text-cyan-300">{condition.details}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Data Points */}
-                  <div className="mt-3 pt-3 border-t border-opacity-30 border-gray-600">
-                    <div className="text-xs text-gray-400">
-                      Student: <strong>{alert.student_name}</strong> | 
-                      Generated: {new Date(alert.generated_at || alerts.generated_at).toLocaleTimeString()}
+                  {/* Recommended Strategies */}
+                  <div>
+                    <h5 className="text-sm text-green-300 mb-2">✅ Recommended Strategies</h5>
+                    <div className="space-y-1">
+                      {alert.recommended_strategies.map((strategy, i) => (
+                        <div key={i} className="text-sm text-gray-200">
+                          • <span className="font-medium">{strategy.name}</span>: {strategy.description} 
+                          <span className="text-xs text-gray-400"> ({strategy.time_required})</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -216,60 +283,49 @@ const TeacherAlerts = ({ classroom }) => {
             </div>
           )}
 
-          {/* Summary Tab */}
-          {activeTab === 'summary' && (
+          {/* Suggestions Tab */}
+          {activeTab === 'suggestions' && (
             <div className="space-y-6">
-              {/* Severity Summary */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="p-4 bg-red-900 bg-opacity-40 border border-red-700 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-red-200">{alerts.summary.high_severity}</div>
-                  <div className="text-red-300">High Priority</div>
-                  <div className="text-red-400 text-sm">🔴 Urgent attention needed</div>
-                </div>
-                <div className="p-4 bg-yellow-900 bg-opacity-40 border border-yellow-700 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-yellow-200">{alerts.summary.medium_severity}</div>
-                  <div className="text-yellow-300">Medium Priority</div>
-                  <div className="text-yellow-400 text-sm">🟡 Monitor progress</div>
-                </div>
-                <div className="p-4 bg-green-900 bg-opacity-40 border border-green-700 rounded-lg text-center">
-                  <div className="text-2xl font-bold text-green-200">{alerts.summary.low_severity}</div>
-                  <div className="text-green-300">Low Priority</div>
-                  <div className="text-green-400 text-sm">🟢 Positive trends</div>
-                </div>
-              </div>
-
-              {/* Alert Types */}
-              <div className="p-4 bg-gradient-to-r from-indigo-900 to-purple-900 bg-opacity-40 border border-indigo-700 rounded-lg">
-                <h4 className="font-semibold text-indigo-200 mb-3">Alert Types</h4>
+              {/* Improvement Suggestions */}
+              <div>
+                <h4 className="font-semibold text-green-400 mb-3">💡 Improvement Suggestions</h4>
                 <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-red-400">🔴</span>
-                    <span className="text-gray-200">Struggling Student</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-red-400">🔴</span>
-                    <span className="text-gray-200">Disengaged Student</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-yellow-400">🟡</span>
-                    <span className="text-gray-200">Stagnant Progress</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-green-400">🟢</span>
-                    <span className="text-gray-200">Improving Student</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-green-400">🌟</span>
-                    <span className="text-gray-200">Excelling Student</span>
-                  </div>
+                  {alertReport.suggestions.map((suggestion, i) => (
+                    <div
+                      key={i}
+                      className="p-3 bg-green-900 bg-opacity-40 rounded-lg border border-green-700"
+                    >
+                      <div className="flex items-start space-x-2">
+                        <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
+                        <span className="text-gray-200 text-sm">{suggestion}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Generated Time */}
-              <div className="p-4 bg-black bg-opacity-40 rounded-lg border border-gray-600">
-                <div className="text-sm text-gray-400">
-                  Last analyzed: {new Date(alerts.generated_at).toLocaleString()}
+              {/* Recommendations */}
+              <div>
+                <h4 className="font-semibold text-blue-400 mb-3">📚 Best Practices</h4>
+                <div className="space-y-2">
+                  {alertReport.recommendations.map((recommendation, i) => (
+                    <div
+                      key={i}
+                      className="p-3 bg-blue-900 bg-opacity-40 rounded-lg border border-blue-700"
+                    >
+                      <div className="flex items-start space-x-2">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
+                        <span className="text-gray-200 text-sm">{recommendation}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
+              </div>
+
+              {/* Encouragement */}
+              <div className="p-4 bg-gradient-to-r from-pink-900 to-rose-900 bg-opacity-40 border border-pink-700 rounded-lg">
+                <div className="text-sm text-pink-300">Personal Encouragement</div>
+                <div className="text-white italic">"{alertReport.encouragement}"</div>
               </div>
             </div>
           )}
@@ -279,8 +335,8 @@ const TeacherAlerts = ({ classroom }) => {
       <div className="mt-6 p-3 bg-gray-900 bg-opacity-50 rounded-lg border border-gray-700">
         <h4 className="font-medium text-purple-300 mb-2">🤖 How It Works:</h4>
         <p className="text-gray-300 text-xs">
-          AetherAI analyzes student performance, activity, and collaboration to identify those who need support. 
-          In the full version, this connects to a machine learning model that predicts student needs.
+          AetherAI analyzes student performance, engagement, and collaboration to identify those needing support. 
+          In the full version, this connects to real-time classroom analytics and machine learning models.
         </p>
       </div>
     </div>
