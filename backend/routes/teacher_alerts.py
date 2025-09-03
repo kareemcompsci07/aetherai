@@ -1,7 +1,7 @@
 """
 AetherAI - Teacher Intervention Alerts API
 File: backend/routes/teacher_alerts.py
-Purpose: Provide intelligent alerts for teachers about student progress
+Purpose: Generate alerts for teachers when students need intervention
 Created by: Kareem Mostafa
 Location: Future City, Cairo, Egypt
 Year: 2025
@@ -12,8 +12,8 @@ from fastapi import APIRouter, HTTPException, Body
 from typing import Dict, Any
 import logging
 
-# Import alerts system
-from ..utils.teacher_alerts import TeacherAlerts
+# Import teacher alerts system
+from ..utils.teacher_alerts import TeacherInterventionAlerts
 
 # Initialize router
 router = APIRouter(prefix="/api/v1/teacher-alerts", tags=["teacher-alerts"])
@@ -23,29 +23,25 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @router.post("/generate")
-async def generate_teacher_alerts(classroom_ Dict[str, Any] = Body(...)):
+async def generate_teacher_alerts(classroom_ dict = Body(...)):
     """
-    Generate intelligent alerts for a teacher about student progress
+    Generate alerts for teachers when students need intervention
     """
     try:
         class_id = classroom_data.get("class_id", "unknown")
         logger.info(f"Generating teacher alerts for class: {class_id}")
         
         # Use teacher alerts system
-        alerts_system = TeacherAlerts()
-        result = alerts_system.generate_alerts(classroom_data)
+        alert_system = TeacherInterventionAlerts()
+        result = alert_system.generate_teacher_alerts(classroom_data)
         
         if "error" in result:
             raise HTTPException(status_code=500, detail=result["error"])
         
         return {
             "status": "success",
-            "class_id": result["class_id"],
-            "teacher_id": result["teacher_id"],
-            "total_alerts": result["total_alerts"],
-            "alerts": result["alerts"],
-            "summary": result["summary"],
-            "message": f"🎯 {result['total_alerts']} alerts generated for class {result['class_id']}!"
+            "alert_report": result["alert_report"],
+            "message": f"🔔 {result['message']}"
         }
         
     except HTTPException:
@@ -57,22 +53,22 @@ async def generate_teacher_alerts(classroom_ Dict[str, Any] = Body(...)):
 @router.get("/strategies")
 async def get_intervention_strategies():
     """
-    Get evidence-based intervention strategies for different student needs
+    Get intervention strategies for struggling students
     """
     try:
         logger.info("Fetching intervention strategies")
         
         # Use teacher alerts system
-        alerts_system = TeacherAlerts()
-        result = alerts_system.get_intervention_strategies()
+        alert_system = TeacherInterventionAlerts()
+        result = alert_system.get_intervention_guidelines()
         
         if "error" in result:
             raise HTTPException(status_code=500, detail=result["error"])
         
         return {
             "status": "success",
-            "strategies": result["strategies"],
-            "message": "📚 Evidence-based intervention strategies loaded!"
+            "guidelines": result["guidelines"],
+            "message": "📚 Best practices for teacher interventions"
         }
         
     except HTTPException:
@@ -84,45 +80,45 @@ async def get_intervention_strategies():
 @router.get("/types")
 async def get_alert_types():
     """
-    Get available alert types and their descriptions
+    Get list of alert types and their descriptions
     """
     return {
         "alert_types": [
             {
-                "id": "struggling",
-                "name": "Struggling Student",
-                "description": "Student performance is below expected level",
+                "id": "low_activity",
+                "name": "Low Activity",
+                "description": "Student has low engagement and activity levels",
                 "severity": "high",
-                "icon": "🔴"
+                "icon": "⚠️"
             },
             {
-                "id": "stagnant",
-                "name": "Stagnant Progress",
-                "description": "Student progress has plateaued",
+                "id": "slow_progress",
+                "name": "Slow Progress",
+                "description": "Student is making slower progress than expected",
                 "severity": "medium",
-                "icon": "🟡"
+                "icon": "🐢"
             },
             {
-                "id": "disengaged",
-                "name": "Disengaged Student",
-                "description": "Low activity and participation",
+                "id": "low_collaboration",
+                "name": "Low Collaboration",
+                "description": "Student is not collaborating with peers",
+                "severity": "medium",
+                "icon": "👥"
+            },
+            {
+                "id": "technical_difficulty",
+                "name": "Technical Difficulty",
+                "description": "Student is facing technical challenges",
                 "severity": "high",
-                "icon": "🔴"
+                "icon": "💻"
             },
             {
-                "id": "improving",
-                "name": "Improving Student",
-                "description": "Significant improvement detected",
-                "severity": "low",
-                "icon": "🟢"
-            },
-            {
-                "id": "excelling",
-                "name": "Excelling Student",
-                "description": "Exceptional performance and engagement",
-                "severity": "low",
-                "icon": "🌟"
+                "id": "conceptual_misunderstanding",
+                "name": "Conceptual Misunderstanding",
+                "description": "Student has fundamental misunderstandings of key concepts",
+                "severity": "critical",
+                "icon": "🧠"
             }
         ],
-        "message": "Available alert types for teacher intervention"
-  }
+        "message": "Types of teacher intervention alerts"
+    }
