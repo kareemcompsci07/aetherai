@@ -1,13 +1,13 @@
 /**
- * AetherAI - Final Integrated Frontend Application (v4.2)
+ * AetherAI - Final Integrated Frontend Application (v4.3)
  * File: App.jsx
- * Purpose: Full AI experiment workflow with energy efficiency analysis
+ * Purpose: Full AI experiment workflow with adaptive learning path
  * Created by: Kareem Mostafa | Future City, Cairo, Egypt | 2025
  * Vision: Democratizing AI research for students in developing countries
  * GitHub: https://github.com/kareemcompsci07/aetherai
  * Email: kareemcompsci.07@gmail.com
  * 
- * This component orchestrates the entire user journey with energy efficiency:
+ * This component orchestrates the entire user journey with adaptive learning:
  * 1. Upload dataset
  * 2. View automatic analysis and suggestions
  * 3. Evaluate dataset quality before training
@@ -26,20 +26,21 @@
  * 16. Get AI-powered code suggestions and error help
  * 17. Understand model decisions with interpretability
  * 18. Analyze energy consumption and carbon savings
- * 19. Simulate training with animation
- * 20. Get AI-powered experiment review
- * 21. View global leaderboard
- * 22. Debug errors with AI assistance
- * 23. See environmental impact
- * 24. Get AI-powered career guidance
- * 25. Monitor students with teacher dashboard
- * 26. Generate research papers from experiments
- * 27. See the social impact of AetherAI
- * 28. Choose or build a custom model
- * 29. Train on cloud (simulated)
- * 30. View results with charts
- * 31. Get AI-generated natural language insights
- * 32. Generate professional PDF report
+ * 19. Get personalized learning path
+ * 20. Simulate training with animation
+ * 21. Get AI-powered experiment review
+ * 22. View global leaderboard
+ * 23. Debug errors with AI assistance
+ * 24. See environmental impact
+ * 25. Get AI-powered career guidance
+ * 26. Monitor students with teacher dashboard
+ * 27. Generate research papers from experiments
+ * 28. See the social impact of AetherAI
+ * 29. Choose or build a custom model
+ * 30. Train on cloud (simulated)
+ * 31. View results with charts
+ * 32. Get AI-generated natural language insights
+ * 33. Generate professional PDF report
  * 
  * Built entirely from a mobile device in Egypt — proving innovation has no borders.
  */
@@ -65,6 +66,7 @@ import ResearchTrends from './components/ResearchTrends';
 import CodeAutoComplete from './components/CodeAutoComplete';
 import ModelInterpretability from './components/ModelInterpretability';
 import EnergyEfficiency from './components/EnergyEfficiency';
+import AdaptiveLearningPath from './components/AdaptiveLearningPath';
 import TrainingVisualizer from './components/TrainingVisualizer';
 import TrainingSimulator from './components/TrainingSimulator';
 import CollaborationManager from './components/CollaborationManager';
@@ -334,6 +336,29 @@ class MNISTClassifier(nn.Module):`}
               }} 
             />
           )}
+          
+          <AdaptiveLearningPath 
+            studentProfile={{
+              student_id: "std_123",
+              name: "Kareem Mostafa",
+              current_level: trainingComplete ? "intermediate" : "beginner",
+              interests: trainingComplete ? ["AI", "Machine Learning"] : ["Programming"],
+              goals: trainingComplete ? ["become AI researcher"] : ["learn AI basics"],
+              country: "Egypt",
+              best_accuracy: trainingComplete ? 0.983 : 0.7,
+              projects_completed: trainingComplete ? 5 : 1,
+              collaboration_score: trainingComplete ? 0.9 : 0.6,
+              improvement_rate: trainingComplete ? 0.15 : 0.12,
+              past_experiments: trainingComplete ? [
+                { accuracy: 0.85, loss: 0.4, model: "MLP", dataset: "MNIST" },
+                { accuracy: 0.92, loss: 0.2, model: "CNN", dataset: "MNIST" },
+                { accuracy: 0.96, loss: 0.1, model: "CNN", dataset: "CIFAR-10" },
+                { accuracy: 0.983, loss: 0.054, model: "Custom CNN", dataset: "MNIST" }
+              ] : [
+                { accuracy: 0.65, loss: 0.8, model: "MLP", dataset: "MNIST" }
+              ]
+            }} 
+          />
           
           {trainingComplete && (
             <TrainingVisualizer 
